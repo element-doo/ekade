@@ -1,0 +1,6 @@
+Debug
+lib
+include
+*.sdf
+*.opensdf
+*.suo
