@@ -1,7 +1,7 @@
 import sbt._
 import Keys._
 
-trait Default {
+trait Default extends Resolvers {
   // Web plugin
   import com.earldouglas.xsbtwebplugin.WebPlugin._
   import com.earldouglas.xsbtwebplugin.PluginKeys._
@@ -11,6 +11,7 @@ trait Default {
 
   lazy val scalaSettings =
     Defaults.defaultSettings ++
+    resolverSettings ++
     eclipseSettings ++
     graphSettings ++ Seq(
       javacOptions := Seq(
@@ -51,6 +52,8 @@ trait Default {
     , EclipseKeys.createSrc := EclipseCreateSrc.Default + EclipseCreateSrc.Resource
     , EclipseKeys.executionEnvironment := Some(EclipseExecutionEnvironment.JavaSE16)
     , EclipseKeys.eclipseOutput := Some(".target")
+
+    , resolvers += "Instantor Nexus"             at "http://www.instantor.com/nexus/content/groups/public/"
     )
 
   def liftSettings(jettyPort: Int, warName: String) =

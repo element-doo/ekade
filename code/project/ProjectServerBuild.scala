@@ -21,6 +21,7 @@ object Server extends Server {
       liftWebkit
     , jetty
     , logback
+    , ngsCore
     )
     settings(liftSettings(9929, "emajliramokade.war"): _*)
   )

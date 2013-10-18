@@ -12,7 +12,7 @@ class Boot extends Bootable {
   def boot {
     LiftRules.addToPackages("com.emajliramokade.server.api")
 
-    LiftRules.statelessDispatch.append(rest.RestListener)
+    LiftRules.statelessDispatch.append(Locator[RestHelper])
 
     LiftRules.early.append(_.setCharacterEncoding("UTF-8"))
     LiftRules.htmlProperties.default.set((r: Req) =>
