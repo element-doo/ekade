@@ -1,5 +1,10 @@
 {-# LANGUAGE OverloadedStrings, ViewPatterns #-}
 
+--
+-- A simple scheme to multiplex simultaneous REQ/REP cycles over a single
+-- DEALER, using hand-created 0MQ envelopes and exposing a synchronous API.
+--
+
 module PseudoMQ (sudo_sandwich) where
 
 import           Control.Applicative
