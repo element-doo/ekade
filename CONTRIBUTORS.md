@@ -8,6 +8,7 @@ employer or other contracts, and that I license this work under the
 ### Name (email): ###
 * Marko Elezović (marko at element dot hr)
 * [kilroy][kilroy] was here
+* Tomo Ferega (tomo at element dot hr)
 
 [bsd]: http://opensource.org/licenses/BSD-3-Clause
 [kilroy]: https://en.wikipedia.org/wiki/Kilroy_was_here
