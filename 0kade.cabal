@@ -16,6 +16,8 @@ Build-Depends:
 
 Executable: 0k
 Main-Is: 0k.hs
+Hs-Source-Dirs: src/
 
 Executable: pong
 Main-Is: pong.hs
+Hs-Source-Dirs: src/
