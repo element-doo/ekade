@@ -1,0 +1,21 @@
+Name:          0kade
+Version:       0.1
+Build-Type:    Simple
+Build-Depends:
+  base >= 4,
+  mtl >= 2,
+  zeromq3-haskell >= 0.5,
+  wai >= 1.4,
+  warp >= 1.3.10,
+  conduit >= 1.0.0,
+  bytestring >= 0.10,
+  blaze-builder >= 0.3,
+  unordered-containers >= 0.2.3,
+  semigroups >= 0.11,
+  http-types >= 0.8
+
+Executable: 0k
+Main-Is: 0k.hs
+
+Executable: pong
+Main-Is: pong.hs
