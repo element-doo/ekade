@@ -9,7 +9,7 @@ import System.ZMQ3
 import System.Environment
 
 main = do
-  addr <- getAddr
+  addr <- addrOr "tcp://127.0.0.1:10030"
   putStrLn $ "using " ++ addr
 
   sock <- context >>= (`socket` Rep)
@@ -17,9 +17,4 @@ main = do
 
   forever $ receiveMulti sock >>= sendMulti sock . ("PONG " :|)
 
-getAddr = do
-  args <- getArgs
-  return $ case args of
-    addr:_ -> addr
-    _      -> "tcp://127.0.0.1:10030"
-
+addrOr = (`fmap` getArgs) . foldr const 
