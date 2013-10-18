@@ -2,19 +2,19 @@
 <configuration scan="true" debug="false">
   <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
     <encoder>
-      <pattern>[%d{yyyy-MM-dd HH:mm:ss}] %-5level %X{akkaSource} - %msg%n</pattern>
+      <pattern>[%d{yyyy-MM-dd HH:mm:ss}] %-5level - %msg%n</pattern>
     </encoder>
   </appender>
   <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-    <File>../../logs/BspOtpProvider.log</File>
+    <File>../../logs/scala/EKade-Api.log</File>
     <encoder>
       <pattern>[%d{yyyy-MM-dd HH:mm:ss}] [%-5level] [%t] [%c{36}] - %m%n</pattern>
     </encoder>
     <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-      <fileNamePattern>../../logs/BspOtpProvider-%d{yyyy-MM-dd_HH}.log</fileNamePattern>
+      <fileNamePattern>../../logs/scala/EKade-Api.log-%d{yyyy-MM-dd_HH}.log</fileNamePattern>
     </rollingPolicy>
   </appender>
-  <logger name="BspOtpProvider" level="INFO" additivity="false">
+  <logger name="EKade-Api" level="INFO" additivity="false">
     <appender-ref ref="STDOUT" />
   </logger>
   <root level="INFO">

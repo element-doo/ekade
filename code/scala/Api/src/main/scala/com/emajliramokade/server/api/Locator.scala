@@ -1,11 +1,13 @@
-package com.emajliramokade.server.api
+package com.emajliramokade
+package server
+package api
 
-import scala.io.Source
-import scala.reflect.runtime.universe.TypeTag
-import org.slf4j.LoggerFactory
-import hr.ngs.patterns._
-import net.liftweb.http.rest.RestHelper
 import rest.RestListener
+
+import hr.ngs.patterns.{DependencyContainer, IServiceLocator}
+import net.liftweb.http.rest.RestHelper
+import org.slf4j.LoggerFactory
+import scala.reflect.runtime.universe.TypeTag
 
 object Locator extends IServiceLocator {
   private val container = {

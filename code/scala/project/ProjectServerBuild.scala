@@ -23,6 +23,6 @@ object Server extends Server {
     , logback
     , ngsCore
     )
-    settings(liftSettings(9929, "emajliramokade.war"): _*)
+    settings(liftSettings(10000, "emajliramokade.war"): _*)
   )
 }

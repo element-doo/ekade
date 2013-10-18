@@ -3,9 +3,8 @@ package server
 package api
 package rest
 
-import net.liftweb.http.{ PlainTextResponse, Req }
+import net.liftweb.http.{PlainTextResponse, Req}
 import net.liftweb.http.rest.RestHelper
-
 import org.slf4j.Logger
 
 class RestListener(

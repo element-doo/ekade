@@ -13,5 +13,6 @@ trait Dependencies  {
 
   val scalaTime     = "com.github.nscala-time" %% "nscala-time" % "0.6.0"
 
+  val ngsInterfaces = "hr.ngs" %% "ngs-interfaces" % "0.3.19"
   val ngsCore       = "hr.ngs" %% "ngs-core" % "0.3.19"
 }
