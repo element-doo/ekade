@@ -12,7 +12,8 @@ Build-Depends:
   blaze-builder >= 0.3,
   unordered-containers >= 0.2.3,
   semigroups >= 0.10,
-  http-types >= 0.8
+  http-types >= 0.8,
+  optparse-applicative >= 0.6
 
 Executable: 0k
 Main-Is: 0k.hs
