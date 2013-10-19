@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__.'/Api/Zahtjev.php';
+require_once __DIR__.'/Api/Odgovor.php';
 require_once __DIR__.'/PopisKada/Kada.php';
 require_once __DIR__.'/PopisKada/KadaDodana.php';
 require_once __DIR__.'/PopisKada/KadaOdobrena.php';
