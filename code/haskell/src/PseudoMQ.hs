@@ -34,7 +34,7 @@ sudo_sandwich addr =
 send_recv ::  Manager -> Message -> IO Message
 send_recv (Manager st downstream) messages = do
   back <- newEmptyMVar
-  n    <- atomicModifyIORef' st $ \(n, chans) ->
+  n    <- atomicModifyIORef st $ \(n, chans) ->
     ((n + 1, M.insert n back chans), n)
   writeChan downstream (n, messages)
   takeMVar back
@@ -60,7 +60,7 @@ dispatch socket st = forever $ do
   case deform ms of
        Nothing        -> nope ms
        Just (id, ms') ->
-         atomicModifyIORef' st (dequeue id) >>=
+         atomicModifyIORef st (dequeue id) >>=
            maybe (nope ms) (`putMVar` ms')
   where
     dequeue id (n, chans) =
