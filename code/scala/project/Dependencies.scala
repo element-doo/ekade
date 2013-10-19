@@ -15,4 +15,10 @@ trait Dependencies  {
 
   val ngsInterfaces = "hr.ngs" %% "ngs-interfaces" % "0.3.19"
   val ngsCore       = "hr.ngs" %% "ngs-core" % "0.3.19"
+
+  val jeroMQ        = "org.jeromq" % "jeromq" % "0.2.0"
+
+  val protobuf      = "com.google.protobuf" % "protobuf-java" % "2.5.0"
+
+  val akka          = "com.typesafe.akka" %% "akka-actor" % "2.2.1"
 }

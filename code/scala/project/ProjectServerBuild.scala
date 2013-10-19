@@ -22,6 +22,9 @@ object Server extends Server {
     , jetty
     , logback
     , ngsCore
+    , jeroMQ
+    , protobuf
+    , akka
     )
     settings(liftSettings(10000, "emajliramokade.war"): _*)
   )
