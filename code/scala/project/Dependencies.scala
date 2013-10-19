@@ -5,7 +5,13 @@ trait Dependencies  {
   val logback       = "ch.qos.logback" % "logback-classic" % "1.0.13" % "compile->default"
   val scalaLogging  = "com.typesafe" %% "scalalogging-slf4j" % "1.0.1"
 
-  val liftWebkit    = "net.liftweb" %% "lift-webkit" % "2.5.1"
+  val liftVersion = "2.5.1"
+  val lift = Seq(
+    "net.liftweb" %% "lift-common" % liftVersion
+  , "net.liftweb" %% "lift-util"   % liftVersion
+  , "net.liftweb" %% "lift-webkit" % liftVersion
+  )
+
   val jetty         = Seq(
     "org.eclipse.jetty" % "jetty-webapp" % "8.1.13.v20130916" % "container"
   , "org.eclipse.jetty.orbit" % "javax.servlet" % "3.0.0.v201112011016" % "container" artifacts Artifact("javax.servlet", "jar", "jar")
@@ -21,4 +27,6 @@ trait Dependencies  {
   val protobuf      = "com.google.protobuf" % "protobuf-java" % "2.5.0"
 
   val akka          = "com.typesafe.akka" %% "akka-actor" % "2.2.1"
+
+  val dispatch      = "net.databinder.dispatch" %% "dispatch-core" % "0.11.0"
 }

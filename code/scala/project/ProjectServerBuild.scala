@@ -18,14 +18,15 @@ object Server extends Server {
   lazy val api = (
     scalaProject("Api")
     inject(
-      liftWebkit
+      lift
     , jetty
     , logback
     , ngsCore
     , jeroMQ
     , protobuf
     , akka
+    , dispatch
     )
-    settings(liftSettings(10000, "emajliramokade.war"): _*)
+    settings(liftSettings(10040, "emajliramokade.war"): _*)
   )
 }
