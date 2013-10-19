@@ -1,0 +1,41 @@
+Oficijelna dokumentacija za oficijalnu uporabu oficijalnog NoSQL repozitorija slika.
+
+Molim implementaciju jednog (1) RESTful apija za CRUDanje po repozitoriju binary contenta.
+Jezik implementacije je potpuno na izboru implementatora, ukoliko je taj jezik Go.
+
+Slijedi tehnièka specifikacija:
+
+CRUD je stvar prošlosti i dan danas su svi podaci više manje immutabilni. 
+Zbog toga nam je 100% CRUD funkcionalnost nepotrebna, veæ samo potrebujemo CD.
+(Proèišæeni tekst - neæemo se zajfravat sa rename i updateovima).
+
+Slijede primjeri create i delete akcija:
+
+Ukoliko je GUID od neke kade "77e6f615-2a68-4c11-b591-4ee682a8dac9", akcije uploada
+raznih slika za tu kadu
+
+PUT http://127.0.0.1:10080/Kada/77e6f615-2a68-4c11-b591-4ee682a8dac9/Slike
+/* Replace the entire collection with another collection. */
+
+{"thumbnail":"AAAAAAAA","original":"BBBB","email":"CCCCCCCC","web":"DDDD"}
+/* Ovo æe efektivno stvoriti èetiri slike pod ovom Kada IDjem */
+
+Sada se te slike mogu enumerirati sa GET requestom:
+["thumbnail","original","email","web]
+
+Puno veæi use case je dohvat jedne jedine slike iz ove kolekcije:
+
+GET http://127.0.0.1:10080/Kada/77e6f615-2a68-4c11-b591-4ee682a8dac9/Slike/original
+GET http://127.0.0.1:10080/Kada/77e6f615-2a68-4c11-b591-4ee682a8dac9/Slike/web
+
+PS: 
+
+Pliz dignut nekakv sanity check za pingalicu (watchdog):
+GET http://127.0.0.1:10080/ping
+
+Koji vraæa plain text string:
+pong @ 2013-10-19-19-31-20 (ili nekakav slican timestamp / unix epohu)
+
+
+Zahvaljujem,
+Uprava
