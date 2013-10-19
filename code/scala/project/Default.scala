@@ -43,7 +43,7 @@ trait Default {
       , "-language:existentials"
       )
 
-    , resolvers += "Element Nexus" at "http://www.element.hr/nexus/content/groups/public/"
+    , resolvers += "Element Nexus" at "http://repo.element.hr/nexus/content/groups/public/"
     , unmanagedSourceDirectories in Compile := (scalaSource in Compile).value :: Nil
     , unmanagedSourceDirectories in Test := (scalaSource in Test).value :: Nil
 
