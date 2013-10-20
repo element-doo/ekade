@@ -23,9 +23,12 @@ object Server extends Server {
     , logback
     , ngsCore
     , jeroMQ
+    , rabbitMQ
     , protobuf
     , akka
     , dispatch
+    , etbUtil
+    , mimeTypes
     )
     settings(liftSettings(10040, "emajliramokade.war"): _*)
   )

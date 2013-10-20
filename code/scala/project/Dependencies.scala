@@ -17,15 +17,15 @@ trait Dependencies  {
   , "org.eclipse.jetty.orbit" % "javax.servlet" % "3.0.0.v201112011016" % "container" artifacts Artifact("javax.servlet", "jar", "jar")
   )
 
-  val scalaTime     = "com.github.nscala-time" %% "nscala-time" % "0.6.0"
-
+  val etbUtil       = "hr.element.etb"  %% "etb-util" % "0.2.20" 
   val ngsInterfaces = "hr.ngs" %% "ngs-interfaces" % "0.3.19"
   val ngsCore       = "hr.ngs" %% "ngs-core" % "0.3.19"
+  val mimeTypes     = "hr.element.onebyseven.common" % "mimetypes" % "2013-10-21"
 
   val jeroMQ        = "org.jeromq" % "jeromq" % "0.2.0"
 
   val protobuf      = "com.google.protobuf" % "protobuf-java" % "2.5.0"
-
+  val rabbitMQ      = "com.rabbitmq" % "amqp-client" % "3.1.4"
   val akka          = "com.typesafe.akka" %% "akka-actor" % "2.2.1"
 
   val dispatch      = "net.databinder.dispatch" %% "dispatch-core" % "0.11.0"
