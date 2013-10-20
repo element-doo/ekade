@@ -1,0 +1,2 @@
+You can leave this directory here as-is, but it should probably be linked to /var/log
+or simialr to prevent clogging the code partition with some unconstrained logger.
