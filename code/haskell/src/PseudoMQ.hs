@@ -57,6 +57,7 @@ mkManager mq addr = do
 dispatch :: Receiver a => Socket a -> IORef (b, M.HashMap Id (MVar Message)) -> IO ()
 dispatch socket st = forever $ do
   ms <- receiveMulti socket
+  print $ show ms
   case deform ms of
        Nothing        -> nope ms
        Just (id, ms') ->

@@ -11,7 +11,7 @@ import scala.reflect.runtime.universe.TypeTag
 
 object Locator extends IServiceLocator {
   private val container = {
-    val logger = LoggerFactory.getLogger("EmajliramoKade-Api")
+    val logger = LoggerFactory.getLogger("EKade-Api")
 
     new DependencyContainer()
       .register[org.slf4j.Logger](logger)
