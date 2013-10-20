@@ -9,7 +9,7 @@ import System.ZMQ3
 import System.Environment
 
 main = do
-  addr <- addrOr "tcp://127.0.0.1:10030"
+  addr <- addrOr "tcp://127.0.0.1:10011"
   putStrLn $ "using " ++ addr
 
   sock <- context >>= (`socket` Rep)
