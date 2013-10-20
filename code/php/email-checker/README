@@ -1,0 +1,9 @@
+# Prvo treba instalirat Composer
+# (http://getcomposer.org/download/)
+
+# Da bi pokrenuli Laravel, treba skinut njegove komponente
+# U laravel direktoriju pokreni
+composer install
+
+# Koristimo is_email validator od Dominic Sayersa
+# (http://isemail.info/about)
