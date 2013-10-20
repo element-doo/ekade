@@ -1,0 +1,33 @@
+Komunikacija izmedu resizera i providera slike ide 0MQom.
+
+Necemo koristiti Google Protobuf niti slicne zato sto smo bolji od njih!
+Dakle, opisujem binarni protokol za resizeanje slike, int32 su LSB
+
+Ulaz = orig. slika | zahtjevi za resizeanjem
+    orig. slika             = int32 - velicina ulazne slike u byteovima | array byteova - content slike
+    zahtjevi za resizeanjem = int32 - broj zahtjeva koji slijede | zahtjev | ... | zahtjev
+        zahtjev = int32: width | int32: height | byte: dubina u bitovima (8, 24, 32) | format
+            format = char[5] - 5 byteova, 0 terminirani string koji kaze u kojem formatu zelimo izlaznu sliku (npr: jpg0_, tiff0, bmp0_)
+
+Garancije za integraciju sa ekadama:
+100% zahtjeva ce biti 24 bite dubine sa formatom jpg - specifikacije je cisto tu za eventualnu reuseanje u druge svrhe
+
+Primjer zahtjeva za resizeanjem (uvijek ce biti fiksan broj, 3 ili 4)
+3 | 1280 | 640 | 24 | jpg0_ | 640 | 320 | 24 | jpg0_ | 320 | 160 | 24 | jpg0_
+
+Izlaz = resizeana slika | ... | resizeana slika
+resizeana slika = int32: velicina slike | array byteova content slike
+
+Dogovor;
+Ako imagemagick faila pri resizeanju barem jedne slike, proglasi total failure (nema parcijalnih rjesenja)
+
+Zavrsne misli:
+Imagegemagick je de facto standard i sigurno je C friendly, no moze se koristiti i Gmagick ili 
+bilo koji drugi library koji bi omogucio laksu integraciju sa common Lispom
+
+Primjer naredbi koje treba zvati u imagemagicku:
+(citanje slike iz rama, resizeanje i output u drugom formatu nazad u ram)
+https://github.com/element-doo/ekade/blob/master/code/c/zqm_server/zqm_server/server.cpp
+
+Zahvaljujem,
+Uprava
