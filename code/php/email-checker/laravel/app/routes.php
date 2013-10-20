@@ -1,17 +1,20 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register all of the routes for an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the Closure to execute when that URI is requested.
-|
-*/
+require_once __DIR__.'/libs/is_email.php';
+require_once __DIR__.'/models/Modules.php';
 
-Route::get('/', function()
+// Sanity check za pingalicu
+Route::get('ping', function()
 {
-	return View::make('hello');
+    $time = (float) microtime(true);
+    return 'pong @ ' . $time;
 });
+
+// Demo panel za sa formom testiranje
+Route::get('/', 'HomeController@index');
+
+// Email check kroz URL
+Route::get('email-check/{email}', 'EmailController@check');
+
+// Zahtjev check kroz JSON POST
+Route::post('zahtjev-check',      'ZahtjevController@check');

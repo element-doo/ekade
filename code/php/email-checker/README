@@ -1,11 +1,9 @@
-# First, install Composer 
+# Prvo treba instalirat Composer
 # (http://getcomposer.org/download/)
 
-# Now, create a laravel project:
-composer create-project laravel/laravel laravel --prefer-dist
+# Da bi pokrenuli Laravel, treba skinut njegove komponente
+# U laravel direktoriju pokreni
+composer install
 
-# We will be using the isemail package from Dominic Sayers
+# Koristimo is_email validator od Dominic Sayersa
 # (http://isemail.info/about)
-# (https://code.google.com/p/isemail/downloads/list)
-
-
