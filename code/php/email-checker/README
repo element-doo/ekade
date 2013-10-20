@@ -1,0 +1,11 @@
+# First, install Composer 
+# (http://getcomposer.org/download/)
+
+# Now, create a laravel project:
+composer create-project laravel/laravel laravel --prefer-dist
+
+# We will be using the isemail package from Dominic Sayers
+# (http://isemail.info/about)
+# (https://code.google.com/p/isemail/downloads/list)
+
+
