@@ -7,20 +7,19 @@ import scala.concurrent.Future
 import hr.ngs.patterns.ISerialization
 import com.emajliramokade.services.EmailValidator
 import com.emajliramokade.server.api.Locator
-import dispatch._
 import com.emajliramokade.api.model.Api.Zahtjev
 
-abstract class RemoteEmailValidator(
+class FakeEmailValidator(
     serialization: ISerialization[String]) extends EmailValidator {
-  def serviceUrl: String
-
   def validate(zahtjev: Zahtjev): Future[Odgovor] = {
-    val req = url(serviceUrl) << serialization.serialize(zahtjev)
-
-    Http(req) map { response =>
-      val body = response.getResponseBody("UTF-8")
-      println("RECEIVED: "+ new String(body))
-      serialization.deserialize[Odgovor](body, Locator)
+    Future {
+      val email = zahtjev.getEmail
+      println(s"VALIDATING [FAKE]: $email")
+      if (email.startsWith("a")) {
+        new Odgovor().setStatus(false).setPoruka("""Email počinje sa "a", pa očito nevalja""")
+      } else {
+        new Odgovor().setStatus(true).setPoruka("""Email ne počinje sa "a", pa očito valja""")
+      }
     }
   }
 }

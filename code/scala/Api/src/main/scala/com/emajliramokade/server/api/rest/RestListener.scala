@@ -14,10 +14,14 @@ import scala.util.Success
 import scala.util.Failure
 import hr.ngs.patterns.ISerialization
 import net.liftweb.http.LiftResponse
+import com.emajliramokade.dispatcher.Dispatcher
+import scala.concurrent.Await
+import scala.concurrent.duration._
 
 class RestListener(
     logger: Logger,
-    serialization: ISerialization[String]
+    serialization: ISerialization[String],
+    dispatcher: Dispatcher
   ) extends RestHelper {
 
   serve {
@@ -27,7 +31,9 @@ class RestListener(
     case req @ Req(x, _, PostRequest) =>
       parseBody(req) orElse parseParams(req) match {
         case Success(zahtjev) =>
-          odgovorToResponse(???)
+          val resFut = dispatcher.dispatch(zahtjev)
+          val res = Await.result(resFut, 60 seconds)
+          odgovorToResponse(res)
         case Failure(e) =>
           odgovorToResponse(new Odgovor(false, e.toString))
       }
