@@ -17,7 +17,7 @@ trait Dependencies  {
   , "org.eclipse.jetty.orbit" % "javax.servlet" % "3.0.0.v201112011016" % "container" artifacts Artifact("javax.servlet", "jar", "jar")
   )
 
-  val etbUtil       = "hr.element.etb"  %% "etb-util" % "0.2.20" 
+  val etbUtil       = "hr.element.etb"  %% "etb-util" % "0.2.20"
   val ngsInterfaces = "hr.ngs" %% "ngs-interfaces" % "0.3.19"
   val ngsCore       = "hr.ngs" %% "ngs-core" % "0.3.19"
   val mimeTypes     = "hr.element.onebyseven.common" % "mimetypes" % "2013-10-21"
