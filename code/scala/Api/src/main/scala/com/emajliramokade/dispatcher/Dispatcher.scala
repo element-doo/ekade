@@ -10,7 +10,7 @@ class Dispatcher(
 
   def dispatch(zahtjev: Zahtjev): Future[Odgovor] = {
     val emailOdgovorRawFuture = evList map { ev =>
-      ev.validate(zahtjev.getEmail)
+      ev.validate(zahtjev)
     } toList
 
     val emailOdgovorFutureList = Future sequence emailOdgovorRawFuture
