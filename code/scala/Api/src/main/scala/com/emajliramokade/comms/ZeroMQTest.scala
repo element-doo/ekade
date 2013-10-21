@@ -1,4 +1,5 @@
-package com.emajliramokade.comms
+package com.emajliramokade
+package comms
 
 import org.jeromq.ZMQ
 import org.jeromq.ZMQ.{ Context, Socket }
@@ -10,7 +11,6 @@ import scala.concurrent.ExecutionContext
 import scala.util.Success
 
 object ZeroMQTest{
-  implicit val ec = ExecutionContext.fromExecutor(ju.concurrent.Executors.newCachedThreadPool())
   object RecvLock
   object SendLock
 

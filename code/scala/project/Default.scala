@@ -60,6 +60,18 @@ trait Default {
     , port in container.Configuration := jettyPort
     , artifactName in packageWar := ((_: ScalaVersion, _: ModuleID, _: Artifact) => warName)
     )
+
+  protected def scalaProject(id: String) = Project(
+    id
+  , file(id)
+  , settings = scalaSettings ++ Seq(
+      version := "0.0.0-SNAPSHOT"
+    , name := "EKade-" + id
+    , organization := "com.emajliramokade"
+    , initialCommands := "import com.emajliramokade._"
+    )
+  )
+
 //  ---------------------------------------------------------------------------
 
   implicit def pimpMyProjectHost(project: Project) =
