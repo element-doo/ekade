@@ -7,6 +7,7 @@ object Email extends Build with Default with Dependencies {
     inject(
       etbUtil
     , mimeTypes
+    , scalaTest
     )
   )
 }

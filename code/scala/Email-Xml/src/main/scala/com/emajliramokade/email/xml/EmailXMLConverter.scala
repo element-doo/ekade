@@ -17,7 +17,7 @@ trait EmailXMLConverter extends XMLConverter { this: Email =>
 
   private def dump(addresses: Seq[Address], label: String) =
     if (addresses.nonEmpty) {
-      <x>{ addresses.map{ a => <string>{ a }</string> } }</x>.copy(label = label)
+      addresses.map(a => <x>{ a }</x>.copy(label = label))
     }
     else {
       NodeSeq.Empty
@@ -26,7 +26,7 @@ trait EmailXMLConverter extends XMLConverter { this: Email =>
   def toXml =
 <Email>
   <from>{ from }</from>
-  <subject>{ subject } </subject>
+  <subject>{ subject }</subject>
   {
     dump(to, "to") ++
     dump(replyTo, "replyTo") ++
@@ -41,5 +41,5 @@ trait EmailXMLConverter extends XMLConverter { this: Email =>
       NodeSeq.Empty
     })
   }
-</Email>
+</Email>.prettyPrint
 }

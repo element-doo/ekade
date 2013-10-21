@@ -29,4 +29,9 @@ trait Dependencies  {
   val akka          = "com.typesafe.akka" %% "akka-actor" % "2.2.1"
 
   val dispatch      = "net.databinder.dispatch" %% "dispatch-core" % "0.11.0"
+
+  val scalaTest     = Seq(
+    "org.scalatest" %% "scalatest" % "2.0.RC2" % "test"
+  , "junit" % "junit" % "4.11" % "test"
+  )
 }
