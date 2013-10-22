@@ -40,6 +40,25 @@ To start the server (listening on all interfaces on port 8000), run:
 Stop the server with Ctrl-C (SIGINT) or SIGTERM, to make it cleanly reap the
 children.
 
+## The API
+
+To check the validity of the email, send a POST request to `/api/v1/check/`
+with a single field: `email`. The response will be either 200, which indicates
+a valid email, or 400, which indicates an invalid email.
+
+Example:
+
+    curl -F 'email=foo@bar.com' http://localhost:8000/api/v1/check/
+
+Response:
+
+    {"status": "valid"}
+
+JSON requests are also valid:
+
+    curl -H 'Content-Type: application/json' -X POST \
+        -d '{"email":"foo@bar.com"}' http://localhost:8000/api/v1/check/
+
 ## Tests
 
 The component has 100% test coverage. To run the tests, type:
