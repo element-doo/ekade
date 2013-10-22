@@ -1,7 +1,7 @@
 Komunikacija izmedu resizera i providera slike ide 0MQom.
 
 Necemo koristiti Google Protobuf niti slicne zato sto smo bolji od njih!
-Dakle, opisujem binarni protokol za resizeanje slike, int32 su LSB
+Dakle, opisujem binarni protokol za resizeanje slike, int32 su Big Endian-i
 
 Ulaz = orig. slika | zahtjevi za resizeanjem
     orig. slika             = int32 - velicina ulazne slike u byteovima | array byteova - content slike
@@ -15,11 +15,12 @@ Garancije za integraciju sa ekadama:
 Primjer zahtjeva za resizeanjem (uvijek ce biti fiksan broj, 3 ili 4)
 3 | 1280 | 640 | 24 | jpg0_ | 640 | 320 | 24 | jpg0_ | 320 | 160 | 24 | jpg0_
 
-Izlaz = resizeana slika | ... | resizeana slika
+Izlaz = broj resizeanih | resizeana slika | ... | resizeana slika
 resizeana slika = int32: velicina slike | array byteova content slike
 
 Dogovor;
 Ako imagemagick faila pri resizeanju barem jedne slike, proglasi total failure (nema parcijalnih rjesenja)
+Izlaz u slučaju greške = 0 (kao broj resizanih slika)
 
 Zavrsne misli:
 Imagegemagick je de facto standard i sigurno je C friendly, no moze se koristiti i Gmagick ili 

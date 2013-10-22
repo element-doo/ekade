@@ -1,0 +1,44 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KadaService", "KadaService.csproj", "{05E26B24-0536-4681-936F-F79D0E490549}"
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "model", "..\dsl\model\", "{C99004C4-F097-4FE7-8747-848DD724FFD6}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		Debug.AspNetCompiler.VirtualPath = "/model"
+		Debug.AspNetCompiler.PhysicalPath = "..\dsl\model\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\model\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/model"
+		Release.AspNetCompiler.PhysicalPath = "..\dsl\model\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\model\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "3662"
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{05E26B24-0536-4681-936F-F79D0E490549}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05E26B24-0536-4681-936F-F79D0E490549}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05E26B24-0536-4681-936F-F79D0E490549}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05E26B24-0536-4681-936F-F79D0E490549}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C99004C4-F097-4FE7-8747-848DD724FFD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C99004C4-F097-4FE7-8747-848DD724FFD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C99004C4-F097-4FE7-8747-848DD724FFD6}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{C99004C4-F097-4FE7-8747-848DD724FFD6}.Release|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

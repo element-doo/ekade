@@ -1,0 +1,11 @@
+package com.emajliramokade.email.proto;
+
+message Zahtjev {
+  required string email = 1;
+  optional string kadaID = 2;
+}
+
+message Odgovor {
+  required bool   status = 1;
+  required string poruka = 2;
+}

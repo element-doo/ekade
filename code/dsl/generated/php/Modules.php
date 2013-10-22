@@ -12,3 +12,4 @@ require_once __DIR__.'/PopisKada/KadaIzvorPodataka/NemoderiraneKade.php';
 require_once __DIR__.'/PopisKada/KadaIzvorPodataka/OdobreneKade.php';
 require_once __DIR__.'/Resursi/SlikeKade.php';
 require_once __DIR__.'/Resursi/PodaciSlike.php';
+require_once __DIR__.'/Sigurnost/Korisnik.php';

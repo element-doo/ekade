@@ -3,21 +3,22 @@ package server
 package api
 package rest
 
-import com.emajliramokade.api.model.Api.{ Odgovor, Zahtjev }
 import net.liftweb.http.{PlainTextResponse, Req}
 import net.liftweb.http.rest.RestHelper
 import org.slf4j.Logger
 import net.liftweb.http.PostRequest
 import scala.util.Try
-import hr.ngs.patterns.JsonSerialization
 import scala.util.Success
 import scala.util.Failure
-import hr.ngs.patterns.ISerialization
 import net.liftweb.http.LiftResponse
+import scala.concurrent.Await
+import scala.concurrent.duration._
+import hr.ngs.patterns.ISerialization
 
 class RestListener(
-    logger: Logger,
-    serialization: ISerialization[String]
+    logger: Logger
+  , serialization: ISerialization[String]
+//  , dispatcher: Dispatcher
   ) extends RestHelper {
 
   serve {
@@ -27,7 +28,10 @@ class RestListener(
     case req @ Req(x, _, PostRequest) =>
       parseBody(req) orElse parseParams(req) match {
         case Success(zahtjev) =>
-          odgovorToResponse(???)
+          val resFut = dispatcher.dispatch(zahtjev)
+          val res = Await.result(resFut, 60 seconds)
+          odgovorToResponse(res)
+
         case Failure(e) =>
           odgovorToResponse(new Odgovor(false, e.toString))
       }
