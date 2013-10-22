@@ -28,7 +28,6 @@
 
 namespace com {
 namespace emajliramokade {
-namespace proto {
 namespace image {
 namespace proto {
 
@@ -116,7 +115,7 @@ class Zahtjev : public ::google::protobuf::Message {
   inline ::std::string* release_originalnaslika();
   inline void set_allocated_originalnaslika(::std::string* originalnaslika);
 
-  // @@protoc_insertion_point(class_scope:com.emajliramokade.proto.image.proto.Zahtjev)
+  // @@protoc_insertion_point(class_scope:com.emajliramokade.image.proto.Zahtjev)
  private:
   inline void set_has_velicinaslike();
   inline void clear_has_velicinaslike();
@@ -208,7 +207,7 @@ class DimenzijaSlike : public ::google::protobuf::Message {
   inline ::google::protobuf::uint32 height() const;
   inline void set_height(::google::protobuf::uint32 value);
 
-  // @@protoc_insertion_point(class_scope:com.emajliramokade.proto.image.proto.DimenzijaSlike)
+  // @@protoc_insertion_point(class_scope:com.emajliramokade.image.proto.DimenzijaSlike)
  private:
   inline void set_has_width();
   inline void clear_has_width();
@@ -305,16 +304,16 @@ class Odgovor : public ::google::protobuf::Message {
   inline ::std::string* release_poruka();
   inline void set_allocated_poruka(::std::string* poruka);
 
-  // optional .com.emajliramokade.proto.image.proto.DimenzijaSlike velicinaSlike = 3;
+  // optional .com.emajliramokade.image.proto.DimenzijaSlike velicinaSlike = 3;
   inline bool has_velicinaslike() const;
   inline void clear_velicinaslike();
   static const int kVelicinaSlikeFieldNumber = 3;
-  inline const ::com::emajliramokade::proto::image::proto::DimenzijaSlike& velicinaslike() const;
-  inline ::com::emajliramokade::proto::image::proto::DimenzijaSlike* mutable_velicinaslike();
-  inline ::com::emajliramokade::proto::image::proto::DimenzijaSlike* release_velicinaslike();
-  inline void set_allocated_velicinaslike(::com::emajliramokade::proto::image::proto::DimenzijaSlike* velicinaslike);
+  inline const ::com::emajliramokade::image::proto::DimenzijaSlike& velicinaslike() const;
+  inline ::com::emajliramokade::image::proto::DimenzijaSlike* mutable_velicinaslike();
+  inline ::com::emajliramokade::image::proto::DimenzijaSlike* release_velicinaslike();
+  inline void set_allocated_velicinaslike(::com::emajliramokade::image::proto::DimenzijaSlike* velicinaslike);
 
-  // @@protoc_insertion_point(class_scope:com.emajliramokade.proto.image.proto.Odgovor)
+  // @@protoc_insertion_point(class_scope:com.emajliramokade.image.proto.Odgovor)
  private:
   inline void set_has_status();
   inline void clear_has_status();
@@ -326,7 +325,7 @@ class Odgovor : public ::google::protobuf::Message {
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
   ::std::string* poruka_;
-  ::com::emajliramokade::proto::image::proto::DimenzijaSlike* velicinaslike_;
+  ::com::emajliramokade::image::proto::DimenzijaSlike* velicinaslike_;
   bool status_;
 
   mutable int _cached_size_;
@@ -582,7 +581,7 @@ inline void Odgovor::set_allocated_poruka(::std::string* poruka) {
   }
 }
 
-// optional .com.emajliramokade.proto.image.proto.DimenzijaSlike velicinaSlike = 3;
+// optional .com.emajliramokade.image.proto.DimenzijaSlike velicinaSlike = 3;
 inline bool Odgovor::has_velicinaslike() const {
   return (_has_bits_[0] & 0x00000004u) != 0;
 }
@@ -593,24 +592,24 @@ inline void Odgovor::clear_has_velicinaslike() {
   _has_bits_[0] &= ~0x00000004u;
 }
 inline void Odgovor::clear_velicinaslike() {
-  if (velicinaslike_ != NULL) velicinaslike_->::com::emajliramokade::proto::image::proto::DimenzijaSlike::Clear();
+  if (velicinaslike_ != NULL) velicinaslike_->::com::emajliramokade::image::proto::DimenzijaSlike::Clear();
   clear_has_velicinaslike();
 }
-inline const ::com::emajliramokade::proto::image::proto::DimenzijaSlike& Odgovor::velicinaslike() const {
+inline const ::com::emajliramokade::image::proto::DimenzijaSlike& Odgovor::velicinaslike() const {
   return velicinaslike_ != NULL ? *velicinaslike_ : *default_instance_->velicinaslike_;
 }
-inline ::com::emajliramokade::proto::image::proto::DimenzijaSlike* Odgovor::mutable_velicinaslike() {
+inline ::com::emajliramokade::image::proto::DimenzijaSlike* Odgovor::mutable_velicinaslike() {
   set_has_velicinaslike();
-  if (velicinaslike_ == NULL) velicinaslike_ = new ::com::emajliramokade::proto::image::proto::DimenzijaSlike;
+  if (velicinaslike_ == NULL) velicinaslike_ = new ::com::emajliramokade::image::proto::DimenzijaSlike;
   return velicinaslike_;
 }
-inline ::com::emajliramokade::proto::image::proto::DimenzijaSlike* Odgovor::release_velicinaslike() {
+inline ::com::emajliramokade::image::proto::DimenzijaSlike* Odgovor::release_velicinaslike() {
   clear_has_velicinaslike();
-  ::com::emajliramokade::proto::image::proto::DimenzijaSlike* temp = velicinaslike_;
+  ::com::emajliramokade::image::proto::DimenzijaSlike* temp = velicinaslike_;
   velicinaslike_ = NULL;
   return temp;
 }
-inline void Odgovor::set_allocated_velicinaslike(::com::emajliramokade::proto::image::proto::DimenzijaSlike* velicinaslike) {
+inline void Odgovor::set_allocated_velicinaslike(::com::emajliramokade::image::proto::DimenzijaSlike* velicinaslike) {
   delete velicinaslike_;
   velicinaslike_ = velicinaslike;
   if (velicinaslike) {
@@ -625,7 +624,6 @@ inline void Odgovor::set_allocated_velicinaslike(::com::emajliramokade::proto::i
 
 }  // namespace proto
 }  // namespace image
-}  // namespace proto
 }  // namespace emajliramokade
 }  // namespace com
 

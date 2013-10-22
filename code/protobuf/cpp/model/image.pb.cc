@@ -18,7 +18,6 @@
 
 namespace com {
 namespace emajliramokade {
-namespace proto {
 namespace image {
 namespace proto {
 
@@ -130,14 +129,13 @@ void protobuf_AddDesc_model_2fimage_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\021model/image.proto\022$com.emajliramokade."
-    "proto.image.proto\"9\n\007Zahtjev\022\025\n\rvelicina"
-    "Slike\030\001 \002(\r\022\027\n\017originalnaSlika\030\002 \002(\014\"/\n\016"
-    "DimenzijaSlike\022\r\n\005width\030\001 \002(\r\022\016\n\006height\030"
-    "\002 \002(\r\"v\n\007Odgovor\022\016\n\006status\030\001 \002(\010\022\016\n\006poru"
-    "ka\030\002 \002(\t\022K\n\rvelicinaSlike\030\003 \001(\01324.com.em"
-    "ajliramokade.proto.image.proto.Dimenzija"
-    "Slike", 285);
+    "\n\021model/image.proto\022\036com.emajliramokade."
+    "image.proto\"9\n\007Zahtjev\022\025\n\rvelicinaSlike\030"
+    "\001 \002(\r\022\027\n\017originalnaSlika\030\002 \002(\014\"/\n\016Dimenz"
+    "ijaSlike\022\r\n\005width\030\001 \002(\r\022\016\n\006height\030\002 \002(\r\""
+    "p\n\007Odgovor\022\016\n\006status\030\001 \002(\010\022\016\n\006poruka\030\002 \002"
+    "(\t\022E\n\rvelicinaSlike\030\003 \001(\0132..com.emajlira"
+    "mokade.image.proto.DimenzijaSlike", 273);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "model/image.proto", &protobuf_RegisterTypes);
   Zahtjev::default_instance_ = new Zahtjev();
@@ -676,7 +674,7 @@ Odgovor::Odgovor()
 }
 
 void Odgovor::InitAsDefaultInstance() {
-  velicinaslike_ = const_cast< ::com::emajliramokade::proto::image::proto::DimenzijaSlike*>(&::com::emajliramokade::proto::image::proto::DimenzijaSlike::default_instance());
+  velicinaslike_ = const_cast< ::com::emajliramokade::image::proto::DimenzijaSlike*>(&::com::emajliramokade::image::proto::DimenzijaSlike::default_instance());
 }
 
 Odgovor::Odgovor(const Odgovor& from)
@@ -736,7 +734,7 @@ void Odgovor::Clear() {
       }
     }
     if (has_velicinaslike()) {
-      if (velicinaslike_ != NULL) velicinaslike_->::com::emajliramokade::proto::image::proto::DimenzijaSlike::Clear();
+      if (velicinaslike_ != NULL) velicinaslike_->::com::emajliramokade::image::proto::DimenzijaSlike::Clear();
     }
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
@@ -781,7 +779,7 @@ bool Odgovor::MergePartialFromCodedStream(
         break;
       }
 
-      // optional .com.emajliramokade.proto.image.proto.DimenzijaSlike velicinaSlike = 3;
+      // optional .com.emajliramokade.image.proto.DimenzijaSlike velicinaSlike = 3;
       case 3: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
@@ -827,7 +825,7 @@ void Odgovor::SerializeWithCachedSizes(
       2, this->poruka(), output);
   }
 
-  // optional .com.emajliramokade.proto.image.proto.DimenzijaSlike velicinaSlike = 3;
+  // optional .com.emajliramokade.image.proto.DimenzijaSlike velicinaSlike = 3;
   if (has_velicinaslike()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       3, this->velicinaslike(), output);
@@ -856,7 +854,7 @@ void Odgovor::SerializeWithCachedSizes(
         2, this->poruka(), target);
   }
 
-  // optional .com.emajliramokade.proto.image.proto.DimenzijaSlike velicinaSlike = 3;
+  // optional .com.emajliramokade.image.proto.DimenzijaSlike velicinaSlike = 3;
   if (has_velicinaslike()) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
@@ -886,7 +884,7 @@ int Odgovor::ByteSize() const {
           this->poruka());
     }
 
-    // optional .com.emajliramokade.proto.image.proto.DimenzijaSlike velicinaSlike = 3;
+    // optional .com.emajliramokade.image.proto.DimenzijaSlike velicinaSlike = 3;
     if (has_velicinaslike()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
@@ -927,7 +925,7 @@ void Odgovor::MergeFrom(const Odgovor& from) {
       set_poruka(from.poruka());
     }
     if (from.has_velicinaslike()) {
-      mutable_velicinaslike()->::com::emajliramokade::proto::image::proto::DimenzijaSlike::MergeFrom(from.velicinaslike());
+      mutable_velicinaslike()->::com::emajliramokade::image::proto::DimenzijaSlike::MergeFrom(from.velicinaslike());
     }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
@@ -978,7 +976,6 @@ void Odgovor::Swap(Odgovor* other) {
 
 }  // namespace proto
 }  // namespace image
-}  // namespace proto
 }  // namespace emajliramokade
 }  // namespace com
 
