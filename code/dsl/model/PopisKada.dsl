@@ -50,6 +50,7 @@ module PopisKada
     odbijena;
     brojacSlanja;
     dodana;
+    slikeKade;
 
     specification NemoderiraneKade 'it => it.odobrena == null && it.odbijena == null';
     specification OdobreneKade 'it => it.odobrena != null';
