@@ -1,4 +1,4 @@
-package com.emajliramokade.proto.ImageInfo;
+package com.emajliramokade.proto.image.proto;
 
 message Zahtjev {
   required uint32 velicinaSlike  = 1;

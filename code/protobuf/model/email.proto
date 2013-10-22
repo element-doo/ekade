@@ -1,4 +1,4 @@
-package Api;
+package com.emajliramokade.email.proto;
 
 message Zahtjev {
   required string email = 1;
