@@ -10,4 +10,12 @@ object Email extends Build with Default with Dependencies {
     , scalaTest
     )
   )
+  
+  lazy val emailSender = (
+    scalaProject("Email-Sender")
+    inject(
+      emailXml
+    , rabbitMQ
+    )
+  )
 }
