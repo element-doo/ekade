@@ -3,7 +3,11 @@ package com.emajliramokade.api.model.PopisKada;
 import com.dslplatform.patterns.*;
 import com.dslplatform.client.*;
 
-public final class KadaOdobrena implements DomainEvent, java.io.Serializable {
+public final class KadaOdobrena
+        implements
+        DomainEvent,
+        java.io.Serializable,
+        com.emajliramokade.api.model.PopisKada.KadaEvent<com.emajliramokade.api.model.PopisKada.KadaOdobrena> {
     public KadaOdobrena(
             final java.util.UUID kadaID) {
         setKadaID(kadaID);

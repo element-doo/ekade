@@ -1,7 +1,8 @@
-﻿module Sigurnost {
-	root Korisnik {
-		String Username;
-		String Salt;
-		Binary HashSifra;
-	}
+module Sigurnost
+{
+  root Korisnik {
+    String  username;
+    String  salt;
+    Binary  hashSifra;
+  }
 }

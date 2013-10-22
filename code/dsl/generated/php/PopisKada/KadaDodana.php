@@ -8,8 +8,8 @@ require_once __DIR__.'/KadaDodanaArrayConverter.php';
  * Generated from NGS DSL
  *
  * @property string $URI a unique object identifier (read-only)
- * @property \NGS\UUID $kadaID a uuid
  * @property string $komentar a string, can be null
+ * @property \NGS\UUID $kadaID a uuid
  *
  * @package PopisKada
  * @version 0.9.9 beta
@@ -17,8 +17,8 @@ require_once __DIR__.'/KadaDodanaArrayConverter.php';
 class KadaDodana extends \NGS\Patterns\DomainEvent
 {
     protected $URI;
-    protected $kadaID;
     protected $komentar;
+    protected $kadaID;
 
     /**
      * Constructs object using a key-property array or instance of class "PopisKada\KadaDodana"
@@ -59,12 +59,12 @@ class KadaDodana extends \NGS\Patterns\DomainEvent
         if(isset($data['URI']))
             $this->URI = \NGS\Converter\PrimitiveConverter::toString($data['URI']);
         unset($data['URI']);
-        if (array_key_exists('kadaID', $data))
-            $this->setKadaID($data['kadaID']);
-        unset($data['kadaID']);
         if (array_key_exists('komentar', $data))
             $this->setKomentar($data['komentar']);
         unset($data['komentar']);
+        if (array_key_exists('kadaID', $data))
+            $this->setKadaID($data['kadaID']);
+        unset($data['kadaID']);
 
         if (count($data) !== 0 && \NGS\Utils::WarningsAsErrors())
             throw new \InvalidArgumentException('Superflous array keys found in "PopisKada\KadaDodana" constructor: '.implode(', ', array_keys($data)));
@@ -84,19 +84,19 @@ class KadaDodana extends \NGS\Patterns\DomainEvent
     }
 
     /**
-     * @return a uuid
-     */
-    public function getKadaID()
-    {
-        return $this->kadaID;
-    }
-
-    /**
      * @return a string, can be null
      */
     public function getKomentar()
     {
         return $this->komentar;
+    }
+
+    /**
+     * @return a uuid
+     */
+    public function getKadaID()
+    {
+        return $this->kadaID;
     }
 
     /**
@@ -110,10 +110,10 @@ class KadaDodana extends \NGS\Patterns\DomainEvent
     {
         if ($name === 'URI')
             return $this->getURI(); // a string representing a unique object identifier
-        if ($name === 'kadaID')
-            return $this->getKadaID(); // a uuid
         if ($name === 'komentar')
             return $this->getKomentar(); // a string, can be null
+        if ($name === 'kadaID')
+            return $this->getKadaID(); // a uuid
 
         throw new \InvalidArgumentException('Property "'.$name.'" in class "PopisKada\KadaDodana" does not exist and could not be retrieved!');
     }
@@ -131,12 +131,24 @@ class KadaDodana extends \NGS\Patterns\DomainEvent
     {
         if ($name === 'URI')
             return $this->URI !== null;
-        if ($name === 'kadaID')
-            return true; // a uuid (always set)
         if ($name === 'komentar')
             return $this->getKomentar() !== null; // a string, can be null
+        if ($name === 'kadaID')
+            return true; // a uuid (always set)
 
         return false;
+    }
+
+    /**
+     * @param string $value a string, can be null
+     *
+     * @return string
+     */
+    public function setKomentar($value)
+    {
+        $value = $value !== null ? \NGS\Converter\PrimitiveConverter::toString($value) : null;
+        $this->komentar = $value;
+        return $value;
     }
 
     /**
@@ -154,18 +166,6 @@ class KadaDodana extends \NGS\Patterns\DomainEvent
     }
 
     /**
-     * @param string $value a string, can be null
-     *
-     * @return string
-     */
-    public function setKomentar($value)
-    {
-        $value = $value !== null ? \NGS\Converter\PrimitiveConverter::toString($value) : null;
-        $this->komentar = $value;
-        return $value;
-    }
-
-    /**
      * Property setter which checks for invalid access to domain event properties and enforces proper type checks
      *
      * @param string $name Property name
@@ -175,10 +175,10 @@ class KadaDodana extends \NGS\Patterns\DomainEvent
     {
         if ($name === 'URI')
             throw new \LogicException('Property "URI" in "PopisKada\KadaDodana" cannot be set, because event URI is populated by server!');
-        if ($name === 'kadaID')
-            return $this->setKadaID($value); // a uuid
         if ($name === 'komentar')
             return $this->setKomentar($value); // a string, can be null
+        if ($name === 'kadaID')
+            return $this->setKadaID($value); // a uuid
         throw new \InvalidArgumentException('Property "'.$name.'" in class "PopisKada\KadaDodana" does not exist and could not be set!');
     }
 
@@ -191,10 +191,10 @@ class KadaDodana extends \NGS\Patterns\DomainEvent
     {
         if ($name === 'URI')
             throw new \LogicException('The property "URI" cannot be unset because event URI is created by server!');
-        if ($name === 'kadaID')
-            throw new \LogicException('The property "kadaID" cannot be unset because it is non-nullable!'); // a uuid (cannot be unset)
         if ($name === 'komentar')
             $this->setKomentar(null);; // a string, can be null
+        if ($name === 'kadaID')
+            throw new \LogicException('The property "kadaID" cannot be unset because it is non-nullable!'); // a uuid (cannot be unset)
     }
 
     public function toJson()

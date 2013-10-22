@@ -395,11 +395,11 @@ public final class Image {
 
       public final boolean isInitialized() {
         if (!hasVelicinaSlike()) {
-          
+
           return false;
         }
         if (!hasOriginalnaSlika()) {
-          
+
           return false;
         }
         return true;
@@ -891,11 +891,11 @@ public final class Image {
 
       public final boolean isInitialized() {
         if (!hasWidth()) {
-          
+
           return false;
         }
         if (!hasHeight()) {
-          
+
           return false;
         }
         return true;
@@ -1186,7 +1186,7 @@ public final class Image {
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
-        com.google.protobuf.ByteString bs = 
+        com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
         if (bs.isValidUtf8()) {
@@ -1202,7 +1202,7 @@ public final class Image {
         getPorukaBytes() {
       java.lang.Object ref = poruka_;
       if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
+        com.google.protobuf.ByteString b =
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
         poruka_ = b;
@@ -1499,16 +1499,16 @@ public final class Image {
 
       public final boolean isInitialized() {
         if (!hasStatus()) {
-          
+
           return false;
         }
         if (!hasPoruka()) {
-          
+
           return false;
         }
         if (hasVelicinaSlike()) {
           if (!getVelicinaSlike().isInitialized()) {
-            
+
             return false;
           }
         }
@@ -1596,7 +1596,7 @@ public final class Image {
           getPorukaBytes() {
         java.lang.Object ref = poruka_;
         if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString b =
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
           poruka_ = b;
@@ -1745,7 +1745,7 @@ public final class Image {
        * <code>optional .com.emajliramokade.image.proto.DimenzijaSlike velicinaSlike = 3;</code>
        */
       private com.google.protobuf.SingleFieldBuilder<
-          com.emajliramokade.image.proto.Image.DimenzijaSlike, com.emajliramokade.image.proto.Image.DimenzijaSlike.Builder, com.emajliramokade.image.proto.Image.DimenzijaSlikeOrBuilder> 
+          com.emajliramokade.image.proto.Image.DimenzijaSlike, com.emajliramokade.image.proto.Image.DimenzijaSlike.Builder, com.emajliramokade.image.proto.Image.DimenzijaSlikeOrBuilder>
           getVelicinaSlikeFieldBuilder() {
         if (velicinaSlikeBuilder_ == null) {
           velicinaSlikeBuilder_ = new com.google.protobuf.SingleFieldBuilder<

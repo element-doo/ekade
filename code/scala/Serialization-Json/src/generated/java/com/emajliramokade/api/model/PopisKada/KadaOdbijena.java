@@ -3,15 +3,17 @@ package com.emajliramokade.api.model.PopisKada;
 import com.dslplatform.patterns.*;
 import com.dslplatform.client.*;
 
-public final class KadaDodana implements DomainEvent, java.io.Serializable {
-    public KadaDodana(
-            final java.util.UUID kadaID,
-            final String komentar) {
+public final class KadaOdbijena
+        implements
+        DomainEvent,
+        java.io.Serializable,
+        com.emajliramokade.api.model.PopisKada.KadaEvent<com.emajliramokade.api.model.PopisKada.KadaOdbijena> {
+    public KadaOdbijena(
+            final java.util.UUID kadaID) {
         setKadaID(kadaID);
-        setKomentar(komentar);
     }
 
-    public KadaDodana() {
+    public KadaOdbijena() {
         this.kadaID = java.util.UUID.randomUUID();
     }
 
@@ -32,14 +34,14 @@ public final class KadaDodana implements DomainEvent, java.io.Serializable {
         if (obj == null) return false;
 
         if (getClass() != obj.getClass()) return false;
-        final KadaDodana other = (KadaDodana) obj;
+        final KadaOdbijena other = (KadaOdbijena) obj;
 
         return URI != null && URI.equals(other.URI);
     }
 
     @Override
     public String toString() {
-        return URI != null ? "KadaDodana(" + URI + ')' : "new KadaDodana("
+        return URI != null ? "KadaOdbijena(" + URI + ')' : "new KadaOdbijena("
                 + super.hashCode() + ')';
     }
 
@@ -51,23 +53,11 @@ public final class KadaDodana implements DomainEvent, java.io.Serializable {
         return kadaID;
     }
 
-    public KadaDodana setKadaID(final java.util.UUID value) {
+    public KadaOdbijena setKadaID(final java.util.UUID value) {
         if (value == null)
             throw new IllegalArgumentException(
                     "Property \"kadaID\" cannot be null!");
         this.kadaID = value;
-
-        return this;
-    }
-
-    private String komentar;
-
-    public String getKomentar() {
-        return komentar;
-    }
-
-    public KadaDodana setKomentar(final String value) {
-        this.komentar = value;
 
         return this;
     }

@@ -1,6 +1,6 @@
 module PopisKada
 {
-  // Aggregate root koji reprezentira entitet kade, sa propertyjima potrebnim za obradu  
+  // Aggregate root koji reprezentira entitet kade, sa propertyjima potrebnim za obradu
   root Kada(ID) {
     Guid       ID;
     Timestamp  dodana { Sequence; }
@@ -8,7 +8,7 @@ module PopisKada
     Timestamp? odbijena;
     Int        brojacSlanja;
     String?    komentar;
-    
+
     detail slikeKade Resursi.SlikeKade.kada;
     persistence { optimistic concurrency; }
   }
@@ -23,9 +23,9 @@ module PopisKada
     has mixin KadaEvent;
     String? komentar;
   }
-  
+
   // Odobravanje kade postavlja "odobrena" timestamp agregata na trenutačno vrijeme
-  // Kada koja je odobrena može biti prikazana na public stranici  
+  // Kada koja je odobrena može biti prikazana na public stranici
   event KadaOdobrena {
     has mixin KadaEvent;
   }

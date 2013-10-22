@@ -159,7 +159,7 @@ public final class Email {
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
-        com.google.protobuf.ByteString bs = 
+        com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
         if (bs.isValidUtf8()) {
@@ -175,7 +175,7 @@ public final class Email {
         getEmailBytes() {
       java.lang.Object ref = email_;
       if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
+        com.google.protobuf.ByteString b =
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
         email_ = b;
@@ -202,7 +202,7 @@ public final class Email {
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
-        com.google.protobuf.ByteString bs = 
+        com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
         if (bs.isValidUtf8()) {
@@ -218,7 +218,7 @@ public final class Email {
         getKadaIDBytes() {
       java.lang.Object ref = kadaID_;
       if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
+        com.google.protobuf.ByteString b =
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
         kadaID_ = b;
@@ -459,7 +459,7 @@ public final class Email {
 
       public final boolean isInitialized() {
         if (!hasEmail()) {
-          
+
           return false;
         }
         return true;
@@ -513,7 +513,7 @@ public final class Email {
           getEmailBytes() {
         java.lang.Object ref = email_;
         if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString b =
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
           email_ = b;
@@ -587,7 +587,7 @@ public final class Email {
           getKadaIDBytes() {
         java.lang.Object ref = kadaID_;
         if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString b =
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
           kadaID_ = b;
@@ -805,7 +805,7 @@ public final class Email {
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
-        com.google.protobuf.ByteString bs = 
+        com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
         if (bs.isValidUtf8()) {
@@ -821,7 +821,7 @@ public final class Email {
         getPorukaBytes() {
       java.lang.Object ref = poruka_;
       if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
+        com.google.protobuf.ByteString b =
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
         poruka_ = b;
@@ -1064,11 +1064,11 @@ public final class Email {
 
       public final boolean isInitialized() {
         if (!hasStatus()) {
-          
+
           return false;
         }
         if (!hasPoruka()) {
-          
+
           return false;
         }
         return true;
@@ -1155,7 +1155,7 @@ public final class Email {
           getPorukaBytes() {
         java.lang.Object ref = poruka_;
         if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString b =
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
           poruka_ = b;

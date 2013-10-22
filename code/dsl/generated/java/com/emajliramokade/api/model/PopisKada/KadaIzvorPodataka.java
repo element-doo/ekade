@@ -12,7 +12,8 @@ public final class KadaIzvorPodataka implements Identifiable,
             @JsonProperty("odobrena") final org.joda.time.DateTime odobrena,
             @JsonProperty("odbijena") final org.joda.time.DateTime odbijena,
             @JsonProperty("brojacSlanja") final int brojacSlanja,
-            @JsonProperty("dodana") final org.joda.time.DateTime dodana) {
+            @JsonProperty("dodana") final org.joda.time.DateTime dodana,
+            @JsonProperty("slikeKade") final com.emajliramokade.api.model.Resursi.SlikeKade[] slikeKade) {
         this.URI = URI;
         this.odobrena = odobrena;
         this.odbijena = odbijena;
@@ -21,6 +22,11 @@ public final class KadaIzvorPodataka implements Identifiable,
         if (dodana == null)
             throw new IllegalArgumentException(
                     "Property \"dodana\" cannot be null!");
+        this.slikeKade = slikeKade;
+        if (slikeKade == null)
+            throw new IllegalArgumentException(
+                    "Property \"slikeKade\" cannot be null!");
+        com.emajliramokade.api.model.Guards.checkNulls(slikeKade);
     }
 
     private KadaIzvorPodataka() {
@@ -29,6 +35,7 @@ public final class KadaIzvorPodataka implements Identifiable,
         this.odbijena = null;
         this.brojacSlanja = 0;
         this.dodana = null;
+        this.slikeKade = null;
     }
 
     private final String URI;
@@ -82,6 +89,12 @@ public final class KadaIzvorPodataka implements Identifiable,
 
     public org.joda.time.DateTime getDodana() {
         return this.dodana;
+    }
+
+    private final com.emajliramokade.api.model.Resursi.SlikeKade[] slikeKade;
+
+    public com.emajliramokade.api.model.Resursi.SlikeKade[] getSlikeKade() {
+        return this.slikeKade;
     }
 
     public static class NemoderiraneKade implements java.io.Serializable,

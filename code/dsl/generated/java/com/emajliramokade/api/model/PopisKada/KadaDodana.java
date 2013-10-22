@@ -3,12 +3,16 @@ package com.emajliramokade.api.model.PopisKada;
 import com.dslplatform.patterns.*;
 import com.dslplatform.client.*;
 
-public final class KadaDodana implements DomainEvent, java.io.Serializable {
+public final class KadaDodana
+        implements
+        DomainEvent,
+        java.io.Serializable,
+        com.emajliramokade.api.model.PopisKada.KadaEvent<com.emajliramokade.api.model.PopisKada.KadaDodana> {
     public KadaDodana(
-            final java.util.UUID kadaID,
-            final String komentar) {
-        setKadaID(kadaID);
+            final String komentar,
+            final java.util.UUID kadaID) {
         setKomentar(komentar);
+        setKadaID(kadaID);
     }
 
     public KadaDodana() {
@@ -45,6 +49,18 @@ public final class KadaDodana implements DomainEvent, java.io.Serializable {
 
     private static final long serialVersionUID = 0x0097000a;
 
+    private String komentar;
+
+    public String getKomentar() {
+        return komentar;
+    }
+
+    public KadaDodana setKomentar(final String value) {
+        this.komentar = value;
+
+        return this;
+    }
+
     private java.util.UUID kadaID;
 
     public java.util.UUID getKadaID() {
@@ -56,18 +72,6 @@ public final class KadaDodana implements DomainEvent, java.io.Serializable {
             throw new IllegalArgumentException(
                     "Property \"kadaID\" cannot be null!");
         this.kadaID = value;
-
-        return this;
-    }
-
-    private String komentar;
-
-    public String getKomentar() {
-        return komentar;
-    }
-
-    public KadaDodana setKomentar(final String value) {
-        this.komentar = value;
 
         return this;
     }

@@ -3,13 +3,17 @@ package com.emajliramokade.api.model.PopisKada;
 import com.dslplatform.patterns.*;
 import com.dslplatform.client.*;
 
-public final class KadaPoslana implements DomainEvent, java.io.Serializable {
-    public KadaPoslana(
+public final class KadaOdobrena
+        implements
+        DomainEvent,
+        java.io.Serializable,
+        com.emajliramokade.api.model.PopisKada.KadaEvent<com.emajliramokade.api.model.PopisKada.KadaOdobrena> {
+    public KadaOdobrena(
             final java.util.UUID kadaID) {
         setKadaID(kadaID);
     }
 
-    public KadaPoslana() {
+    public KadaOdobrena() {
         this.kadaID = java.util.UUID.randomUUID();
     }
 
@@ -30,14 +34,14 @@ public final class KadaPoslana implements DomainEvent, java.io.Serializable {
         if (obj == null) return false;
 
         if (getClass() != obj.getClass()) return false;
-        final KadaPoslana other = (KadaPoslana) obj;
+        final KadaOdobrena other = (KadaOdobrena) obj;
 
         return URI != null && URI.equals(other.URI);
     }
 
     @Override
     public String toString() {
-        return URI != null ? "KadaPoslana(" + URI + ')' : "new KadaPoslana("
+        return URI != null ? "KadaOdobrena(" + URI + ')' : "new KadaOdobrena("
                 + super.hashCode() + ')';
     }
 
@@ -49,7 +53,7 @@ public final class KadaPoslana implements DomainEvent, java.io.Serializable {
         return kadaID;
     }
 
-    public KadaPoslana setKadaID(final java.util.UUID value) {
+    public KadaOdobrena setKadaID(final java.util.UUID value) {
         if (value == null)
             throw new IllegalArgumentException(
                     "Property \"kadaID\" cannot be null!");
