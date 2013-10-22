@@ -29,5 +29,14 @@ Primjer naredbi koje treba zvati u imagemagicku:
 (citanje slike iz rama, resizeanje i output u drugom formatu nazad u ram)
 https://github.com/element-doo/ekade/blob/master/code/c/zqm_server/zqm_server/server.cpp
 
+
+---------------------------------------------------------
+
+Zahtjev veličinom generiranih slika.
+Ulaz je isti kao i gore
+Izlaz = veličina resizeane slike | ... | veličina resizeane slike
+veličina resizeane slike = int32
+
+
 Zahvaljujem,
 Uprava
