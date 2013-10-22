@@ -1,3 +1,5 @@
+package Api;
+
 message Zahtjev {
   required string email = 1;
   optional string kadaID = 2;
