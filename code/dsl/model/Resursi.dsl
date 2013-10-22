@@ -10,6 +10,8 @@ module Resursi
     PodaciSlike  web;       // max: 1280x800
     PodaciSlike  email;     // max: 640x400
     PodaciSlike  thumbnail; // max: 200x120
+
+    persistence { optimistic concurrency; }
   }
 
   // Podaci potrebni za prikaz galerije, sam sadržaj se ralazi u nekom trećem storageu

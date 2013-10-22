@@ -1,0 +1,16 @@
+# Prvo treba instalirat Composer
+# (http://getcomposer.org/download/)
+
+# Da bi pokrenuli Laravel, treba skinut njegove komponente
+# U laravel direktoriju pokreni
+composer install
+
+# Koristimo is_email validator od Dominic Sayersa
+# (http://isemail.info/about)
+
+# Sada je moguce dignut Laravel tako da se Apache2 / Nginx
+# konfigurira da servira laravel/public/index.php
+
+# Akcije: 
+# ili GET /email-checker/pero@example.com
+# ili POST na /zahtjev-checker sa JSON strukturom {"email":"pero@example.com"}

@@ -10,31 +10,36 @@ module PopisKada
     String?    komentar;
     
     detail slikeKade Resursi.SlikeKade.kada;
+    persistence { optimistic concurrency; }
+  }
+
+  mixin KadaEvent {
+    Guid kadaID;
   }
 
   // Ovaj event stvara kadu, definiranu Guidom na strani onoga koji je poslao event
   // Ovo omogućuje konkurentno stvaranje svih loosly-coupled reprezentacija kade
   event KadaDodana {
-    Guid    kadaID;
+    has mixin KadaEvent;
     String? komentar;
   }
   
   // Odobravanje kade postavlja "odobrena" timestamp agregata na trenutačno vrijeme
   // Kada koja je odobrena može biti prikazana na public stranici  
   event KadaOdobrena {
-    Guid  kadaID;
+    has mixin KadaEvent;
   }
 
   // Odbijanje kade postavlja "odbijena" timestamp agregata na trenutačno vrijeme
   // Kada koja je odobrena može naknadno biti odbijena
   // Odbijanje kade ne briše agregat iz baze, ali se eksterni storage može smatrati invalidiranim
   event KadaOdbijena {
-    Guid  kadaID;
+    has mixin KadaEvent;
   }
 
   // Slanje kade atomski povećava "brojacSlanja"
   event KadaPoslana {
-    Guid  kadaID;
+    has mixin KadaEvent;
   }
 
   // Izvor podataka se koristi na dva načina

@@ -22,8 +22,8 @@ options = info (helper <*> opts) $
              <> progDesc "Run a HTTP server and fulfill requests by distributing them over 0MQ."
   where
     opts = Options
-      <$> readOption ( fields 1337 "http" "PORT" "HTTP port" )
-      <*> strOption  ( fields "tcp://127.0.0.1:10030" "zmq" "ZMQ_ENDPOINT"
+      <$> readOption ( fields 10010 "http" "PORT" "HTTP port" )
+      <*> strOption  ( fields "tcp://127.0.0.1:10011" "zmq" "ZMQ_ENDPOINT"
                               "ZMQ endpoint for workers to connect to" )
       <*> readOption ( fields 10 "timeout" "SEC" "How long to wait for ZMQ reply" )
 
