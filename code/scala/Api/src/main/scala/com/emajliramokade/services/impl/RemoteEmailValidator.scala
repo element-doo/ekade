@@ -11,16 +11,9 @@ import dispatch._
 import com.emajliramokade.api.model.Api.Zahtjev
 
 abstract class RemoteEmailValidator(
-    serialization: ISerialization[String]) extends EmailValidator {
+    val serialization: ISerialization[String]) extends EmailValidator with Remoting {
   def serviceUrl: String
 
-  def validate(zahtjev: Zahtjev): Future[Odgovor] = {
-    val req = url(serviceUrl) << serialization.serialize(zahtjev)
-
-    Http(req) map { response =>
-      val body = response.getResponseBody("UTF-8")
-      println("RECEIVED: "+ new String(body))
-      serialization.deserialize[Odgovor](body, Locator)
-    }
-  }
+  def validate(zahtjev: Zahtjev): Future[Odgovor] =
+    sendZahtjev(zahtjev)
 }
