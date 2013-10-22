@@ -11,23 +11,13 @@ public final class Image {
   public interface ZahtjevOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
 
-    // required uint32 velicinaSlike = 1;
+    // required bytes originalnaSlika = 1;
     /**
-     * <code>required uint32 velicinaSlike = 1;</code>
-     */
-    boolean hasVelicinaSlike();
-    /**
-     * <code>required uint32 velicinaSlike = 1;</code>
-     */
-    int getVelicinaSlike();
-
-    // required bytes originalnaSlika = 2;
-    /**
-     * <code>required bytes originalnaSlika = 2;</code>
+     * <code>required bytes originalnaSlika = 1;</code>
      */
     boolean hasOriginalnaSlika();
     /**
-     * <code>required bytes originalnaSlika = 2;</code>
+     * <code>required bytes originalnaSlika = 1;</code>
      */
     com.google.protobuf.ByteString getOriginalnaSlika();
   }
@@ -82,13 +72,8 @@ public final class Image {
               }
               break;
             }
-            case 8: {
+            case 10: {
               bitField0_ |= 0x00000001;
-              velicinaSlike_ = input.readUInt32();
-              break;
-            }
-            case 18: {
-              bitField0_ |= 0x00000002;
               originalnaSlika_ = input.readBytes();
               break;
             }
@@ -132,40 +117,23 @@ public final class Image {
     }
 
     private int bitField0_;
-    // required uint32 velicinaSlike = 1;
-    public static final int VELICINASLIKE_FIELD_NUMBER = 1;
-    private int velicinaSlike_;
+    // required bytes originalnaSlika = 1;
+    public static final int ORIGINALNASLIKA_FIELD_NUMBER = 1;
+    private com.google.protobuf.ByteString originalnaSlika_;
     /**
-     * <code>required uint32 velicinaSlike = 1;</code>
+     * <code>required bytes originalnaSlika = 1;</code>
      */
-    public boolean hasVelicinaSlike() {
+    public boolean hasOriginalnaSlika() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
-     * <code>required uint32 velicinaSlike = 1;</code>
-     */
-    public int getVelicinaSlike() {
-      return velicinaSlike_;
-    }
-
-    // required bytes originalnaSlika = 2;
-    public static final int ORIGINALNASLIKA_FIELD_NUMBER = 2;
-    private com.google.protobuf.ByteString originalnaSlika_;
-    /**
-     * <code>required bytes originalnaSlika = 2;</code>
-     */
-    public boolean hasOriginalnaSlika() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
-    }
-    /**
-     * <code>required bytes originalnaSlika = 2;</code>
+     * <code>required bytes originalnaSlika = 1;</code>
      */
     public com.google.protobuf.ByteString getOriginalnaSlika() {
       return originalnaSlika_;
     }
 
     private void initFields() {
-      velicinaSlike_ = 0;
       originalnaSlika_ = com.google.protobuf.ByteString.EMPTY;
     }
     private byte memoizedIsInitialized = -1;
@@ -173,10 +141,6 @@ public final class Image {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
 
-      if (!hasVelicinaSlike()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       if (!hasOriginalnaSlika()) {
         memoizedIsInitialized = 0;
         return false;
@@ -189,10 +153,7 @@ public final class Image {
                         throws java.io.IOException {
       getSerializedSize();
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeUInt32(1, velicinaSlike_);
-      }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeBytes(2, originalnaSlika_);
+        output.writeBytes(1, originalnaSlika_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -205,11 +166,7 @@ public final class Image {
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeUInt32Size(1, velicinaSlike_);
-      }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(2, originalnaSlika_);
+          .computeBytesSize(1, originalnaSlika_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -327,10 +284,8 @@ public final class Image {
 
       public Builder clear() {
         super.clear();
-        velicinaSlike_ = 0;
-        bitField0_ = (bitField0_ & ~0x00000001);
         originalnaSlika_ = com.google.protobuf.ByteString.EMPTY;
-        bitField0_ = (bitField0_ & ~0x00000002);
+        bitField0_ = (bitField0_ & ~0x00000001);
         return this;
       }
 
@@ -362,10 +317,6 @@ public final class Image {
         if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
           to_bitField0_ |= 0x00000001;
         }
-        result.velicinaSlike_ = velicinaSlike_;
-        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
-          to_bitField0_ |= 0x00000002;
-        }
         result.originalnaSlika_ = originalnaSlika_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
@@ -383,9 +334,6 @@ public final class Image {
 
       public Builder mergeFrom(com.emajliramokade.proto.image.proto.Image.Zahtjev other) {
         if (other == com.emajliramokade.proto.image.proto.Image.Zahtjev.getDefaultInstance()) return this;
-        if (other.hasVelicinaSlike()) {
-          setVelicinaSlike(other.getVelicinaSlike());
-        }
         if (other.hasOriginalnaSlika()) {
           setOriginalnaSlika(other.getOriginalnaSlika());
         }
@@ -394,10 +342,6 @@ public final class Image {
       }
 
       public final boolean isInitialized() {
-        if (!hasVelicinaSlike()) {
-          
-          return false;
-        }
         if (!hasOriginalnaSlika()) {
           
           return false;
@@ -424,70 +368,37 @@ public final class Image {
       }
       private int bitField0_;
 
-      // required uint32 velicinaSlike = 1;
-      private int velicinaSlike_ ;
+      // required bytes originalnaSlika = 1;
+      private com.google.protobuf.ByteString originalnaSlika_ = com.google.protobuf.ByteString.EMPTY;
       /**
-       * <code>required uint32 velicinaSlike = 1;</code>
+       * <code>required bytes originalnaSlika = 1;</code>
        */
-      public boolean hasVelicinaSlike() {
+      public boolean hasOriginalnaSlika() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
-       * <code>required uint32 velicinaSlike = 1;</code>
-       */
-      public int getVelicinaSlike() {
-        return velicinaSlike_;
-      }
-      /**
-       * <code>required uint32 velicinaSlike = 1;</code>
-       */
-      public Builder setVelicinaSlike(int value) {
-        bitField0_ |= 0x00000001;
-        velicinaSlike_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>required uint32 velicinaSlike = 1;</code>
-       */
-      public Builder clearVelicinaSlike() {
-        bitField0_ = (bitField0_ & ~0x00000001);
-        velicinaSlike_ = 0;
-        onChanged();
-        return this;
-      }
-
-      // required bytes originalnaSlika = 2;
-      private com.google.protobuf.ByteString originalnaSlika_ = com.google.protobuf.ByteString.EMPTY;
-      /**
-       * <code>required bytes originalnaSlika = 2;</code>
-       */
-      public boolean hasOriginalnaSlika() {
-        return ((bitField0_ & 0x00000002) == 0x00000002);
-      }
-      /**
-       * <code>required bytes originalnaSlika = 2;</code>
+       * <code>required bytes originalnaSlika = 1;</code>
        */
       public com.google.protobuf.ByteString getOriginalnaSlika() {
         return originalnaSlika_;
       }
       /**
-       * <code>required bytes originalnaSlika = 2;</code>
+       * <code>required bytes originalnaSlika = 1;</code>
        */
       public Builder setOriginalnaSlika(com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000002;
+  bitField0_ |= 0x00000001;
         originalnaSlika_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required bytes originalnaSlika = 2;</code>
+       * <code>required bytes originalnaSlika = 1;</code>
        */
       public Builder clearOriginalnaSlika() {
-        bitField0_ = (bitField0_ & ~0x00000002);
+        bitField0_ = (bitField0_ & ~0x00000001);
         originalnaSlika_ = getDefaultInstance().getOriginalnaSlika();
         onChanged();
         return this;
@@ -1794,13 +1705,12 @@ public final class Image {
   static {
     java.lang.String[] descriptorData = {
       "\n\021model/image.proto\022$com.emajliramokade." +
-      "proto.image.proto\"9\n\007Zahtjev\022\025\n\rvelicina" +
-      "Slike\030\001 \002(\r\022\027\n\017originalnaSlika\030\002 \002(\014\"/\n\016" +
-      "DimenzijaSlike\022\r\n\005width\030\001 \002(\r\022\016\n\006height\030" +
-      "\002 \002(\r\"v\n\007Odgovor\022\016\n\006status\030\001 \002(\010\022\016\n\006poru" +
-      "ka\030\002 \002(\t\022K\n\rvelicinaSlike\030\003 \001(\01324.com.em" +
-      "ajliramokade.proto.image.proto.Dimenzija" +
-      "Slike"
+      "proto.image.proto\"\"\n\007Zahtjev\022\027\n\017original" +
+      "naSlika\030\001 \002(\014\"/\n\016DimenzijaSlike\022\r\n\005width" +
+      "\030\001 \002(\r\022\016\n\006height\030\002 \002(\r\"v\n\007Odgovor\022\016\n\006sta" +
+      "tus\030\001 \002(\010\022\016\n\006poruka\030\002 \002(\t\022K\n\rvelicinaSli" +
+      "ke\030\003 \001(\01324.com.emajliramokade.proto.imag" +
+      "e.proto.DimenzijaSlike"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -1812,7 +1722,7 @@ public final class Image {
           internal_static_com_emajliramokade_proto_image_proto_Zahtjev_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_emajliramokade_proto_image_proto_Zahtjev_descriptor,
-              new java.lang.String[] { "VelicinaSlike", "OriginalnaSlika", });
+              new java.lang.String[] { "OriginalnaSlika", });
           internal_static_com_emajliramokade_proto_image_proto_DimenzijaSlike_descriptor =
             getDescriptor().getMessageTypes().get(1);
           internal_static_com_emajliramokade_proto_image_proto_DimenzijaSlike_fieldAccessorTable = new

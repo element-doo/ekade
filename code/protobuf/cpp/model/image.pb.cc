@@ -44,8 +44,7 @@ void protobuf_AssignDesc_model_2fimage_2eproto() {
       "model/image.proto");
   GOOGLE_CHECK(file != NULL);
   Zahtjev_descriptor_ = file->message_type(0);
-  static const int Zahtjev_offsets_[2] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Zahtjev, velicinaslike_),
+  static const int Zahtjev_offsets_[1] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Zahtjev, originalnaslika_),
   };
   Zahtjev_reflection_ =
@@ -131,13 +130,12 @@ void protobuf_AddDesc_model_2fimage_2eproto() {
 
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
     "\n\021model/image.proto\022$com.emajliramokade."
-    "proto.image.proto\"9\n\007Zahtjev\022\025\n\rvelicina"
-    "Slike\030\001 \002(\r\022\027\n\017originalnaSlika\030\002 \002(\014\"/\n\016"
-    "DimenzijaSlike\022\r\n\005width\030\001 \002(\r\022\016\n\006height\030"
-    "\002 \002(\r\"v\n\007Odgovor\022\016\n\006status\030\001 \002(\010\022\016\n\006poru"
-    "ka\030\002 \002(\t\022K\n\rvelicinaSlike\030\003 \001(\01324.com.em"
-    "ajliramokade.proto.image.proto.Dimenzija"
-    "Slike", 285);
+    "proto.image.proto\"\"\n\007Zahtjev\022\027\n\017original"
+    "naSlika\030\001 \002(\014\"/\n\016DimenzijaSlike\022\r\n\005width"
+    "\030\001 \002(\r\022\016\n\006height\030\002 \002(\r\"v\n\007Odgovor\022\016\n\006sta"
+    "tus\030\001 \002(\010\022\016\n\006poruka\030\002 \002(\t\022K\n\rvelicinaSli"
+    "ke\030\003 \001(\01324.com.emajliramokade.proto.imag"
+    "e.proto.DimenzijaSlike", 262);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "model/image.proto", &protobuf_RegisterTypes);
   Zahtjev::default_instance_ = new Zahtjev();
@@ -159,7 +157,6 @@ struct StaticDescriptorInitializer_model_2fimage_2eproto {
 // ===================================================================
 
 #ifndef _MSC_VER
-const int Zahtjev::kVelicinaSlikeFieldNumber;
 const int Zahtjev::kOriginalnaSlikaFieldNumber;
 #endif  // !_MSC_VER
 
@@ -179,7 +176,6 @@ Zahtjev::Zahtjev(const Zahtjev& from)
 
 void Zahtjev::SharedCtor() {
   _cached_size_ = 0;
-  velicinaslike_ = 0u;
   originalnaslika_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
@@ -219,7 +215,6 @@ Zahtjev* Zahtjev::New() const {
 
 void Zahtjev::Clear() {
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    velicinaslike_ = 0u;
     if (has_originalnaslika()) {
       if (originalnaslika_ != &::google::protobuf::internal::kEmptyString) {
         originalnaslika_->clear();
@@ -236,26 +231,10 @@ bool Zahtjev::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   while ((tag = input->ReadTag()) != 0) {
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // required uint32 velicinaSlike = 1;
+      // required bytes originalnaSlika = 1;
       case 1: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
-                 input, &velicinaslike_)));
-          set_has_velicinaslike();
-        } else {
-          goto handle_uninterpreted;
-        }
-        if (input->ExpectTag(18)) goto parse_originalnaSlika;
-        break;
-      }
-
-      // required bytes originalnaSlika = 2;
-      case 2: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
-         parse_originalnaSlika:
           DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
                 input, this->mutable_originalnaslika()));
         } else {
@@ -283,15 +262,10 @@ bool Zahtjev::MergePartialFromCodedStream(
 
 void Zahtjev::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // required uint32 velicinaSlike = 1;
-  if (has_velicinaslike()) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->velicinaslike(), output);
-  }
-
-  // required bytes originalnaSlika = 2;
+  // required bytes originalnaSlika = 1;
   if (has_originalnaslika()) {
     ::google::protobuf::internal::WireFormatLite::WriteBytes(
-      2, this->originalnaslika(), output);
+      1, this->originalnaslika(), output);
   }
 
   if (!unknown_fields().empty()) {
@@ -302,16 +276,11 @@ void Zahtjev::SerializeWithCachedSizes(
 
 ::google::protobuf::uint8* Zahtjev::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // required uint32 velicinaSlike = 1;
-  if (has_velicinaslike()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(1, this->velicinaslike(), target);
-  }
-
-  // required bytes originalnaSlika = 2;
+  // required bytes originalnaSlika = 1;
   if (has_originalnaslika()) {
     target =
       ::google::protobuf::internal::WireFormatLite::WriteBytesToArray(
-        2, this->originalnaslika(), target);
+        1, this->originalnaslika(), target);
   }
 
   if (!unknown_fields().empty()) {
@@ -325,14 +294,7 @@ int Zahtjev::ByteSize() const {
   int total_size = 0;
 
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    // required uint32 velicinaSlike = 1;
-    if (has_velicinaslike()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::UInt32Size(
-          this->velicinaslike());
-    }
-
-    // required bytes originalnaSlika = 2;
+    // required bytes originalnaSlika = 1;
     if (has_originalnaslika()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::BytesSize(
@@ -366,9 +328,6 @@ void Zahtjev::MergeFrom(const ::google::protobuf::Message& from) {
 void Zahtjev::MergeFrom(const Zahtjev& from) {
   GOOGLE_CHECK_NE(&from, this);
   if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    if (from.has_velicinaslike()) {
-      set_velicinaslike(from.velicinaslike());
-    }
     if (from.has_originalnaslika()) {
       set_originalnaslika(from.originalnaslika());
     }
@@ -389,14 +348,13 @@ void Zahtjev::CopyFrom(const Zahtjev& from) {
 }
 
 bool Zahtjev::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000003) != 0x00000003) return false;
+  if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
 
   return true;
 }
 
 void Zahtjev::Swap(Zahtjev* other) {
   if (other != this) {
-    std::swap(velicinaslike_, other->velicinaslike_);
     std::swap(originalnaslika_, other->originalnaslika_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);

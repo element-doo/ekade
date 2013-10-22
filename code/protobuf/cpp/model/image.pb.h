@@ -97,17 +97,10 @@ class Zahtjev : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // required uint32 velicinaSlike = 1;
-  inline bool has_velicinaslike() const;
-  inline void clear_velicinaslike();
-  static const int kVelicinaSlikeFieldNumber = 1;
-  inline ::google::protobuf::uint32 velicinaslike() const;
-  inline void set_velicinaslike(::google::protobuf::uint32 value);
-
-  // required bytes originalnaSlika = 2;
+  // required bytes originalnaSlika = 1;
   inline bool has_originalnaslika() const;
   inline void clear_originalnaslika();
-  static const int kOriginalnaSlikaFieldNumber = 2;
+  static const int kOriginalnaSlikaFieldNumber = 1;
   inline const ::std::string& originalnaslika() const;
   inline void set_originalnaslika(const ::std::string& value);
   inline void set_originalnaslika(const char* value);
@@ -118,18 +111,15 @@ class Zahtjev : public ::google::protobuf::Message {
 
   // @@protoc_insertion_point(class_scope:com.emajliramokade.proto.image.proto.Zahtjev)
  private:
-  inline void set_has_velicinaslike();
-  inline void clear_has_velicinaslike();
   inline void set_has_originalnaslika();
   inline void clear_has_originalnaslika();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
   ::std::string* originalnaslika_;
-  ::google::protobuf::uint32 velicinaslike_;
 
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(2 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(1 + 31) / 32];
 
   friend void  protobuf_AddDesc_model_2fimage_2eproto();
   friend void protobuf_AssignDesc_model_2fimage_2eproto();
@@ -346,37 +336,15 @@ class Odgovor : public ::google::protobuf::Message {
 
 // Zahtjev
 
-// required uint32 velicinaSlike = 1;
-inline bool Zahtjev::has_velicinaslike() const {
+// required bytes originalnaSlika = 1;
+inline bool Zahtjev::has_originalnaslika() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
-inline void Zahtjev::set_has_velicinaslike() {
+inline void Zahtjev::set_has_originalnaslika() {
   _has_bits_[0] |= 0x00000001u;
 }
-inline void Zahtjev::clear_has_velicinaslike() {
-  _has_bits_[0] &= ~0x00000001u;
-}
-inline void Zahtjev::clear_velicinaslike() {
-  velicinaslike_ = 0u;
-  clear_has_velicinaslike();
-}
-inline ::google::protobuf::uint32 Zahtjev::velicinaslike() const {
-  return velicinaslike_;
-}
-inline void Zahtjev::set_velicinaslike(::google::protobuf::uint32 value) {
-  set_has_velicinaslike();
-  velicinaslike_ = value;
-}
-
-// required bytes originalnaSlika = 2;
-inline bool Zahtjev::has_originalnaslika() const {
-  return (_has_bits_[0] & 0x00000002u) != 0;
-}
-inline void Zahtjev::set_has_originalnaslika() {
-  _has_bits_[0] |= 0x00000002u;
-}
 inline void Zahtjev::clear_has_originalnaslika() {
-  _has_bits_[0] &= ~0x00000002u;
+  _has_bits_[0] &= ~0x00000001u;
 }
 inline void Zahtjev::clear_originalnaslika() {
   if (originalnaslika_ != &::google::protobuf::internal::kEmptyString) {

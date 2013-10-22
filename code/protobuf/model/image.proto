@@ -1,8 +1,7 @@
 package com.emajliramokade.proto.image.proto;
 
 message Zahtjev {
-  required uint32 velicinaSlike  = 1;
-  required bytes originalnaSlika = 2;
+  required bytes originalnaSlika = 1;
 }
 
 message DimenzijaSlike {
