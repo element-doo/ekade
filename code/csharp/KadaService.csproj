@@ -41,12 +41,16 @@
     <Compile Include="Events\KadaEvents.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Service\IKadaService.cs">
+    <Compile Include="Security\AuthentificationValidator.cs" />
+    <Compile Include="Service\IKadaService.cs" />
+    <Compile Include="Service\IModerirajService.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Service\KadaService.cs">
+    <Compile Include="Service\KadaService.cs" />
+    <Compile Include="Service\ModerirajService.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Service\ServiceHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
@@ -93,12 +97,15 @@
     <Reference Include="Remotion.Linq, Version=1.13.183.0, Culture=neutral, PublicKeyToken=aae679a24d51803c, processorArchitecture=MSIL" />
     <Reference Include="Serialize.Linq, Version=1.1.4794.14573, Culture=neutral, PublicKeyToken=149c0fba958b3a36, processorArchitecture=MSIL" />
     <Reference Include="System" />
+    <Reference Include="System.IdentityModel" />
     <Reference Include="System.Reactive.Core, Version=2.0.20814.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Reactive.Interfaces, Version=2.0.20814.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Reactive.Linq, Version=2.0.20814.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceModel.Web" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
