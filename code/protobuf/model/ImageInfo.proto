@@ -1,0 +1,17 @@
+package ImageInfo;
+
+message DimenzijaSlike {
+  required uint32 width = 1;
+  required uint32 height = 2;
+}
+
+message Zahtjev {
+  required uint32 velicinaSlike = 1;
+  required bytes originalnaSlika = 2;
+}
+
+message Odgovor {
+  required bool status = 1;
+  required string poruka = 2;
+  optional DimenzijaSlike velicinaSlike = 3;
+}

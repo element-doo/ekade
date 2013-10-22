@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <configSections>
+    <section name="autofacConfiguration" type="Autofac.Configuration.SectionHandler, Autofac.Configuration" />
+  </configSections>
+  <appSettings>
+    <add key="PluginsPath_Core" value="bin" />
+    <add key="DependenciesPath" value="bin" />
+    <add key="DocumentsPath" value="Documents" />
+    <add key="PdfConverter" value="Utility\PdfConverter.exe" />	
+    <add key="ServerAssembly" value="bin\GeneratedModel.dll" />
+    <!--add key="MaxSearchLimit" value="200" /-->
+	<add key="User" value="username" />
+	<add key="ProjectID" value="projectID" />
+    <add key="ConnectionString" value="server=exampleserver.com;port=5432;database=database;user=username;password=secret;encoding=unicode" />
+  </appSettings>
+  <system.web>
+    <compilation debug="true" targetFramework="4.0" />
+    <sessionState mode="Off" />
+    <httpRuntime relaxedUrlToFileSystemMapping="true" />
+	<customErrors mode="Off" />
+  </system.web>
+  <!--system.diagnostics>
+    <sources>
+      <source name="System.ServiceModel.MessageLogging">
+        <listeners>
+          <add name="messages"
+               type="System.Diagnostics.XmlWriterTraceListener"
+               initializeData="logs/messages.svclog" />
+        </listeners>
+      </source>
+    </sources>
+  </system.diagnostics-->
+  <system.serviceModel>
+    <!--diagnostics>
+      <messageLogging logEntireMessage="true"
+                      logMalformedMessages="false"
+                      logMessagesAtServiceLevel="true"
+                      logMessagesAtTransportLevel="false"
+                      maxMessagesToLog="3000"
+                      maxSizeOfMessageToLog="2000"/>
+    </diagnostics-->
+    <protocolMapping>
+      <!--add scheme="http" binding="webHttpBinding" bindingConfiguration="webHttp"/-->
+    </protocolMapping>
+    <services>
+      <!-- SOAP service-->
+      <service name="NGS.Server.Api.SoapApplication">
+        <endpoint binding="basicHttpBinding"
+                  bindingConfiguration="httpBinding"
+                  contract="NGS.Server.Api.ISoapApplication" />
+      </service>
+      <!-- REST service-->
+      <service name="NGS.Server.Api.RestApplication">
+        <endpoint binding="customBinding"
+                  bindingConfiguration="customMapper"
+                  behaviorConfiguration="rawHttp"
+                  contract="NGS.Server.Api.IRestApplication" />
+      </service>
+      <!-- REST plugins-->
+      <service name="NGS.Plugins.Rest.Commands.CrudCommands">
+        <endpoint binding="customBinding"
+                  bindingConfiguration="customMapper"
+                  behaviorConfiguration="rawHttp"
+                  contract="NGS.Plugins.Rest.Commands.ICrudCommands" />
+      </service>
+      <service name="NGS.Plugins.Rest.Commands.StandardCommands">
+        <endpoint binding="customBinding"
+                  bindingConfiguration="customMapper"
+                  behaviorConfiguration="rawHttp"
+                  contract="NGS.Plugins.Rest.Commands.IStandardCommands" />
+      </service>
+      <service name="NGS.Plugins.Rest.Commands.DomainCommands">
+        <endpoint binding="customBinding"
+                  bindingConfiguration="customMapper"
+                  behaviorConfiguration="rawHttp"
+                  contract="NGS.Plugins.Rest.Commands.IDomainCommands" />
+      </service>
+      <service name="NGS.Plugins.Rest.Commands.ReportingCommands">
+        <endpoint binding="customBinding"
+                  bindingConfiguration="customMapper"
+                  behaviorConfiguration="rawHttp"
+                  contract="NGS.Plugins.Rest.Commands.IReportingCommands" />
+      </service>
+      <service name="EmajliramoKade.KadaService" behaviorConfiguration="publicBehavior">
+        <endpoint binding="customBinding"
+                  bindingConfiguration="customMapper"
+                  behaviorConfiguration="rawHttp"
+                  contract="EmajliramoKade.IKadaService" />
+      </service>
+    </services>
+    <bindings>
+      <basicHttpBinding>
+        <binding name="httpBinding" maxReceivedMessageSize="8388608">
+          <readerQuotas maxStringContentLength="8388608" />
+          <security mode="TransportWithMessageCredential">
+            <message clientCredentialType="UserName" />
+          </security>
+        </binding>
+      </basicHttpBinding>
+      <webHttpBinding>
+        <binding name="webHttp" closeTimeout="00:01:00" 
+                 transferMode="Streamed" openTimeout="00:10:00"
+                 receiveTimeout="00:10:00" sendTimeout="00:10:00"
+                 maxBufferPoolSize="8388608" maxReceivedMessageSize="8388608">
+          <readerQuotas maxStringContentLength="8388608" maxArrayLength="8388608" />
+        </binding>
+      </webHttpBinding>
+      <wsHttpBinding>
+        <binding name="wsBinding" maxReceivedMessageSize="8388608">
+          <readerQuotas maxStringContentLength="8388608" />
+          <security mode="TransportWithMessageCredential">
+            <message clientCredentialType="UserName" />
+          </security>
+        </binding>
+      </wsHttpBinding>
+      <customBinding>
+        <binding name="customMapper">
+          <webMessageEncoding webContentTypeMapperType="NGS.Server.Api.RawFormatMapper, NGS.Server.Api" />
+          <httpsTransport manualAddressing="true" maxBufferPoolSize="8388608" maxReceivedMessageSize="8388608" maxBufferSize="8388608"/>
+        </binding>
+      </customBinding>	  
+    </bindings>
+    <behaviors>
+      <serviceBehaviors>
+        <behavior>
+          <!-- To avoid disclosing metadata information, set the value below to false and remove the metadata endpoint above before deployment -->
+          <serviceMetadata httpGetEnabled="false" />
+          <!-- To receive exception details in faults for debugging purposes, set the value below to true.  Set to false before deployment to avoid disclosing exception information -->
+          <serviceDebug includeExceptionDetailInFaults="false" />
+          <serviceAuthorization principalPermissionMode="Custom">
+            <authorizationPolicies>
+              <add policyType="AlphaConfiguration.AlphaAuthorizationPolicy, AlphaConfiguration" />
+            </authorizationPolicies>
+          </serviceAuthorization>
+          <serviceCredentials>
+            <userNameAuthentication userNamePasswordValidationMode="Custom"
+                                    customUserNamePasswordValidatorType="AlphaConfiguration.AlphaLoginValidator, AlphaConfiguration" />
+            <serviceCertificate findValue="*.dsl-platform.com"
+                                x509FindType="FindBySubjectName"
+                                storeLocation="LocalMachine"
+                                storeName="My" />
+          </serviceCredentials>          
+          <logErrors />
+        </behavior>
+        <behavior name="publicBehavior">
+          <!-- To avoid disclosing metadata information, set the value below to false and remove the metadata endpoint above before deployment -->
+          <serviceMetadata httpGetEnabled="false" />
+          <!-- To receive exception details in faults for debugging purposes, set the value below to true.  Set to false before deployment to avoid disclosing exception information -->
+          <serviceDebug includeExceptionDetailInFaults="true" />
+          <serviceCredentials>
+            <serviceCertificate findValue="*.dsl-platform.com"
+                                x509FindType="FindBySubjectName"
+                                storeLocation="LocalMachine"
+                                storeName="My" />
+          </serviceCredentials>          
+          <logErrors />
+        </behavior>
+      </serviceBehaviors>
+      <endpointBehaviors>
+        <behavior name="rawHttp">
+          <webHttp />
+        </behavior>
+      </endpointBehaviors>
+    </behaviors>
+    <serviceHostingEnvironment multipleSiteBindingsEnabled="false">
+      <serviceActivations>
+        <!-- SOAP service-->
+        <add relativeAddress="SoapApplication.svc"
+             service="NGS.Server.Api.SoapApplication, NGS.Server.Api"
+             factory="Autofac.Integration.Wcf.AutofacServiceHostFactory, Autofac.Integration.Wcf"/>
+        <!-- REST service-->
+        <add relativeAddress="RestApplication.svc"
+             service="NGS.Server.Api.RestApplication, NGS.Server.Api"
+             factory="Autofac.Integration.Wcf.AutofacServiceHostFactory, Autofac.Integration.Wcf"/>
+        <!-- REST plugins-->
+        <add relativeAddress="Crud.svc"
+             service="NGS.Plugins.Rest.Commands.CrudCommands, NGS.Plugins.Rest.Commands"
+             factory="Autofac.Integration.Wcf.AutofacServiceHostFactory, Autofac.Integration.Wcf"/>
+        <add relativeAddress="Commands.svc"
+             service="NGS.Plugins.Rest.Commands.StandardCommands, NGS.Plugins.Rest.Commands"
+             factory="Autofac.Integration.Wcf.AutofacServiceHostFactory, Autofac.Integration.Wcf"/>
+        <add relativeAddress="Domain.svc"
+             service="NGS.Plugins.Rest.Commands.DomainCommands, NGS.Plugins.Rest.Commands"
+             factory="Autofac.Integration.Wcf.AutofacServiceHostFactory, Autofac.Integration.Wcf"/>
+        <add relativeAddress="Reporting.svc"
+             service="NGS.Plugins.Rest.Commands.ReportingCommands, NGS.Plugins.Rest.Commands"
+             factory="Autofac.Integration.Wcf.AutofacServiceHostFactory, Autofac.Integration.Wcf"/>
+        <add relativeAddress="Kada.svc"
+             service="EmajliramoKade.KadaService, KadaService"
+             factory="Autofac.Integration.Wcf.AutofacServiceHostFactory, Autofac.Integration.Wcf"/>
+      </serviceActivations>
+    </serviceHostingEnvironment>
+    <extensions>
+      <behaviorExtensions>
+        <add name="logErrors" type="NGS.Server.Api.ErrorHandlerBehavior, NGS.Server.Api" />
+      </behaviorExtensions>
+    </extensions>
+  </system.serviceModel>
+  <system.webServer>
+    <modules runAllManagedModulesForAllRequests="true" />
+  </system.webServer>
+  <autofacConfiguration>
+    <modules>
+      <module type="NGS.Server.Api.StandardModule, NGS.Server.Api" />
+    </modules>
+    <components>
+      <component type="NGS.Plugins.Rest.Commands.CrudCommands, NGS.Plugins.Rest.Commands" />
+      <component type="NGS.Plugins.Rest.Commands.StandardCommands, NGS.Plugins.Rest.Commands" />
+      <component type="NGS.Plugins.Rest.Commands.DomainCommands, NGS.Plugins.Rest.Commands" />
+      <component type="NGS.Plugins.Rest.Commands.ReportingCommands, NGS.Plugins.Rest.Commands" />
+      <component type="EmajliramoKade.KadaService, KadaService" />
+      <component type="AlphaConfiguration.AlphaPermissionManager, AlphaConfiguration" service="NGS.Security.IPermissionManager, NGS.Security.Interface" />	  
+    </components>
+  </autofacConfiguration>
+</configuration>

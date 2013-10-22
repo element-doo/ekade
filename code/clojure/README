@@ -1,0 +1,51 @@
+Za ulaz:
+    Email(
+      From("majstor@emajliramokade.com"),
+      To("marko@element.hr"),
+      Subject("Stigla vam je kada!")
+    )
+    setTextBody("Ovo je vaša kada \\_____/")
+    setXHtmlBody(<kada>\_____/</kada>)
+    addAttachment("OpisKade.txt", "Lijepa." getBytes "UTF-8")
+    addAttachment("SchemaKade.xml", "<posuda/>" getBytes "UTF-8")
+    addAttachment("SlikaKade.jpg", "JFIF..." getBytes "UTF-8")
+
+Serijalizirani XML koji ide AMQPom je:
+      
+<Email>
+  <from>majstor@emajliramokade.com</from>
+  <subject>Stigla vam je kada!</subject>
+  <to>marko@element.hr</to>
+  <textBody>Ovo je vaša kada \_____/</textBody>
+  <htmlBody>&lt;kada&gt;\_____/&lt;/kada&gt;</htmlBody>
+  <attachments>
+    <Attachment>
+      <fileName>OpisKade.txt</fileName>
+      <mimeType>text/plain</mimeType>
+      <content>TGlqZXBhLg==</content>
+    </Attachment>
+    <Attachment>
+      <fileName>SchemaKade.xml</fileName>
+      <mimeType>application/xml</mimeType>
+      <content>PHBvc3VkYS8+</content>
+    </Attachment>
+    <Attachment>
+      <fileName>SlikaKade.jpg</fileName>
+      <mimeType>image/jpeg</mimeType>
+      <content>SkZJRi4uLg==</content>
+    </Attachment>
+  </attachments>
+</Email>
+
+(veliko/malo mix je due to Klase/property)
+Odgovor je isto XML (open to discussion):
+
+<Report>
+  <status>false</status>
+  <poruka>Server neće da priča sa nama ;_;</poruka>
+</Report>
+
+Ono što je esencijalno je da ukoliko se u HTMLu referencira neki od attachmenta
+sa <a href> taj mora biti embeddan direktno u mail a ne kao attachment.
+Java Mail bi to trebao automagično mime enkodirat sa onim UUID čudima.
+
