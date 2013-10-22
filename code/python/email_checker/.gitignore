@@ -1,0 +1,4 @@
+*.pyc
+/htmlcov
+/.coverage
+/email_checker/settings/local.py
