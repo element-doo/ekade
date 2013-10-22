@@ -27,4 +27,3 @@ class Dispatcher(
     new Odgovor().setStatus(combinedStatus).setPoruka(combinedPoruka)
   }
 }
-

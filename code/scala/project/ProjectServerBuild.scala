@@ -8,14 +8,16 @@ object Server extends Build with Default with Dependencies {
       lift
     , jetty
     , logback
-    , ngsCore
-    , jeroMQ
-    , rabbitMQ
-    , protobuf
-    , akka
-    , dispatch
-    , etbUtil
-    , mimeTypes
+//    , akka
+//    , ngsCore
+//    , jeroMQ
+//    , rabbitMQ
+//    , protobuf
+//    , dispatch
+//    , etbUtil
+//    , mimeTypes
+//    , Serialization.json
+//    , Serialization.proto
     )
     settings(liftSettings(10040, "emajliramokade.war"): _*)
   )
