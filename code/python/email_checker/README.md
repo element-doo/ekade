@@ -22,6 +22,13 @@ On Debian/Ubuntu systems, to install all of the above, run:
 
     apt-get install python-dev python-virtualenv python-pip virtualenvwrapper memcached
 
+Reload your shell to load the virtualenvs, it should output something like:
+
+    // virtualenvwrapper.user_scripts creating /home/smola/.virtualenvs/initialize
+    // virtualenvwrapper.user_scripts creating /home/smola/.virtualenvs/premkvirtualenv
+    // ...
+    // virtualenvwrapper.user_scripts creating /home/smola/.virtualenvs/postrmproject
+
 Then, create a Python virtual environment:
 
     mkvirtualenv --no-site-packages ekade
