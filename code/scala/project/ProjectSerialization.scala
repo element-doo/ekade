@@ -19,6 +19,7 @@ object Serialization extends Build with Default with Dependencies {
   lazy val json = (
     scalaProject("Serialization-Json")
     inject(
+      dslHttp
     )
     settings(generatedJava)
   )

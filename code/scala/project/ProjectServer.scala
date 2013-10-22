@@ -8,8 +8,8 @@ object Server extends Build with Default with Dependencies {
       lift
     , jetty
     , logback
+    , ngsCore
 //    , akka
-//    , ngsCore
 //    , jeroMQ
 //    , rabbitMQ
 //    , protobuf
