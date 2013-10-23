@@ -14,14 +14,14 @@ func main() {
 	}
 	defer session.Close()
 
-	col := session.DB("kada").C("pictures")
+	col := session.DB("kada").C("pics")
 
 	app := ripple.NewApplication()
 	picController := NewPictureController(col)
 	app.RegisterController("pictures", picController)
-	app.AddRoute(ripple.Route{Pattern: ":_controller/:id/:type"})
-	app.AddRoute(ripple.Route{Pattern: ":_controller/:id"})
-	app.AddRoute(ripple.Route{Pattern: ":_controller/:type"})
+	app.AddRoute(ripple.Route{Pattern: ":_controller/all/:type"})
+	app.AddRoute(ripple.Route{Pattern: ":_controller/:guid/:type"})
+	app.AddRoute(ripple.Route{Pattern: ":_controller/:guid"})
 	app.AddRoute(ripple.Route{Pattern: ":_controller"})
 
 	app.SetBaseUrl("/api/")
