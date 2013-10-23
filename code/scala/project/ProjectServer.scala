@@ -10,14 +10,11 @@ object Server extends Build with Default with Dependencies {
     , logback
     , ngsCore
 //    , akka
-//    , jeroMQ
 //    , rabbitMQ
-//    , protobuf
 //    , dispatch
 //    , etbUtil
 //    , mimeTypes
-//    , Serialization.json
-//    , Serialization.proto
+      , Email.emailCheck
     )
     settings(liftSettings(10040, "emajliramokade.war"): _*)
   )
