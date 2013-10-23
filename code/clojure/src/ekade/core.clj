@@ -14,5 +14,5 @@
   [& args]
   (let  [conn  (rmq/connect) ch (lch/open conn) qname (:queue-name-incoming (:rmq helpers/config))]
     (println  (format " [main] Connected. Channel id: %d"  (.getChannelNumber ch) " "))
-    (lq/declare ch qname :exclusive false :auto-delete true)
+    (lq/declare ch qname :exclusive false :auto-delete false)
     (lc/subscribe ch qname lequeue/message-handler :auto-ack true)))
