@@ -1,5 +1,6 @@
 Debug
 lib
+ipch
 include
 *.sdf
 *.opensdf
