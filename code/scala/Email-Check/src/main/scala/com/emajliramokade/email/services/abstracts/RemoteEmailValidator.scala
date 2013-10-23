@@ -18,7 +18,7 @@ trait RemoteEmailValidator
     val reqBody = reqStr.getBytes
 
     send(reqBody) map { resBody =>
-      val resStr = new String(resBody, "UTF-8")
+      val resStr = resBody.fromUTF8
       serialization.deserialize[Odgovor](resStr, null)
     }
   }

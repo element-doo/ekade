@@ -38,14 +38,14 @@ class RestListener(
   def odgovorToResponse(odgovor: Odgovor): LiftResponse = {
     val body = serialization.serialize(odgovor)
     val code = if (odgovor.getStatus) 200 else 400
-    PlainTextResponse(body, List("Content-type" -> "application/json; charset=UTF-8"), code)
+    PlainTextResponse(body, List("Content-type" -> s"application/json; charset=$Encoding"), code)
   }
 
   // {"email":"\"Đoni Šiš\" <đonatan.čevapčić@example.com>"}
   def parseBody(req: Req): Try[Zahtjev] =
     Try {
       val body = req.body.openOrThrowException("Tried to open an empty body box")
-      val strBody = new String(body, "UTF-8")
+      val strBody = body.fromUTF8
       serialization.deserialize[Zahtjev](strBody, null)
     }
 

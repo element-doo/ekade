@@ -15,7 +15,7 @@ trait RemoteEmailSender
   def send(email: Email): Future[Odgovor] = {
     val bodyXml = email.toXml
     val bodyStr = prettyPrinter.format(bodyXml)
-    val body = bodyStr.getBytes("UTF-8")
+    val body = bodyStr.toUTF8
 
     val response = send(body)
     // Od responsa napraviti Odgovor, i vratiti

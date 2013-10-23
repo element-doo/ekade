@@ -11,7 +11,7 @@ object Email {
   import org.apache.commons.codec.binary.Base64
 
   private def b64encode(bytes: Array[Byte]): String =
-    new String(Base64.encodeBase64Chunked(bytes), "UTF-8").trim
+    new String(Base64.encodeBase64Chunked(bytes), Encoding).trim
 }
 
 case class Email(

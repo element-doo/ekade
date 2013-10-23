@@ -24,9 +24,9 @@ class EmailXmlSerializationSpec
         addBCC("secret@nkvd.su", "tajna@mossad.il")
         setTextBody("Ovo je vaša kada \\_____/")
         setXHtmlBody(<kada>\_____/</kada>)
-        addAttachment("OpisKade.txt", "Lijepa." getBytes "UTF-8")
-        addAttachment("SchemaKade.xml", "<posuda/>" getBytes "UTF-8")
-        addAttachment("SlikaKade.jpg", "JFIF..." getBytes "UTF-8")
+        addAttachment("OpisKade.txt", "Lijepa.".toUTF8)
+        addAttachment("SchemaKade.xml", "<posuda/>".toUTF8)
+        addAttachment("SlikaKade.jpg", "JFIF...".toUTF8)
       )
 
       Given("an Email:\n" + email)

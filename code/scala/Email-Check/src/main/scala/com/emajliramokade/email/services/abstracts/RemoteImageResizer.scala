@@ -47,7 +47,7 @@ trait RemoteImageResizer
     def nullTerm(length: Int): Array[Byte] = {
       require(s.length > length, "Specified length must be greater then string length")
       val padding = s.length - length
-      s.getBytes("UTF-8").padTo(padding, 0.toByte)
+      s.toUTF8.padTo(padding, 0.toByte)
     }
   }
 

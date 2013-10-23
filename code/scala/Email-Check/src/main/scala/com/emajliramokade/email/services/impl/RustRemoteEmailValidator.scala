@@ -17,9 +17,9 @@ class RustRemoteEmailValidator(
   override def validate(zahtjev: Zahtjev): Future[Odgovor] = {
     zahtjev.getEmail.split('@') toList match {
       case path :: domain :: Nil =>
-        val body = domain.getBytes("UTF-8")
+        val body = domain.toUTF8
         send(body) map { responseBody =>
-          val response = new String(responseBody, "UTF-8")
+          val response = responseBody.fromUTF8
           response match {
             case "YES" => odgovor(true,  "Email domena postoji")
             case "NO"  => odgovor(false, "Email domena ne postoji")
