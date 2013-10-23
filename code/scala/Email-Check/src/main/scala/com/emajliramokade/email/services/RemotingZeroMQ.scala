@@ -21,7 +21,7 @@ trait RemotingZeroMQ extends Remoting with Service {
   private class ZeroSocket() {
     import ZeroSocket._
 
-    val socket = context.socket(ZMQ.REP)
+    val socket = context.socket(ZMQ.REQ)
     socket.connect(serviceUrl)
 
     def send(body: Array[Byte]) {

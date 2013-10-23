@@ -24,6 +24,7 @@ class RustRemoteEmailValidator(
             case "YES" => new Odgovor().setStatus(true).setPoruka("Email domena postoji")
             case "NO"  => new Odgovor().setStatus(false).setPoruka("Email domena ne postoji")
             case "ERR" => new Odgovor().setStatus(false).setPoruka("Došlo je do greške prilikom provjere email domene")
+            case x     => new Odgovor().setStatus(false).setPoruka(s"Nepoznati odgovor ($x)")
           }
         }
       case _ =>
