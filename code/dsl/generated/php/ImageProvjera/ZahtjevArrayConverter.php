@@ -30,7 +30,6 @@ abstract class ZahtjevArrayConverter
     private static function toArrayObject($item)
     {
         $ret = array();
-        $ret['velicinaSlike'] = $item->velicinaSlike;
         $ret['originalnaSlika'] = $item->originalnaSlika->__toString();
         return $ret;
     }
