@@ -247,6 +247,10 @@
     <ClInclude Include="include\wand\wand.h" />
     <ClInclude Include="include\zmq.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Library Include="lib\CORE_RL_wand_.lib" />
+    <Library Include="lib\libzmq-v100-mt-3_2_4.lib" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

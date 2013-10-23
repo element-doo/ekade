@@ -522,4 +522,8 @@
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <Library Include="lib\CORE_RL_wand_.lib" />
+    <Library Include="lib\libzmq-v100-mt-3_2_4.lib" />
+  </ItemGroup>
 </Project>
