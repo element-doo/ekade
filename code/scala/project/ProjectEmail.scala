@@ -11,6 +11,7 @@ object Email extends Build with Default with Dependencies {
     , jeroMQ
     , akka
     , jzmq
+    , rabbitMQ
     , ngsInterfaces
     , Email.emailSender
     , Serialization.json
