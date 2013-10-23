@@ -65,34 +65,39 @@ func (this *PictureController) Get(ctx *ripple.Context) {
 
 }
 
-func (this *PictureController) Post(ctx *ripple.Context) {
+func (this *PictureController) postPut(ctx *ripple.Context) {
 	var g = ctx.Params["guid"]
 	body, _ := ioutil.ReadAll(ctx.Request.Body)
 	if len(g) > 0 {
+
 		var pic = Picture{GUID: g}
 		json.Unmarshal(body, &pic)
-		info, _ := this.col.Upsert(pic, pic)
-		fmt.Println(info)
+
+		var result *Picture
+
+		this.col.Find(bson.M{"guid": g}).One(&result)
+
+		if result != nil {
+			fmt.Println("update:")
+			this.col.Update(bson.M{"guid": g}, pic)
+		} else {
+			fmt.Println("insert:")
+			this.col.Upsert(pic, pic)
+		}
 		ctx.Response.Status = http.StatusOK
 		ctx.Response.Body = pic
+
 	} else {
 		ctx.Response.Status = http.StatusNotFound
 	}
 }
 
+func (this *PictureController) Post(ctx *ripple.Context) {
+	this.postPut(ctx)
+}
+
 func (this *PictureController) Put(ctx *ripple.Context) {
-	var g = ctx.Params["guid"]
-	body, _ := ioutil.ReadAll(ctx.Request.Body)
-	if len(g) > 0 {
-		var pic = Picture{GUID: g}
-		json.Unmarshal(body, &pic)
-		info, _ := this.col.Upsert(pic, pic)
-		fmt.Println(info)
-		ctx.Response.Status = http.StatusOK
-		ctx.Response.Body = pic
-	} else {
-		ctx.Response.Status = http.StatusNotFound
-	}
+	this.postPut(ctx)
 }
 
 func (this *PictureController) Delete(ctx *ripple.Context) {
@@ -104,7 +109,6 @@ func (this *PictureController) Delete(ctx *ripple.Context) {
 		} else {
 			ctx.Response.Status = http.StatusOK
 		}
-		ctx.Response.Status = http.StatusOK
 	} else {
 		ctx.Response.Status = http.StatusNotFound
 	}
