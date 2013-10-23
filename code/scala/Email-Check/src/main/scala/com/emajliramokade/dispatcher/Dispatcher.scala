@@ -1,3 +1,4 @@
+/*
 package com.emajliramokade
 package dispatcher
 
@@ -27,3 +28,4 @@ class Dispatcher(
     new Odgovor().setStatus(combinedStatus).setPoruka(combinedPoruka)
   }
 }
+*/

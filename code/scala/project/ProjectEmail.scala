@@ -8,6 +8,7 @@ object Email extends Build with Default with Dependencies {
       dispatch
     , jeroMQ
     , akka
+    , Email.emailSender
     , Serialization.json
     , Serialization.proto
     )
@@ -25,7 +26,7 @@ object Email extends Build with Default with Dependencies {
   lazy val emailSender = (
     scalaProject("Email-Sender")
     inject(
-      emailModel
+      Email.emailModel
     , rabbitMQ
     )
   )

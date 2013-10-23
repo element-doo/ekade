@@ -1,3 +1,4 @@
+/*
 package com.emajliramokade
 package comms
 
@@ -64,3 +65,5 @@ object ZeroMQTest{
     s"ODGOVOR OD [$envelope]: $zahtjev"
   }
 }
+*/
+

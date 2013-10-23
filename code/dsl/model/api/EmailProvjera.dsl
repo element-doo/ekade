@@ -1,4 +1,4 @@
-module Api
+module EmailProvjera
 {
   value Zahtjev {
     String  email;

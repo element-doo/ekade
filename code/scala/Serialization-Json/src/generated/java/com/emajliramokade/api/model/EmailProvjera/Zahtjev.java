@@ -1,4 +1,4 @@
-package com.emajliramokade.api.model.Api;
+package com.emajliramokade.api.model.EmailProvjera;
 
 public final class Zahtjev implements java.io.Serializable {
     public Zahtjev(

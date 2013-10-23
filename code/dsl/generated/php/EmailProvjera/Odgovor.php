@@ -1,5 +1,5 @@
 <?php
-namespace Api;
+namespace EmailProvjera;
 
 require_once __DIR__.'/OdgovorJsonConverter.php';
 require_once __DIR__.'/OdgovorArrayConverter.php';
@@ -10,7 +10,7 @@ require_once __DIR__.'/OdgovorArrayConverter.php';
  * @property bool $status a boolean value
  * @property string $poruka a string
  *
- * @package Api
+ * @package EmailProvjera
  * @version 0.9.9 beta
  */
 class Odgovor implements \IteratorAggregate
@@ -19,9 +19,9 @@ class Odgovor implements \IteratorAggregate
     protected $poruka;
 
     /**
-     * Constructs object using a key-property array or instance of class "Api\Odgovor"
+     * Constructs object using a key-property array or instance of class "EmailProvjera\Odgovor"
      *
-     * @param array|void $data key-property array or instance of class "Api\Odgovor" or pass void to provide all fields with defaults
+     * @param array|void $data key-property array or instance of class "EmailProvjera\Odgovor" or pass void to provide all fields with defaults
      */
     public function __construct($data = array())
     {
@@ -62,7 +62,7 @@ class Odgovor implements \IteratorAggregate
         unset($data['poruka']);
 
         if (count($data) !== 0 && \NGS\Utils::WarningsAsErrors())
-            throw new \InvalidArgumentException('Superflous array keys found in "Api\Odgovor" constructor: '.implode(', ', array_keys($data)));
+            throw new \InvalidArgumentException('Superflous array keys found in "EmailProvjera\Odgovor" constructor: '.implode(', ', array_keys($data)));
     }
 
 // ============================================================================
@@ -97,7 +97,7 @@ class Odgovor implements \IteratorAggregate
         if ($name === 'poruka')
             return $this->getPoruka(); // a string
 
-        throw new \InvalidArgumentException('Property "'.$name.'" in class "Api\Odgovor" does not exist and could not be retrieved!');
+        throw new \InvalidArgumentException('Property "'.$name.'" in class "EmailProvjera\Odgovor" does not exist and could not be retrieved!');
     }
 
 // ============================================================================
@@ -159,7 +159,7 @@ class Odgovor implements \IteratorAggregate
             return $this->setStatus($value); // a boolean value
         if ($name === 'poruka')
             return $this->setPoruka($value); // a string
-        throw new \InvalidArgumentException('Property "'.$name.'" in class "Api\Odgovor" does not exist and could not be set!');
+        throw new \InvalidArgumentException('Property "'.$name.'" in class "EmailProvjera\Odgovor" does not exist and could not be set!');
     }
 
     /**
@@ -177,27 +177,27 @@ class Odgovor implements \IteratorAggregate
 
     public function toJson()
     {
-        return \Api\OdgovorJsonConverter::toJson($this);
+        return \EmailProvjera\OdgovorJsonConverter::toJson($this);
     }
 
     public static function fromJson($item)
     {
-        return \Api\OdgovorJsonConverter::fromJson($item);
+        return \EmailProvjera\OdgovorJsonConverter::fromJson($item);
     }
 
     public function __toString()
     {
-        return 'Api\Odgovor'.$this->toJson();
+        return 'EmailProvjera\Odgovor'.$this->toJson();
     }
 
     public function __clone()
     {
-        return \Api\OdgovorArrayConverter::fromArray(\Api\OdgovorArrayConverter::toArray($this));
+        return \EmailProvjera\OdgovorArrayConverter::fromArray(\EmailProvjera\OdgovorArrayConverter::toArray($this));
     }
 
     public function toArray()
     {
-        return \Api\OdgovorArrayConverter::toArray($this);
+        return \EmailProvjera\OdgovorArrayConverter::toArray($this);
     }
 
     /**
@@ -207,6 +207,6 @@ class Odgovor implements \IteratorAggregate
      */
     public function getIterator()
     {
-        return new \ArrayIterator(\Api\OdgovorArrayConverter::toArray($this));
+        return new \ArrayIterator(\EmailProvjera\OdgovorArrayConverter::toArray($this));
     }
 }
