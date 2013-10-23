@@ -1,4 +1,4 @@
-RUSTC=rustc
+RUSTC=rust-0.8/x86_64-unknown-linux-gnu/stage2/bin/rustc
 
 all: server client
 
