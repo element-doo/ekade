@@ -3,17 +3,14 @@ package server
 package api
 package rest
 
-import net.liftweb.http.{PlainTextResponse, Req}
+import com.emajliramokade.api.model.Api._
+import net.liftweb.http._
 import net.liftweb.http.rest.RestHelper
 import org.slf4j.Logger
-import net.liftweb.http.PostRequest
-import scala.util.Try
-import scala.util.Success
-import scala.util.Failure
-import net.liftweb.http.LiftResponse
-import scala.concurrent.Await
+import scala.util._
+import scala.concurrent._
 import scala.concurrent.duration._
-import hr.ngs.patterns.ISerialization
+import hr.ngs.patterns._
 
 class RestListener(
     logger: Logger
