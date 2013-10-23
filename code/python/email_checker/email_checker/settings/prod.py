@@ -3,6 +3,8 @@ from .base import *
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
+ALLOWED_HOSTS = ['www.emajliramokade.com', 'emajliramokade.com']
+
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
