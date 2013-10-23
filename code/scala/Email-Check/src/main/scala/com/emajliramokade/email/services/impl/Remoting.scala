@@ -1,12 +1,12 @@
 package com.emajliramokade
-package services.impl
+package email.services
+package impl
 
-import scala.concurrent.Future
+import api.model.EmailProvjera.{ Odgovor, Zahtjev }
+
 import dispatch._
 import hr.ngs.patterns.ISerialization
-import com.emajliramokade.api.model.Api.Odgovor
-import com.emajliramokade.api.model.Api.Zahtjev
-import com.emajliramokade.server.api.Locator
+import scala.concurrent.Future
 
 trait Remoting {
   val serialization: ISerialization[String]
@@ -26,7 +26,7 @@ trait Remoting {
 
     sendRaw(reqBody) map { resBody =>
       val resStr = new String(resBody, "UTF-8")
-      serialization.deserialize[Odgovor](resStr, Locator)
+      serialization.deserialize[Odgovor](resStr, null)
     }
   }
 }

@@ -1,4 +1,6 @@
-package com.emajliramokade.services.impl
+package com.emajliramokade
+package email.services
+package impl
 
 import hr.ngs.patterns.ISerialization
 

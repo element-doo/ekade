@@ -1,7 +1,8 @@
-package com.emajliramokade.services
+package com.emajliramokade
+package email.services
 
-import scala.concurrent.Future
 import hr.element.onebyseven.common.MimeType
+import scala.concurrent.Future
 
 case class ResizeTarget(
     width: Int

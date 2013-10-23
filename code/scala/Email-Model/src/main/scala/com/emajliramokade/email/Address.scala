@@ -1,4 +1,5 @@
-package com.emajliramokade.email
+package com.emajliramokade
+package email
 
 sealed abstract class Address(email: String, name: Option[String]) {
   override val toString = name match {

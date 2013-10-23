@@ -1,4 +1,5 @@
-package com.emajliramokade.email
+package com.emajliramokade
+package email
 
 import scala.xml.Elem
 import scalax.file.Path

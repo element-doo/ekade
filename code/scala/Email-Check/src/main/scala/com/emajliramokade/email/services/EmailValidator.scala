@@ -1,7 +1,9 @@
-package com.emajliramokade.email.services
+package com.emajliramokade
+package email.services
+
+import api.model.EmailProvjera.{ Odgovor, Zahtjev }
 
 import scala.concurrent.Future
-import com.emajliramokade.api.model.Api.{Odgovor, Zahtjev}
 
 trait EmailValidator {
   def validate(zahtjev: Zahtjev): Future[Odgovor]

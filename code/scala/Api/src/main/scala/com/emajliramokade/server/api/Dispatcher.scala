@@ -1,13 +1,13 @@
-/*
 package com.emajliramokade
-package dispatcher
+package server.api
 
-import com.emajliramokade.api.model.Api.Zahtjev
+import api.model.EmailProvjera.{ Odgovor, Zahtjev }
+import email.services.EmailValidator
+
 import scala.concurrent.Future
-import com.emajliramokade.api.model.Api.Odgovor
 
 class Dispatcher(
-    evList: Array[services.EmailValidator]) {
+    evList: Array[EmailValidator]) {
 
   def dispatch(zahtjev: Zahtjev): Future[Odgovor] = {
     val emailOdgovorRawFuture = evList map { ev =>
@@ -28,4 +28,3 @@ class Dispatcher(
     new Odgovor().setStatus(combinedStatus).setPoruka(combinedPoruka)
   }
 }
-*/

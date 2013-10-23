@@ -1,12 +1,11 @@
 package com.emajliramokade
-package services.impl
+package email.services
+package impl
 
-import com.emajliramokade.services.ImageResizer
-import scala.concurrent.Future
-import com.emajliramokade.services.ResizeTarget
+import java.lang.{ Byte => JByte, Integer => JInt, Short => JShort }
 import java.nio.ByteBuffer
-import java.lang.{ Integer => JInt, Byte => JByte }
 import java.nio.ByteOrder
+import scala.concurrent.Future
 
 abstract class CLispImageResizer extends ImageResizer with Remoting {
   def serviceUrl: String
@@ -54,7 +53,16 @@ abstract class CLispImageResizer extends ImageResizer with Remoting {
     def lsb32: Array[Byte] =
       ByteBuffer
         .allocate(JInt.SIZE / JByte.SIZE)
-        .order(ByteOrder.LITTLE_ENDIAN)
+        .order(ByteOrder.BIG_ENDIAN)
+        .putInt(i)
+        .array
+  }
+
+  private implicit class RichShort(i: Short) {
+    def lsb32: Array[Byte] =
+        ByteBuffer
+        .allocate(JShort.SIZE / JByte.SIZE)
+        .order(ByteOrder.BIG_ENDIAN)
         .putInt(i)
         .array
   }

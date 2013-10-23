@@ -1,8 +1,9 @@
-package com.emajliramokade.email
+package com.emajliramokade
+package email
 package xml
 
-import scala.xml.NodeSeq
 import hr.element.etb.Pimps._
+import scala.xml.NodeSeq
 
 import org.apache.commons.codec.binary.Base64
 
