@@ -7,12 +7,11 @@ import java.lang.{Byte => JByte, Integer => JInt}
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 import scala.concurrent.Future
-import com.emajliramokade.email.services.impl.Remoting
 import java.lang.{Byte => JByte}
 import java.lang.{Integer => JInt}
 import scala.Array.canBuildFrom
 
-abstract class RemoteImageResizer extends interfaces.ImageResizer with Remoting {
+abstract class RemoteImageResizer extends interfaces.ImageResizer with RemotingDispatch {
   def serviceUrl: String
 
   def resize(original: Array[Byte], resizeTargetList: Seq[ResizeZahtjev]): Future[Map[ResizeZahtjev, Slika]] = {
@@ -24,7 +23,7 @@ abstract class RemoteImageResizer extends interfaces.ImageResizer with Remoting 
 
     val reqArr: Array[Byte] = payloadArr ++ targetCountArr ++ targetArr
 
-    sendRaw(reqArr) map { resArr =>
+    send(reqArr) map { resArr =>
       val slikaList = parseRes(resArr) map new Slika().setBody
       resizeTargetList zip slikaList toMap
     }
