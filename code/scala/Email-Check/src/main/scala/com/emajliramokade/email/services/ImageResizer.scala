@@ -1,19 +1,13 @@
 package com.emajliramokade
 package email.services
 
-import hr.element.onebyseven.common.MimeType
-import scala.concurrent.Future
+import api.model.ImageResize.{ ResizeZahtjev, Slika }
 
-case class ResizeTarget(
-    width: Int
-  , height: Int
-  , depth: Short
-  , format: MimeType
-  )
+import scala.concurrent.Future
 
 trait ImageResizer {
   def resize(
     original: Array[Byte]
-  , resizeTargetList: Seq[ResizeTarget]
-  ): Future[Map[ResizeTarget, Array[Byte]]]
+  , resizeTargetList: Seq[ResizeZahtjev]
+  ): Future[Map[ResizeZahtjev, Slika]]
 }

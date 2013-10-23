@@ -2,25 +2,28 @@ package com.emajliramokade
 package email.services
 package impl
 
+import api.model.ImageResize.{ ResizeZahtjev, Slika }
+
 import java.lang.{ Byte => JByte, Integer => JInt, Short => JShort }
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 import scala.concurrent.Future
 
-abstract class CLispImageResizer extends ImageResizer with Remoting {
+abstract class RemoteImageResizer extends ImageResizer with Remoting {
   def serviceUrl: String
 
-  def resize(original: Array[Byte], resizeTargetList: Seq[ResizeTarget]): Future[Map[(ResizeTarget), Array[Byte]]] = {
+  def resize(original: Array[Byte], resizeTargetList: Seq[ResizeZahtjev]): Future[Map[ResizeZahtjev, Slika]] = {
     val targetSeqList  = resizeTargetList map resizeTargetToBA
 
-    val payloadArr:     Array[Byte] = original.size.lsb32 ++ original
-    val targetCountArr: Array[Byte] = resizeTargetList.size.lsb32
+    val payloadArr:     Array[Byte] = original.size.be32 ++ original
+    val targetCountArr: Array[Byte] = resizeTargetList.size.be32
     val targetArr:      Array[Byte] = targetSeqList.flatten.toArray
 
     val reqArr: Array[Byte] = payloadArr ++ targetCountArr ++ targetArr
 
     sendRaw(reqArr) map { resArr =>
-      resizeTargetList zip parseRes(resArr) toMap
+      val slikaList = parseRes(resArr) map new Slika().setBody
+      resizeTargetList zip slikaList toMap
     }
   }
 
@@ -38,8 +41,8 @@ abstract class CLispImageResizer extends ImageResizer with Remoting {
     doParseRes(res, Array())
   }
 
-  private def resizeTargetToBA(rt: ResizeTarget): Array[Byte] =
-    rt.width.lsb32 ++ rt.height.lsb32 ++ rt.depth.lsb32 ++ rt.format.name.nullTerm(5)
+  private def resizeTargetToBA(rt: ResizeZahtjev): Array[Byte] =
+    rt.getWidth.be32 ++ rt.getHeight.be32 ++ Array(rt.getDepth.toByte) ++ rt.getFormat.nullTerm(5)
 
   private implicit class RichString(s: String) {
     def nullTerm(length: Int): Array[Byte] = {
@@ -50,18 +53,9 @@ abstract class CLispImageResizer extends ImageResizer with Remoting {
   }
 
   private implicit class RichInt(i: Int) {
-    def lsb32: Array[Byte] =
+    def be32: Array[Byte] =
       ByteBuffer
         .allocate(JInt.SIZE / JByte.SIZE)
-        .order(ByteOrder.BIG_ENDIAN)
-        .putInt(i)
-        .array
-  }
-
-  private implicit class RichShort(i: Short) {
-    def lsb32: Array[Byte] =
-        ByteBuffer
-        .allocate(JShort.SIZE / JByte.SIZE)
         .order(ByteOrder.BIG_ENDIAN)
         .putInt(i)
         .array
