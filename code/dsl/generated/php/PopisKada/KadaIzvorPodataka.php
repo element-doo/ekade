@@ -12,6 +12,7 @@ require_once __DIR__.'/KadaIzvorPodatakaArrayConverter.php';
  * @property \NGS\Timestamp $odbijena a timestamp with time zone, can be null (read-only)
  * @property int $brojacSlanja an integer number (read-only)
  * @property \NGS\Timestamp $dodana a timestamp with time zone (read-only)
+ * @property Resursi\SlikeKade $slikeKade an array of objects of class "Resursi\SlikeKade" (read-only)
  *
  * @package PopisKada
  * @version 0.9.9 beta
@@ -23,6 +24,7 @@ class KadaIzvorPodataka extends \NGS\Patterns\Identifiable implements \IteratorA
     protected $odbijena;
     protected $brojacSlanja;
     protected $dodana;
+    protected $slikeKade;
 
     /**
      * Constructs object using a key-property array or instance of class "PopisKada\KadaIzvorPodataka"
@@ -49,6 +51,8 @@ class KadaIzvorPodataka extends \NGS\Patterns\Identifiable implements \IteratorA
             $data['brojacSlanja'] = 0; // an integer number
         if(!array_key_exists('dodana', $data))
             $data['dodana'] = new \NGS\Timestamp(); // a timestamp with time zone
+        if(!array_key_exists('slikeKade', $data))
+            $data['slikeKade'] = array(); // an array of objects of class "Resursi\SlikeKade"
     }
 
     /**
@@ -76,6 +80,9 @@ class KadaIzvorPodataka extends \NGS\Patterns\Identifiable implements \IteratorA
         if (isset($data['dodana']))
             $this->dodana = new \NGS\Timestamp($data['dodana']);
         unset($data['dodana']);
+        if (isset($data['slikeKade']))
+            $this->slikeKade = \Resursi\SlikeKadeArrayConverter::fromArrayList($data['slikeKade'], false);
+        unset($data['slikeKade']);
 
         if (count($data) !== 0 && \NGS\Utils::WarningsAsErrors())
             throw new \InvalidArgumentException('Superflous array keys found in "PopisKada\KadaIzvorPodataka" constructor: '.implode(', ', array_keys($data)));
@@ -127,6 +134,14 @@ class KadaIzvorPodataka extends \NGS\Patterns\Identifiable implements \IteratorA
     }
 
     /**
+     * @return an array of objects of class "Resursi\SlikeKade"
+     */
+    public function getSlikeKade()
+    {
+        return $this->slikeKade;
+    }
+
+    /**
      * Property getter which throws Exceptions on invalid access
      *
      * @param string $name Property name
@@ -145,6 +160,8 @@ class KadaIzvorPodataka extends \NGS\Patterns\Identifiable implements \IteratorA
             return $this->getBrojacSlanja(); // an integer number
         if ($name === 'dodana')
             return $this->getDodana(); // a timestamp with time zone
+        if ($name === 'slikeKade')
+            return $this->getSlikeKade(); // an array of objects of class "Resursi\SlikeKade"
 
         throw new \InvalidArgumentException('Property "'.$name.'" in class "PopisKada\KadaIzvorPodataka" does not exist and could not be retrieved!');
     }
@@ -170,6 +187,8 @@ class KadaIzvorPodataka extends \NGS\Patterns\Identifiable implements \IteratorA
             return true; // an integer number (always set)
         if ($name === 'dodana')
             return true; // a timestamp with time zone (always set)
+        if ($name === 'slikeKade')
+            return true; // an array of objects of class "Resursi\SlikeKade" (always set)
 
         return false;
     }

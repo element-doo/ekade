@@ -31,8 +31,8 @@ abstract class KadaDodanaArrayConverter
     {
         $ret = array();
         $ret['URI'] = $item->URI;
-        $ret['kadaID'] = $item->kadaID->__toString();
         $ret['komentar'] = $item->komentar;
+        $ret['kadaID'] = $item->kadaID->__toString();
         return $ret;
     }
 

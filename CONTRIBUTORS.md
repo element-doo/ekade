@@ -11,6 +11,7 @@ employer or other contracts, and that I license this work under the
 * Tomo Ferega (tomo at element dot hr)
 * Marin Luketin marin.luketin@gmail.com
 * Robert Petranović (robert at ngs dot hr)
+* Senko Rašić (senko dot rasic at goodcode dot io)
 
 [bsd]: http://opensource.org/licenses/BSD-3-Clause
 [kilroy]: https://en.wikipedia.org/wiki/Kilroy_was_here

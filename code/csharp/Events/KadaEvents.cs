@@ -5,7 +5,7 @@ using PopisKada;
 
 namespace EmajliramoKade
 {
-	public class EmajliramoKadeEvents:
+	public class KadaEvents:
 		IDomainEventHandler<KadaDodana>,
 		IDomainEventHandler<KadaOdobrena>,
 		IDomainEventHandler<KadaOdbijena>,
@@ -13,7 +13,7 @@ namespace EmajliramoKade
 	{
 		private readonly IPersistableRepository<Kada> Kade;
 
-		public EmajliramoKadeEvents(IPersistableRepository<Kada> kade)
+		public KadaEvents(IPersistableRepository<Kada> kade)
 		{
 			this.Kade = kade;
 		}

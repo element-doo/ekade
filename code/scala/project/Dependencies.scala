@@ -23,11 +23,11 @@ trait Dependencies  {
   val mimeTypes     = "hr.element.onebyseven.common" % "mimetypes" % "2013-10-21"
 
   val jeroMQ        = "org.jeromq" % "jeromq" % "0.2.0"
-
-  val protobuf      = "com.google.protobuf" % "protobuf-java" % "2.5.0"
   val rabbitMQ      = "com.rabbitmq" % "amqp-client" % "3.1.4"
+  val protobuf      = "com.google.protobuf" % "protobuf-java" % "2.5.0"
   val akka          = "com.typesafe.akka" %% "akka-actor" % "2.2.1"
 
+  val dslHttp       = "com.dslplatform" % "dsl-client-http" % "0.4.13" 
   val dispatch      = "net.databinder.dispatch" %% "dispatch-core" % "0.11.0"
 
   val scalaTest     = Seq(
