@@ -22,13 +22,6 @@ On Debian/Ubuntu systems, to install all of the above, run:
 
     apt-get install python-dev python-virtualenv python-pip virtualenvwrapper memcached
 
-Reload your shell to load the virtualenvs, it should output something like:
-
-    // virtualenvwrapper.user_scripts creating /home/smola/.virtualenvs/initialize
-    // virtualenvwrapper.user_scripts creating /home/smola/.virtualenvs/premkvirtualenv
-    // ...
-    // virtualenvwrapper.user_scripts creating /home/smola/.virtualenvs/postrmproject
-
 Then, create a Python virtual environment:
 
     mkvirtualenv --no-site-packages ekade
@@ -55,7 +48,7 @@ a valid email, or 400, which indicates an invalid email.
 
 Example:
 
-    curl -F 'email=foo@bar.com' http://localhost:8000/api/v1/check/
+    curl -F 'email=foo@bar.com' http://localhost:10080/api/v1/check/
 
 Response:
 
@@ -64,7 +57,7 @@ Response:
 JSON requests are also valid:
 
     curl -H 'Content-Type: application/json' -X POST \
-        -d '{"email":"foo@bar.com"}' http://localhost:8000/api/v1/check/
+        -d '{"email":"foo@bar.com"}' http://localhost:10080/api/v1/check/
 
 ## Tests
 
@@ -88,6 +81,9 @@ This will create a `htmlcov` directory with a bunch of HTML files. Open
 If you want to have a different local development settings, create
 a `email_checker/settings/local.py` with your settings. It will be imported
 if it exists. Use the `email_checker/settings/prod.py` as a template.
+
+The ALLOWED_HOSTS setting is ignored if DEBUG=True but if not, be sure to set it 
+accordingly in the aforementioned local.py setting file.
 
 ## Why?
 
