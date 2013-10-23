@@ -4,7 +4,7 @@ import Keys._
 object Serialization extends Build with Default with Dependencies {
   val generatedJava =
     unmanagedSourceDirectories in Compile := Seq(
-      (javaSource in Compile).value / ".." / ".." / "generated" / "java"
+      (javaSource in Compile).value.getParentFile.getParentFile / "generated" / "java"
     , (scalaSource in Compile).value
     )
 
