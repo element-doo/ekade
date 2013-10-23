@@ -11,8 +11,12 @@ import (
 )
 
 type Picture struct {
-	Id   bson.ObjectId "_id,omitempty"
-	Data string
+	Id        bson.ObjectId "_id,omitempty"
+	GUID      string        `json:"guid,omitempty"`
+	Thumbnail string        `json:"thumbnail,omitempty"`
+	Original  string        `json:"original,omitempty"`
+	Email     string        `json:"email,omitempty"`
+	Web       string        `json:"web,omitempty"`
 }
 
 type PictureController struct {
@@ -26,62 +30,82 @@ func NewPictureController(col *mgo.Collection) *PictureController {
 }
 
 func (this *PictureController) Get(ctx *ripple.Context) {
+	var g = ctx.Params["guid"]
+	var t = ctx.Params["type"]
 
-	if ctx.Params["id"] != "" {
-		if bson.IsObjectIdHex(ctx.Params["id"]) {
-			picId := bson.ObjectIdHex(ctx.Params["id"])
-			var result Picture
-			err := this.col.FindId(picId).One(&result)
-			if err != nil {
-				ctx.Response.Body = err
-			} else {
-				ctx.Response.Body = result
+	if len(g) > 0 {
+		var result *Picture
+		query := this.col.Find(bson.M{"guid": g})
+		if len(t) > 0 {
+			if t != "all" {
+				query.Select(bson.M{"guid": 1, t: 1})
 			}
+		}
+		err := query.One(&result)
+		if err != nil {
+			ctx.Response.Body = err
 		} else {
-			// ?? 422 Unprocessable Entity is returned if the ID of a resource that is specified in the request body cannot be resolved.
-			ctx.Response.Status = http.StatusNotFound
+			ctx.Response.Body = result
 		}
 	} else {
 		var result []Picture
-		err := this.col.Find(nil).All(&result)
+		query := this.col.Find(nil)
+		if len(t) > 0 {
+			if t != "all" {
+				query.Select(bson.M{"guid": 1, t: 1})
+			}
+		}
+		err := query.All(&result)
 		if err != nil {
 			ctx.Response.Body = err
 		} else {
 			ctx.Response.Body = result
 		}
 	}
+
 }
 
 func (this *PictureController) Post(ctx *ripple.Context) {
+	var g = ctx.Params["guid"]
 	body, _ := ioutil.ReadAll(ctx.Request.Body)
-	var pic Picture
-	json.Unmarshal(body, &pic)
-	info, _ := this.col.Upsert(pic, pic)
-	fmt.Println(info)
-	ctx.Response.Body = pic
+	if len(g) > 0 {
+		var pic = Picture{GUID: g}
+		json.Unmarshal(body, &pic)
+		info, _ := this.col.Upsert(pic, pic)
+		fmt.Println(info)
+		ctx.Response.Status = http.StatusOK
+		ctx.Response.Body = pic
+	} else {
+		ctx.Response.Status = http.StatusNotFound
+	}
 }
 
 func (this *PictureController) Put(ctx *ripple.Context) {
+	var g = ctx.Params["guid"]
 	body, _ := ioutil.ReadAll(ctx.Request.Body)
-	var pic Picture
-	json.Unmarshal(body, &pic)
-	this.col.Upsert(pic, pic)
-	ctx.Response.Body = pic
+	if len(g) > 0 {
+		var pic = Picture{GUID: g}
+		json.Unmarshal(body, &pic)
+		info, _ := this.col.Upsert(pic, pic)
+		fmt.Println(info)
+		ctx.Response.Status = http.StatusOK
+		ctx.Response.Body = pic
+	} else {
+		ctx.Response.Status = http.StatusNotFound
+	}
 }
 
 func (this *PictureController) Delete(ctx *ripple.Context) {
-	if ctx.Params["id"] != "" {
-		if bson.IsObjectIdHex(ctx.Params["id"]) {
-			picId := bson.ObjectIdHex(ctx.Params["id"])
-			err := this.col.RemoveId(picId)
-			if err != nil {
-				ctx.Response.Body = err
-			} else {
-				ctx.Response.Status = http.StatusOK
-			}
+	var g = ctx.Params["guid"]
+	if len(g) > 0 {
+		err := this.col.Remove(bson.M{"guid": g})
+		if err != nil {
+			ctx.Response.Body = err
 		} else {
-			// ?? 422 Unprocessable Entity is returned if the ID of a resource that is specified in the request body cannot be resolved.
-			ctx.Response.Status = http.StatusNotFound
+			ctx.Response.Status = http.StatusOK
 		}
+		ctx.Response.Status = http.StatusOK
+	} else {
+		ctx.Response.Status = http.StatusNotFound
 	}
 }
