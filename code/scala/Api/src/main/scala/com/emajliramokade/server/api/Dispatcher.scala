@@ -2,7 +2,7 @@ package com.emajliramokade
 package server.api
 
 import api.model.EmailProvjera.{ Odgovor, Zahtjev }
-import email.services.EmailValidator
+import email.services.interfaces.EmailValidator
 
 import scala.concurrent.Future
 

@@ -1,15 +1,14 @@
 package com.emajliramokade
 package email.services
-package impl
+package abstracts
 
 import api.model.EmailProvjera.Odgovor
 import email.Email
-
-import com.rabbitmq.client.{ Channel, Connection, ConnectionFactory }
+import com.rabbitmq.client.ConnectionFactory
 import scala.concurrent.Future
 import scala.xml.PrettyPrinter
 
-abstract class RemoteEmailSender() extends EmailSender {
+abstract class RemoteEmailSender() extends interfaces.EmailSender {
   def serviceUrl: String
 
   val prettyPrinter = new PrettyPrinter(200, 2)

@@ -1,15 +1,18 @@
 package com.emajliramokade
 package email.services
-package impl
+package abstracts
 
 import api.model.ImageResize.{ ResizeZahtjev, Slika }
-
-import java.lang.{ Byte => JByte, Integer => JInt, Short => JShort }
+import java.lang.{Byte => JByte, Integer => JInt}
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 import scala.concurrent.Future
+import com.emajliramokade.email.services.impl.Remoting
+import java.lang.{Byte => JByte}
+import java.lang.{Integer => JInt}
+import scala.Array.canBuildFrom
 
-abstract class RemoteImageResizer extends ImageResizer with Remoting {
+abstract class RemoteImageResizer extends interfaces.ImageResizer with Remoting {
   def serviceUrl: String
 
   def resize(original: Array[Byte], resizeTargetList: Seq[ResizeZahtjev]): Future[Map[ResizeZahtjev, Slika]] = {

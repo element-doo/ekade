@@ -1,14 +1,14 @@
 package com.emajliramokade
 package email.services
-package impl
+package abstracts
 
 import api.model.EmailProvjera.{ Odgovor, Zahtjev }
-
 import hr.ngs.patterns.ISerialization
 import scala.concurrent.Future
+import com.emajliramokade.email.services.impl.Remoting
 
 abstract class RemoteEmailValidator(
-    val serialization: ISerialization[String]) extends EmailValidator with Remoting {
+    val serialization: ISerialization[String]) extends interfaces.EmailValidator with Remoting {
   def serviceUrl: String
 
   def validate(zahtjev: Zahtjev): Future[Odgovor] =

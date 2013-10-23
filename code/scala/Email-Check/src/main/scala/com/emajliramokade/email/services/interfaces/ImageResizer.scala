@@ -1,5 +1,6 @@
 package com.emajliramokade
 package email.services
+package interfaces
 
 import api.model.ImageResize.{ ResizeZahtjev, Slika }
 

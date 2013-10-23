@@ -1,13 +1,13 @@
 package com.emajliramokade
 package email.services
-package impl
+package abstracts
 
 import image.proto.ImageProvjera.{ Odgovor, Zahtjev }
 
 import org.zeromq.ZMQ
 import scala.concurrent.Future
 
-abstract class RemoteImageVerifier extends ImageVerifier {
+abstract class RemoteImageVerifier extends interfaces.ImageVerifier {
   def serviceUrl: String
   def context: ZMQ.Context
 
