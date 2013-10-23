@@ -2,6 +2,7 @@ import sbt._
 import Keys._
 
 object Server extends Build with Default with Dependencies {
+  // Root project. Container and central dispatcher.
   lazy val api = (
     scalaProject("Api")
     inject(
@@ -14,7 +15,8 @@ object Server extends Build with Default with Dependencies {
 //    , dispatch
 //    , etbUtil
 //    , mimeTypes
-      , Email.emailCheck
+      , Services.root
+      , Util.root
     )
     settings(liftSettings(10040, "emajliramokade.war"): _*)
   )

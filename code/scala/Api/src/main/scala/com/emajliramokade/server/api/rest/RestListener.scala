@@ -1,21 +1,22 @@
 package com.emajliramokade
-package server
-package api
+package server.api
 package rest
 
-import com.emajliramokade.api.model.Api._
-import net.liftweb.http._
+import api.model.EmailProvjera.{ Odgovor, Zahtjev }
+
+import hr.ngs.patterns.ISerialization
+import net.liftweb.http.{ LiftResponse, PlainTextResponse, PostRequest, Req }
 import net.liftweb.http.rest.RestHelper
 import org.slf4j.Logger
-import scala.util._
-import scala.concurrent._
+import scala.concurrent.Await
 import scala.concurrent.duration._
-import hr.ngs.patterns._
+import scala.util.{ Failure, Success, Try }
+
 
 class RestListener(
     logger: Logger
   , serialization: ISerialization[String]
-//  , dispatcher: Dispatcher
+  , dispatcher: Dispatcher
   ) extends RestHelper {
 
   serve {
@@ -37,15 +38,15 @@ class RestListener(
   def odgovorToResponse(odgovor: Odgovor): LiftResponse = {
     val body = serialization.serialize(odgovor)
     val code = if (odgovor.getStatus) 200 else 400
-    PlainTextResponse(body, List("Content-type" -> "application/json; charset=UTF-8"), code)
+    PlainTextResponse(body, List("Content-type" -> s"application/json; charset=$Encoding"), code)
   }
 
   // {"email":"\"Đoni Šiš\" <đonatan.čevapčić@example.com>"}
   def parseBody(req: Req): Try[Zahtjev] =
     Try {
-      val body = req.body.openTheBox
-      val strBody = new String(body, "UTF-8")
-      serialization.deserialize[Zahtjev](strBody, Locator)
+      val body = req.body.openOrThrowException("Tried to open an empty body box")
+      val strBody = body.fromUTF8
+      serialization.deserialize[Zahtjev](strBody, null)
     }
 
   // Map(email -> List("Đoni Šiš" <đonatan.čevapčić@example.com>))

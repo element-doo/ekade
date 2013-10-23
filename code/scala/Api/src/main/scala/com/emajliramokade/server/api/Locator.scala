@@ -1,9 +1,13 @@
 package com.emajliramokade
-package server
-package api
+package server.api
 
-import hr.ngs.patterns._
+import services.impl.{ FakeEmailValidator, LaravelRemoteEmailValidator }
+import server.api.rest.RestListener
+
+import hr.ngs.patterns.{ DependencyContainer, ISerialization, IServiceLocator, JsonSerialization }
+import net.liftweb.http.rest.RestHelper
 import org.slf4j.LoggerFactory
+import scala.reflect.runtime.universe.TypeTag
 
 object Locator extends IServiceLocator {
   private val container = {
@@ -13,9 +17,9 @@ object Locator extends IServiceLocator {
       .register[org.slf4j.Logger](logger)
       .register[JsonSerialization, ISerialization[String]]
       .register[RestListener, RestHelper]
-//      .register[LaravelRemoteEmailValidator]
-//      .register[FakeEmailValidator]
-//      .register[Dispatcher, Dispatcher]
+      .register[LaravelRemoteEmailValidator]
+      .register[FakeEmailValidator]
+      .register[Dispatcher]
   }
 
   def resolve[T: TypeTag] =
