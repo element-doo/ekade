@@ -1,0 +1,2 @@
+clang -Wall -I../../protobuf/c client.c ../../protobuf/c/model/ImageProvjera.pb-c.c -lzmq -lprotobuf-c -o client
+./client "$@" 
