@@ -21,16 +21,19 @@ class RustRemoteEmailValidator(
         send(body) map { responseBody =>
           val response = new String(responseBody, "UTF-8")
           response match {
-            case "YES" => new Odgovor().setStatus(true).setPoruka("Email domena postoji")
-            case "NO"  => new Odgovor().setStatus(false).setPoruka("Email domena ne postoji")
-            case "ERR" => new Odgovor().setStatus(false).setPoruka("Došlo je do greške prilikom provjere email domene")
-            case x     => new Odgovor().setStatus(false).setPoruka(s"Nepoznati odgovor ($x)")
+            case "YES" => odgovor(true,  "Email domena postoji")
+            case "NO"  => odgovor(false, "Email domena ne postoji")
+            case "ERR" => odgovor(false, "Došlo je do greške prilikom provjere email domene")
+            case x     => odgovor(false, s"Nepoznati odgovor ($x)")
           }
         }
       case _ =>
         Future {
-          new Odgovor().setStatus(false).setPoruka("""Email ne sadrži jedan i samo jedan "@" znak""")
+          odgovor(false, """Email ne sadrži jedan i samo jedan "@" znak""")
         }
     }
   }
+
+  private def odgovor(status: Boolean, poruka: String) =
+    new Odgovor().setStatus(status).setPoruka(poruka)
 }
