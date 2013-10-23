@@ -8,18 +8,22 @@ object Serialization extends Build with Default with Dependencies {
     , (scalaSource in Compile).value
     )
 
+  // Provides binary serialization for communication over 0MQ.
   lazy val proto = (
     scalaProject("Serialization-Proto")
     inject(
       protobuf
+      , Util.root
     )
     settings(generatedJava)
   )
 
+  // Provides JSON serialization for communication over HTTP REST.
   lazy val json = (
     scalaProject("Serialization-Json")
     inject(
       dslHttp
+      , Util.root
     )
     settings(generatedJava)
   )
