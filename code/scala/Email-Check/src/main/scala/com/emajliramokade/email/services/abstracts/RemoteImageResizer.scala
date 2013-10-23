@@ -3,16 +3,13 @@ package email.services
 package abstracts
 
 import api.model.ImageResize.{ ResizeZahtjev, Slika }
-import java.lang.{Byte => JByte, Integer => JInt}
-import java.nio.ByteBuffer
-import java.nio.ByteOrder
-import scala.concurrent.Future
-import java.lang.{Byte => JByte}
-import java.lang.{Integer => JInt}
-import scala.Array.canBuildFrom
 
-abstract class RemoteImageResizer extends interfaces.ImageResizer with RemotingDispatch {
-  def serviceUrl: String
+import java.lang.{Byte => JByte, Integer => JInt}
+import java.nio.{ ByteBuffer, ByteOrder }
+import scala.concurrent.Future
+
+trait RemoteImageResizer
+    extends interfaces.ImageResizer { this: Remoting =>
 
   def resize(original: Array[Byte], resizeTargetList: Seq[ResizeZahtjev]): Future[Map[ResizeZahtjev, Slika]] = {
     val targetSeqList  = resizeTargetList map resizeTargetToBA

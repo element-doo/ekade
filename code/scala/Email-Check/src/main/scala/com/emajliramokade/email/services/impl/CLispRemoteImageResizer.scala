@@ -4,7 +4,8 @@ package impl
 
 import hr.ngs.patterns.ISerialization
 
-class CLispRemoteImageResizer(
-    val serialization: ISerialization[String]) extends abstracts.RemoteImageResizer {
+class CLispRemoteImageResizer()
+    extends abstracts.RemoteImageResizer
+    with    RemotingDispatch {
   val serviceUrl = "NOT IMPLEMENTED"
 }

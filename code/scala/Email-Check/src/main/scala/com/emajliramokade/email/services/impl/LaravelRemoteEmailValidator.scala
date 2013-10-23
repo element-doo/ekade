@@ -5,6 +5,8 @@ package impl
 import hr.ngs.patterns.ISerialization
 
 class LaravelRemoteEmailValidator(
-    serialization: ISerialization[String]) extends abstracts.RemoteEmailValidator(serialization) {
+    val serialization: ISerialization[String])
+    extends abstracts.RemoteEmailValidator
+    with    RemotingDispatch {
   val serviceUrl = "http://emajliramokade.com:10070/zahtjev-check"
 }

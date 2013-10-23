@@ -6,8 +6,8 @@ import image.proto.ImageProvjera.{ Odgovor, Zahtjev }
 
 import scala.concurrent.Future
 
-abstract class RemoteImageVerifier extends interfaces.ImageVerifier with RemotingZeroMQ {
-  def serviceUrl: String
+trait RemoteImageVerifier
+    extends interfaces.ImageVerifier { this: Remoting =>
 
   def verify(zahtjev: Zahtjev): Future[Odgovor] = {
     val body = zahtjev.getOriginalnaSlika.toByteArray

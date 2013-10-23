@@ -4,12 +4,11 @@ package abstracts
 
 import api.model.EmailProvjera.Odgovor
 import email.Email
-import com.rabbitmq.client.ConnectionFactory
 import scala.concurrent.Future
 import scala.xml.PrettyPrinter
 
-abstract class RemoteEmailSender() extends interfaces.EmailSender with RemotingZeroMQ {
-  def serviceUrl: String
+trait RemoteEmailSender
+    extends interfaces.EmailSender { this: Remoting =>
 
   val prettyPrinter = new PrettyPrinter(200, 2)
 
