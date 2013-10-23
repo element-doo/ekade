@@ -11,10 +11,6 @@
   (:gen-class))
 
 (defn -main
-  "main loop. le stuff happens here."
-  [])
-
-(defn -main
   [& args]
   (let  [conn  (rmq/connect) ch (lch/open conn) qname (:queue-name-incoming (:rmq helpers/config))]
     (println  (format " [main] Connected. Channel id: %d"  (.getChannelNumber ch) " "))
