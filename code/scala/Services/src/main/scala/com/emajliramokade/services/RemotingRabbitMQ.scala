@@ -1,5 +1,5 @@
 package com.emajliramokade
-package email.services
+package services
 
 import com.rabbitmq.client.{ ConnectionFactory, QueueingConsumer }
 import scala.concurrent.Future

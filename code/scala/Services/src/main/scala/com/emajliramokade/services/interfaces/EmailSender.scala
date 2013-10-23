@@ -1,5 +1,5 @@
 package com.emajliramokade
-package email.services
+package services
 package interfaces
 
 import api.model.EmailProvjera.Odgovor

@@ -1,5 +1,5 @@
 package com.emajliramokade
-package email.services
+package services
 
 import org.zeromq.ZMQ
 import scala.concurrent.Future

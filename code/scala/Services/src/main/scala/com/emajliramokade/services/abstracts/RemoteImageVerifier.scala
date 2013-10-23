@@ -1,5 +1,5 @@
 package com.emajliramokade
-package email.services
+package services
 package abstracts
 
 import image.proto.ImageProvjera.{ Odgovor, Zahtjev }

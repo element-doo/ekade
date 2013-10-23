@@ -1,5 +1,5 @@
 package com.emajliramokade
-package email.services
+package services
 package abstracts
 
 import api.model.EmailProvjera.{ Odgovor, Zahtjev }

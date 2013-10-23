@@ -1,5 +1,5 @@
 package com.emajliramokade
-package email.services
+package services
 
 import dispatch._
 import scala.concurrent.Future

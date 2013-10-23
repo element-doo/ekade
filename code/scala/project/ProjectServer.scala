@@ -15,7 +15,7 @@ object Server extends Build with Default with Dependencies {
 //    , dispatch
 //    , etbUtil
 //    , mimeTypes
-      , Email.emailCheck
+      , Services.root
       , Util.root
     )
     settings(liftSettings(10040, "emajliramokade.war"): _*)

@@ -1,7 +1,7 @@
 package com.emajliramokade
 package server.api
 
-import email.services.impl.{ FakeEmailValidator, LaravelRemoteEmailValidator }
+import services.impl.{ FakeEmailValidator, LaravelRemoteEmailValidator }
 import server.api.rest.RestListener
 
 import hr.ngs.patterns.{ DependencyContainer, ISerialization, IServiceLocator, JsonSerialization }
