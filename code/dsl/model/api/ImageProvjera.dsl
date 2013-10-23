@@ -1,7 +1,6 @@
 module ImageProvjera
 {
   value Zahtjev {
-    Int     velicinaSlike;
     Binary  originalnaSlika;
   }
 
