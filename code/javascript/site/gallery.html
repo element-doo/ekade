@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en-US">
+<html lang="en-US" ng-app="emajliramokade">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -17,7 +17,20 @@
     <link rel="stylesheet" href="css/font-awesome-ie7.min.css">
   <![endif]-->
   <link rel="stylesheet" type="text/css" media="all" href="css/style.css" />
-  <link href='http://fonts.googleapis.com/css?family=Dosis:400,700&amp;subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Dosis:400,700&amp;subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="js/jquery.flexslider-min.js"></script>
+  <script type="text/javascript" src="js/bootstrap.file-input.js"></script>
+  <script type="text/javascript" src="js/jquery.fancybox.pack.js"></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular-resource.min.js"></script>
+
+  <script type="text/javascript" src="services/kade.js"></script>
+  <script type="text/javascript" src="routes/emajliramokade.js"></script>
+  <script type="text/javascript" src="controllers/index.js"></script>
 </head>
 <body>
 <!--  HEADER START -->
@@ -49,138 +62,16 @@
   </div>
 </header>
 <!-- HEADER END -->
-<section id="gallery" class="append-vertical">
+<section id="gallery" class="append-vertical" ng-controller="IndexCtl">
   <div class="container">
     <h1><i class="icon-picture"></i> Galerija slika</h1>
-    <div class="gallery-popular">
+    <div class="gallery-other append-vertical">
       <h4 class="title-bg upper"><span class="title title-left">Najnovije kade</span></h4>
       <div class="row-fluid">
         <ul class="thumbnails">
-          <li class="span3">
-            <div class="thumbnail">
-              <a href="img/pic-1.jpg" class="fancybox"><img src="img/thumb-260.jpg" alt=""></a>
-              <h3 class="text-center">Naslov</h3>
-              <p class="text-center">Kratki opis kade Lorem ipsum dolor sit amet.</p>
-            </div>
-          </li>
-          <li class="span3">
-            <div class="thumbnail">
-              <a href="img/pic-1.jpg" class="fancybox"><img src="img/thumb-260.jpg" alt=""></a>
-              <h3 class="text-center">Naslov</h3>
-              <p class="text-center">Kratki opis kade Lorem ipsum dolor sit amet.</p>
-            </div>
-          </li>
-          <li class="span3">
-            <div class="thumbnail">
-              <a href="img/pic-1.jpg" class="fancybox"><img src="img/thumb-260.jpg" alt=""></a>
-              <h3 class="text-center">Naslov</h3>
-              <p class="text-center">Kratki opis kade Lorem ipsum dolor sit amet.</p>
-            </div>
-          </li>
-          <li class="span3">
-            <div class="thumbnail">
-              <a href="img/pic-1.jpg" class="fancybox"><img src="img/thumb-260.jpg" alt=""></a>
-              <h3 class="text-center">Naslov</h3>
-              <p class="text-center">Kratki opis kade Lorem ipsum dolor sit amet.</p>
-            </div>
-          </li>
-        </ul>
-        <ul class="thumbnails">
-          <li class="span3">
-            <div class="thumbnail">
-              <a href="img/pic-1.jpg" class="fancybox"><img src="img/thumb-260.jpg" alt=""></a>
-              <h3 class="text-center">Naslov</h3>
-              <p class="text-center">Kratki opis kade Lorem ipsum dolor sit amet.</p>
-            </div>
-          </li>
-          <li class="span3">
-            <div class="thumbnail">
-              <a href="img/pic-1.jpg" class="fancybox"><img src="img/thumb-260.jpg" alt=""></a>
-              <h3 class="text-center">Naslov</h3>
-              <p class="text-center">Kratki opis kade Lorem ipsum dolor sit amet.</p>
-            </div>
-          </li>
-          <li class="span3">
-            <div class="thumbnail">
-              <a href="img/pic-1.jpg" class="fancybox"><img src="img/thumb-260.jpg" alt=""></a>
-              <h3 class="text-center">Naslov</h3>
-              <p class="text-center">Kratki opis kade Lorem ipsum dolor sit amet.</p>
-            </div>
-          </li>
-          <li class="span3">
-            <div class="thumbnail">
-              <a href="img/pic-1.jpg" class="fancybox"><img src="img/thumb-260.jpg" alt=""></a>
-              <h3 class="text-center">Naslov</h3>
-              <p class="text-center">Kratki opis kade Lorem ipsum dolor sit amet.</p>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </div>
-    <div class="gallery-other append-vertical">
-      <h4 class="title-bg upper"><span class="title title-left">Ostale kade</span></h4>
-      <div class="row-fluid">
-        <ul class="thumbnails">
-          <li class="span2">
-            <a href="img/pic-1.jpg" class="fancybox thumbnail">
-              <img src="img/thumb-260.jpg" alt="">
-            </a>
-          </li>
-          <li class="span2">
-            <a href="img/pic-1.jpg" class="fancybox thumbnail">
-              <img src="img/thumb-260.jpg" alt="">
-            </a>
-          </li>
-          <li class="span2">
-            <a href="img/pic-1.jpg" class="fancybox thumbnail">
-              <img src="img/thumb-260.jpg" alt="">
-            </a>
-          </li>
-          <li class="span2">
-            <a href="img/pic-1.jpg" class="fancybox thumbnail">
-              <img src="img/thumb-260.jpg" alt="">
-            </a>
-          </li>
-          <li class="span2">
-            <a href="img/pic-1.jpg" class="fancybox thumbnail">
-              <img src="img/thumb-260.jpg" alt="">
-            </a>
-          </li>
-          <li class="span2">
-            <a href="img/pic-1.jpg" class="fancybox thumbnail">
-              <img src="img/thumb-260.jpg" alt="">
-            </a>
-          </li>
-        </ul>
-        <ul class="thumbnails">
-          <li class="span2">
-            <a href="img/pic-1.jpg" class="fancybox thumbnail">
-              <img src="img/thumb-260.jpg" alt="">
-            </a>
-          </li>
-          <li class="span2">
-            <a href="img/pic-1.jpg" class="fancybox thumbnail">
-              <img src="img/thumb-260.jpg" alt="">
-            </a>
-          </li>
-          <li class="span2">
-            <a href="img/pic-1.jpg" class="fancybox thumbnail">
-              <img src="img/thumb-260.jpg" alt="">
-            </a>
-          </li>
-          <li class="span2">
-            <a href="img/pic-1.jpg" class="fancybox thumbnail">
-              <img src="img/thumb-260.jpg" alt="">
-            </a>
-          </li>
-          <li class="span2">
-            <a href="img/pic-1.jpg" class="fancybox thumbnail">
-              <img src="img/thumb-260.jpg" alt="">
-            </a>
-          </li>
-          <li class="span2">
-            <a href="img/pic-1.jpg" class="fancybox thumbnail">
-              <img src="img/thumb-260.jpg" alt="">
+          <li class="span2" ng-repeat="kada in kade">
+            <a href="http://placekitten.com/{{randSize(800, 1200, 800, 1200)}}" class="fancybox thumbnail">
+              <img ng-src="http://placekitten.com/{{randSize(120, 150, 120, 150)}}" />
             </a>
           </li>
         </ul>
@@ -279,12 +170,6 @@
   </div>
 </footer>
 <!-- FOOTER END -->
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-<script type="text/javascript" src="js/bootstrap.min.js"></script>
-<script src="js/jquery.flexslider-min.js"></script>
-<script type="text/javascript" src="js/bootstrap.file-input.js"></script>
-<script type="text/javascript" src="js/jquery.fancybox.pack.js"></script>
-<script type="text/javascript" src="js/functions.js"></script>
 </body>
 </html>
 

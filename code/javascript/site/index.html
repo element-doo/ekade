@@ -77,7 +77,7 @@
         <ul class="slides">
           <li ng-repeat="kada in kade">
             <span class="badge badge-info js-tooltip carousel-badge" data-placement="right" data-toggle="tooltip" title="Poslana {{ kada.brojacSlanja }} puta">{{ kada.brojacSlanja }}</span>
-            <img src="http://placekitten.com/{{randSize(800, 1200, 800, 1200)}}" />
+            <img ng-src="http://placekitten.com/{{randSize(800, 1200, 800, 1200)}}" />
           </li>
         </ul>
       </div>
@@ -93,7 +93,7 @@
       <!-- end email form -->
     </div>
     <!-- end slider -->
-    <p class="text-right upper title-bg"><span class="title title-right"><a href="#"><i class="icon-th-large"></i> Pogledajte sve slike</a></span></p>
+    <p class="text-right upper title-bg"><span class="title title-right"><a href="gallery.html"><i class="icon-th-large"></i> Pogledajte sve slike</a></span></p>
   </div>
 
 </section>

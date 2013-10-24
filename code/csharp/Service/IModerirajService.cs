@@ -8,23 +8,19 @@ namespace EmajliramoKade
 	public interface IModerirajService
 	{
 		[OperationContract]
-		[WebInvoke(Method = "PUT", UriTemplate = "odobri-kadu/{uri}") ]
+		[WebInvoke(Method = "PUT", UriTemplate = "KadaOdobrena/{uri}") ]
 		Stream OdobriKadu(string uri);
 
 		[OperationContract]
-		[WebInvoke(Method = "PUT", UriTemplate = "dodaj-kadu/{uri}")]
-		Stream DodajKadu(string uri, Stream body);
-
-		[OperationContract]
-		[WebInvoke(Method = "PUT", UriTemplate = "odbij-kadu/{uri}")]
+		[WebInvoke(Method = "PUT", UriTemplate = "KadaOdbijena/{uri}")]
 		Stream OdbijKadu(string uri);
 
 		[OperationContract]
-		[WebInvoke(Method = "PUT", UriTemplate = "posalji-kadu/{uri}")]
-		Stream PosaljiKadu(string uri);
+		[WebInvoke(Method = "GET", UriTemplate = "KadaIzvorPodataka/NemoderiraneKade?offset={offset}&limit={limit}")]
+		Stream DajKade(int offset, int limit);
 
 		[OperationContract]
-		[WebInvoke(Method = "GET", UriTemplate = "daj-kade?offset={offset}&limit={limit}")]
-		Stream DajKade(int offset, int limit);
+		[WebInvoke(Method = "PUT", UriTemplate = "MasovnaModeracija")]
+		Stream MasovnaModeracija(Stream body);
 	}
 }
