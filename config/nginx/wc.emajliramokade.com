@@ -15,8 +15,8 @@ server {
   server_name static.emajliramokade.com;
 
   ssl on;
-  ssl_certificate     /etc/certs/wc.emajliramokade.com.crt;
-  ssl_certificate_key /etc/certs/wc.emajliramokade.com.key;
+  ssl_certificate     /etc/certs/emajliramokade.com.crt;
+  ssl_certificate_key /etc/certs/emajliramokade.com.key;
   
 #  ssl_stapling on;
 #  resolver 127.0.0.1;
@@ -50,8 +50,8 @@ server {
   server_name .emajliramokade.com;
 
   ssl on;
-  ssl_certificate     /etc/certs/wc.emajliramokade.com.crt;
-  ssl_certificate_key /etc/certs/wc.emajliramokade.com.key;
+  ssl_certificate     /etc/certs/emajliramokade.com.crt;
+  ssl_certificate_key /etc/certs/emajliramokade.com.key;
 
 #  ssl_stapling on;
 #  resolver 127.0.0.1;
@@ -68,7 +68,26 @@ server {
 
   access_log /var/www/ekade/logs/nginx/wc-access.log combined buffer=32k;
   error_log  /var/www/ekade/logs/nginx/wc-error.log;
-  
+
+  location ~ ^/platform/.* {
+    rewrite ^/platform/(.*) /kade/$1 break;
+
+    proxy_pass https://platform.emajliramokade.com;
+    proxy_set_header Host platform.emajliramokade.com;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+  }
+
+  location /dev {
+    rewrite ^/dev/(.*) /$1 break;
+    proxy_pass http://10.5.6.7;
+    proxy_set_header REMOTE_ADDR $remote_addr;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header HOST $host;
+
+  }
+
   location / {
     deny all;
     proxy_set_header REMOTE_ADDR $remote_addr;
