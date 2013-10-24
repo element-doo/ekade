@@ -1,7 +1,9 @@
-module ZeroOpts (
-    Options (..)
-  , getOptions
-  ) where
+
+--
+-- Because commandline options, yeah.
+--
+
+module ZeroOpts (Options(..), getOptions) where
 
 import Control.Applicative
 import Control.Monad
@@ -18,7 +20,7 @@ getOptions = execParser options
 
 options :: ParserInfo Options
 options = info (helper <*> opts) $
-    fullDesc <> header "HTTP -> 0MQ bridge"
+    fullDesc <> header   "HTTP -> 0MQ bridge"
              <> progDesc "Run a HTTP server and fulfill requests by distributing them over 0MQ."
   where
     opts = Options
