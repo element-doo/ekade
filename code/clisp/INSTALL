@@ -19,4 +19,4 @@ $ sbcl --load emajl.lisp --eval '(emajl::main)'
 
 test klijent se starta sa
 
-$ sbcl --load client.lisp
+$ sbcl --load client.lisp --eval '(emajl::run-test)'
