@@ -6,14 +6,14 @@ class ZahtjevController extends Controller
     {
         $request = Request::instance();
         $body = $request->getContent();
-        $zahtjev = \Api\ZahtjevJsonConverter::fromJson($body);
+        $zahtjev = \EmailProvjera\ZahtjevJsonConverter::fromJson($body);
 
         $email = $zahtjev->email;
         $checkDNS = true;
         $errorLevel = 0;
         $result = is_email($email, $checkDNS, $errorLevel, $parseData);
 
-        $odgovor = new \Api\Odgovor();
+        $odgovor = new \EmailProvjera\Odgovor();
         $odgovor->status = $result === ISEMAIL_VALID;
 
         switch($result) {
