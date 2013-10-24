@@ -2,6 +2,7 @@ package ripple
 
 import (
 	"encoding/json"
+	"fmt"
 	"log"
 	"net/http"
 	"net/url"
@@ -32,10 +33,10 @@ func NewContext() *Context {
 
 // A Ripple application. Use NewApplication() to build it.
 type Application struct {
-	controllers map[string]interface{}
-	routes      []Route
-	contentType string
-	baseUrl     string
+	controllers   map[string]interface{}
+	routes        []Route
+	contentType   string
+	baseUrl       string
 	parsedBaseUrl *url.URL
 }
 
@@ -106,6 +107,10 @@ func (this *Application) BaseUrl() string {
 	return this.baseUrl
 }
 
+func (this *Application) SetContType(v string) {
+	this.contentType = v
+}
+
 // Helper function to prepare the response writter data for `ServeHTTP()`
 func (this *Application) prepareServeHttpResponseData(context *Context) serveHttpResponseData {
 	var statusCode int
@@ -174,13 +179,12 @@ func (this *Application) serializeResponseBody(body interface{}) (string, error)
 		}
 
 	default:
-		
+
 		contentType := this.contentType
-		if contentType != "application/json" { // Currently, only JSON is supported
-			log.Printf("Unsupported content type: %s! Defaulting to application/json.", this.contentType)
-			contentType = "application/json"
+		if contentType != "application/json" {
+			output = fmt.Sprintf("%s", body)
 		}
-		
+
 		if contentType == "application/json" {
 			var b []byte
 			b, err = json.Marshal(body)
@@ -251,11 +255,11 @@ type MatchRequestResult struct {
 func (this *Application) matchRequest(request *http.Request) MatchRequestResult {
 	var output MatchRequestResult
 	output.Success = false
-		
+
 	path := request.URL.Path
 	path = path[len(this.parsedBaseUrl.Path):len(path)]
 	pathTokens := splitPath(path)
-	
+
 	for routeIndex := 0; routeIndex < len(this.routes); routeIndex++ {
 		route := this.routes[routeIndex]
 		patternTokens := splitPath(route.Pattern)
@@ -343,4 +347,3 @@ func (this *Application) Dispatch(request *http.Request) *Context {
 	r.ControllerMethod.Call(args)
 	return ctx
 }
-

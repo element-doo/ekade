@@ -1,14 +1,14 @@
 package main
 
 import (
+	"./github.com/nu7hatch/gouuid"
+	"./labix.org/v2/mgo"
+	"./labix.org/v2/mgo/bson"
+	"./ripple"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"labix.org/v2/mgo"
-	"labix.org/v2/mgo/bson"
 	"net/http"
-	"ripple"
-	"github.com/nu7hatch/gouuid"
 	"strings"
 )
 
@@ -34,7 +34,7 @@ func NewPictureController(col *mgo.Collection) *PictureController {
 func (this *PictureController) Get(ctx *ripple.Context) {
 	var ug = ctx.Params["guid"]
 	var t = ctx.Params["type"]
-		
+
 	if len(ug) > 0 {
 		u, err := uuid.ParseHex(strings.ToLower(ug))
 		if err != nil {
@@ -54,24 +54,29 @@ func (this *PictureController) Get(ctx *ripple.Context) {
 				ctx.Response.Body = err
 			} else {
 				ctx.Response.Status = http.StatusOK
-				
-				if (len(t) == 0) {
+
+				if len(t) == 0 {
 					ctx.Response.Body = result
 				} else {
 					// Nemam blage o Gou, ovo se vjerojatno moze bolje, no
-					// glavni problem nije u ovom switchu već u Rippleovom 
-					// Context.Response-u koji izgleda da sve želi pretvorit u 
+					// glavni problem nije u ovom switchu već u Rippleovom
+					// Context.Response-u koji izgleda da sve želi pretvorit u
 					// "application/json". Ovo nam nikako ne paše pošto želimo
 					// binary output, a ne Base64 enkodirani JSON string
 					// See: https://github.com/laurent22/ripple/blob/master/ripple.go
 					// - Marko
 
 					switch t {
-					case "original": ctx.Response.Body = result.Original
-					case "thumbnail": ctx.Response.Body = result.Thumbnail
-					case "email": ctx.Response.Body = result.Email
-					case "web": ctx.Response.Body = result.Web
-					default: panic("Impossibulj?!")
+					case "original":
+						ctx.Response.Body = result.Original
+					case "thumbnail":
+						ctx.Response.Body = result.Thumbnail
+					case "email":
+						ctx.Response.Body = result.Email
+					case "web":
+						ctx.Response.Body = result.Web
+					default:
+						panic("Impossibulj?!")
 					}
 				}
 			}
@@ -118,7 +123,7 @@ func (this *PictureController) postPut(ctx *ripple.Context) {
 				fmt.Println("insert: ", g)
 				this.col.Upsert(pic, pic)
 			}
-			
+
 			ctx.Response.Status = http.StatusOK
 		}
 	} else {
@@ -135,10 +140,10 @@ func (this *PictureController) Put(ctx *ripple.Context) {
 }
 
 func (this *PictureController) Delete(ctx *ripple.Context) {
-	// Možda kad bih znao napisati funkciju u Gou 
+	// Možda kad bih znao napisati funkciju u Gou
 	// ovo nebi bilo tragično copy-pasteano tri puta
-	// - Marko 
-	
+	// - Marko
+
 	var ug = ctx.Params["guid"]
 	if len(ug) > 0 {
 		u, err := uuid.ParseHex(strings.ToLower(ug))
