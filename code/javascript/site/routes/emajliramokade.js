@@ -1,12 +1,5 @@
 var emajliramokade = angular.module('emajliramokade', ['kadaServices']);
 
-/*
-emajliramokade.config(function($routeProvider) {
-	$routeProvider.
-		when('/', { controller: IndexCtl });
-});
-*/
-
 emajliramokade.directive('flexslider', ['$timeout', function($timeout) {
 	return {
 		link: function($scope, element, attrs) {
