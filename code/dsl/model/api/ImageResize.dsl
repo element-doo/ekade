@@ -10,12 +10,12 @@ module ImageResize
     Int     depth;
     String  format;
   }
-  
+
   value Zahtjev {
     Slika                slika;
     List<ResizeZahtjev>  zahtjevi;
   }
-  
+
   value Odgovor {
     List<Slika>  odgovori;
   }

@@ -8,8 +8,11 @@ require_once __DIR__.'/KadaDodanaArrayConverter.php';
  * Generated from NGS DSL
  *
  * @property string $URI a unique object identifier (read-only)
- * @property string $komentar a string, can be null
  * @property \NGS\UUID $kadaID a uuid
+ * @property \Resursi\PodaciSlike $original an object of class "Resursi\PodaciSlike"
+ * @property \Resursi\PodaciSlike $web an object of class "Resursi\PodaciSlike"
+ * @property \Resursi\PodaciSlike $email an object of class "Resursi\PodaciSlike"
+ * @property \Resursi\PodaciSlike $thumbnail an object of class "Resursi\PodaciSlike"
  *
  * @package PopisKada
  * @version 0.9.9 beta
@@ -17,8 +20,11 @@ require_once __DIR__.'/KadaDodanaArrayConverter.php';
 class KadaDodana extends \NGS\Patterns\DomainEvent
 {
     protected $URI;
-    protected $komentar;
     protected $kadaID;
+    protected $original;
+    protected $web;
+    protected $email;
+    protected $thumbnail;
 
     /**
      * Constructs object using a key-property array or instance of class "PopisKada\KadaDodana"
@@ -45,6 +51,14 @@ class KadaDodana extends \NGS\Patterns\DomainEvent
             $data['URI'] = null; //a string representing a unique object identifier
         if(!array_key_exists('kadaID', $data))
             $data['kadaID'] = new \NGS\UUID(); // a uuid
+        if(!array_key_exists('original', $data))
+            $data['original'] = new \Resursi\PodaciSlike(); // an object of class "Resursi\PodaciSlike"
+        if(!array_key_exists('web', $data))
+            $data['web'] = new \Resursi\PodaciSlike(); // an object of class "Resursi\PodaciSlike"
+        if(!array_key_exists('email', $data))
+            $data['email'] = new \Resursi\PodaciSlike(); // an object of class "Resursi\PodaciSlike"
+        if(!array_key_exists('thumbnail', $data))
+            $data['thumbnail'] = new \Resursi\PodaciSlike(); // an object of class "Resursi\PodaciSlike"
     }
 
     /**
@@ -59,12 +73,21 @@ class KadaDodana extends \NGS\Patterns\DomainEvent
         if(isset($data['URI']))
             $this->URI = \NGS\Converter\PrimitiveConverter::toString($data['URI']);
         unset($data['URI']);
-        if (array_key_exists('komentar', $data))
-            $this->setKomentar($data['komentar']);
-        unset($data['komentar']);
         if (array_key_exists('kadaID', $data))
             $this->setKadaID($data['kadaID']);
         unset($data['kadaID']);
+        if (array_key_exists('original', $data))
+            $this->setOriginal($data['original']);
+        unset($data['original']);
+        if (array_key_exists('web', $data))
+            $this->setWeb($data['web']);
+        unset($data['web']);
+        if (array_key_exists('email', $data))
+            $this->setEmail($data['email']);
+        unset($data['email']);
+        if (array_key_exists('thumbnail', $data))
+            $this->setThumbnail($data['thumbnail']);
+        unset($data['thumbnail']);
 
         if (count($data) !== 0 && \NGS\Utils::WarningsAsErrors())
             throw new \InvalidArgumentException('Superflous array keys found in "PopisKada\KadaDodana" constructor: '.implode(', ', array_keys($data)));
@@ -84,19 +107,43 @@ class KadaDodana extends \NGS\Patterns\DomainEvent
     }
 
     /**
-     * @return a string, can be null
-     */
-    public function getKomentar()
-    {
-        return $this->komentar;
-    }
-
-    /**
      * @return a uuid
      */
     public function getKadaID()
     {
         return $this->kadaID;
+    }
+
+    /**
+     * @return an object of class "Resursi\PodaciSlike"
+     */
+    public function getOriginal()
+    {
+        return $this->original;
+    }
+
+    /**
+     * @return an object of class "Resursi\PodaciSlike"
+     */
+    public function getWeb()
+    {
+        return $this->web;
+    }
+
+    /**
+     * @return an object of class "Resursi\PodaciSlike"
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * @return an object of class "Resursi\PodaciSlike"
+     */
+    public function getThumbnail()
+    {
+        return $this->thumbnail;
     }
 
     /**
@@ -110,10 +157,16 @@ class KadaDodana extends \NGS\Patterns\DomainEvent
     {
         if ($name === 'URI')
             return $this->getURI(); // a string representing a unique object identifier
-        if ($name === 'komentar')
-            return $this->getKomentar(); // a string, can be null
         if ($name === 'kadaID')
             return $this->getKadaID(); // a uuid
+        if ($name === 'original')
+            return $this->getOriginal(); // an object of class "Resursi\PodaciSlike"
+        if ($name === 'web')
+            return $this->getWeb(); // an object of class "Resursi\PodaciSlike"
+        if ($name === 'email')
+            return $this->getEmail(); // an object of class "Resursi\PodaciSlike"
+        if ($name === 'thumbnail')
+            return $this->getThumbnail(); // an object of class "Resursi\PodaciSlike"
 
         throw new \InvalidArgumentException('Property "'.$name.'" in class "PopisKada\KadaDodana" does not exist and could not be retrieved!');
     }
@@ -131,24 +184,18 @@ class KadaDodana extends \NGS\Patterns\DomainEvent
     {
         if ($name === 'URI')
             return $this->URI !== null;
-        if ($name === 'komentar')
-            return $this->getKomentar() !== null; // a string, can be null
         if ($name === 'kadaID')
             return true; // a uuid (always set)
+        if ($name === 'original')
+            return true; // an object of class "Resursi\PodaciSlike" (always set)
+        if ($name === 'web')
+            return true; // an object of class "Resursi\PodaciSlike" (always set)
+        if ($name === 'email')
+            return true; // an object of class "Resursi\PodaciSlike" (always set)
+        if ($name === 'thumbnail')
+            return true; // an object of class "Resursi\PodaciSlike" (always set)
 
         return false;
-    }
-
-    /**
-     * @param string $value a string, can be null
-     *
-     * @return string
-     */
-    public function setKomentar($value)
-    {
-        $value = $value !== null ? \NGS\Converter\PrimitiveConverter::toString($value) : null;
-        $this->komentar = $value;
-        return $value;
     }
 
     /**
@@ -166,6 +213,62 @@ class KadaDodana extends \NGS\Patterns\DomainEvent
     }
 
     /**
+     * @param \Resursi\PodaciSlike $value an object of class "Resursi\PodaciSlike"
+     *
+     * @return \Resursi\PodaciSlike
+     */
+    public function setOriginal($value)
+    {
+        if ($value === null)
+            throw new \InvalidArgumentException('Property "original" cannot be set to null because it is non-nullable!');
+        $value = \Resursi\PodaciSlikeArrayConverter::fromArray($value);
+        $this->original = $value;
+        return $value;
+    }
+
+    /**
+     * @param \Resursi\PodaciSlike $value an object of class "Resursi\PodaciSlike"
+     *
+     * @return \Resursi\PodaciSlike
+     */
+    public function setWeb($value)
+    {
+        if ($value === null)
+            throw new \InvalidArgumentException('Property "web" cannot be set to null because it is non-nullable!');
+        $value = \Resursi\PodaciSlikeArrayConverter::fromArray($value);
+        $this->web = $value;
+        return $value;
+    }
+
+    /**
+     * @param \Resursi\PodaciSlike $value an object of class "Resursi\PodaciSlike"
+     *
+     * @return \Resursi\PodaciSlike
+     */
+    public function setEmail($value)
+    {
+        if ($value === null)
+            throw new \InvalidArgumentException('Property "email" cannot be set to null because it is non-nullable!');
+        $value = \Resursi\PodaciSlikeArrayConverter::fromArray($value);
+        $this->email = $value;
+        return $value;
+    }
+
+    /**
+     * @param \Resursi\PodaciSlike $value an object of class "Resursi\PodaciSlike"
+     *
+     * @return \Resursi\PodaciSlike
+     */
+    public function setThumbnail($value)
+    {
+        if ($value === null)
+            throw new \InvalidArgumentException('Property "thumbnail" cannot be set to null because it is non-nullable!');
+        $value = \Resursi\PodaciSlikeArrayConverter::fromArray($value);
+        $this->thumbnail = $value;
+        return $value;
+    }
+
+    /**
      * Property setter which checks for invalid access to domain event properties and enforces proper type checks
      *
      * @param string $name Property name
@@ -175,10 +278,16 @@ class KadaDodana extends \NGS\Patterns\DomainEvent
     {
         if ($name === 'URI')
             throw new \LogicException('Property "URI" in "PopisKada\KadaDodana" cannot be set, because event URI is populated by server!');
-        if ($name === 'komentar')
-            return $this->setKomentar($value); // a string, can be null
         if ($name === 'kadaID')
             return $this->setKadaID($value); // a uuid
+        if ($name === 'original')
+            return $this->setOriginal($value); // an object of class "Resursi\PodaciSlike"
+        if ($name === 'web')
+            return $this->setWeb($value); // an object of class "Resursi\PodaciSlike"
+        if ($name === 'email')
+            return $this->setEmail($value); // an object of class "Resursi\PodaciSlike"
+        if ($name === 'thumbnail')
+            return $this->setThumbnail($value); // an object of class "Resursi\PodaciSlike"
         throw new \InvalidArgumentException('Property "'.$name.'" in class "PopisKada\KadaDodana" does not exist and could not be set!');
     }
 
@@ -191,10 +300,16 @@ class KadaDodana extends \NGS\Patterns\DomainEvent
     {
         if ($name === 'URI')
             throw new \LogicException('The property "URI" cannot be unset because event URI is created by server!');
-        if ($name === 'komentar')
-            $this->setKomentar(null);; // a string, can be null
         if ($name === 'kadaID')
             throw new \LogicException('The property "kadaID" cannot be unset because it is non-nullable!'); // a uuid (cannot be unset)
+        if ($name === 'original')
+            throw new \LogicException('The property "original" cannot be unset because it is non-nullable!'); // an object of class "Resursi\PodaciSlike" (cannot be unset)
+        if ($name === 'web')
+            throw new \LogicException('The property "web" cannot be unset because it is non-nullable!'); // an object of class "Resursi\PodaciSlike" (cannot be unset)
+        if ($name === 'email')
+            throw new \LogicException('The property "email" cannot be unset because it is non-nullable!'); // an object of class "Resursi\PodaciSlike" (cannot be unset)
+        if ($name === 'thumbnail')
+            throw new \LogicException('The property "thumbnail" cannot be unset because it is non-nullable!'); // an object of class "Resursi\PodaciSlike" (cannot be unset)
     }
 
     public function toJson()
