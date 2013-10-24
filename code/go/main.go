@@ -30,7 +30,7 @@ func main() {
 	servePic.AddRoute(ripple.Route{Pattern: ":_controller/:kadaID/:type"})
 	servePic.SetContType("image/jpeg")
 	servePic.SetBaseUrl("/public/")
-	http.HandleFunc("/public/", servePic.ServeHTTP)
+	http.HandleFunc("/public/", servePic.ServeHTTPBinary)
 
 	port := "10080"
 	log.Println("Starting server @ " + port)

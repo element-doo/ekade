@@ -2,7 +2,7 @@ package ripple
 
 import (
 	"encoding/json"
-	//	"fmt"
+	// "fmt"
 	"log"
 	"net/http"
 	"net/url"
@@ -143,6 +143,22 @@ func (this *Application) ServeHTTP(writter http.ResponseWriter, request *http.Re
 	writter.Write([]byte(r.Body))
 }
 
+func (this *Application) ServeHTTPBinary(writter http.ResponseWriter, request *http.Request) {
+	context := this.Dispatch(request)
+	//r := this.prepareServeHttpResponseData(context)
+
+	var statusCode int
+	if context == nil {
+		statusCode = http.StatusNotFound
+	} else {
+		statusCode = context.Response.Status
+	}
+
+	writter.Header().Set("Content-Type", this.contentType)
+	writter.WriteHeader(statusCode)
+	writter.Write(context.Response.Body.([]byte))
+}
+
 func (this *Application) serializeResponseBody(body interface{}) (string, error) {
 	if body == nil {
 		return "", nil
@@ -176,11 +192,16 @@ func (this *Application) serializeResponseBody(body interface{}) (string, error)
 		} else {
 			output = "false"
 		}
-
-	case []byte:
-
-		output = "???" // HILFE!!!
-
+		/*
+			case []byte:
+				fmt.Println("case string")
+				output = ""
+				for i := range body.([]byte) {
+					fmt.Println(i)
+					// output += strconv.Itoa(i)
+				}
+				//output = body.(string)
+		*/
 	default:
 
 		contentType := this.contentType
