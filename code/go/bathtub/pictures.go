@@ -100,7 +100,6 @@ func (this *PictureController) postPut(ctx *ripple.Context) {
 				this.col.Upsert(pic, pic)
 			}
 
-			ctx.Response.Body = pic
 			ctx.Response.Status = http.StatusOK
 		}
 	} else {
