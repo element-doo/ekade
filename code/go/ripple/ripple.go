@@ -142,6 +142,22 @@ func (this *Application) ServeHTTP(writter http.ResponseWriter, request *http.Re
 	writter.Write([]byte(r.Body))
 }
 
+func (this *Application) ServeHTTPBinary(writter http.ResponseWriter, request *http.Request) {
+	context := this.Dispatch(request)
+	//r := this.prepareServeHttpResponseData(context)
+
+	var statusCode int
+	if context == nil {
+		statusCode = http.StatusNotFound
+	} else {
+		statusCode = context.Response.Status
+	}
+
+	writter.Header().Set("Content-Type", this.contentType)
+	writter.WriteHeader(statusCode)
+	writter.Write(context.Response.Body.([]byte))
+}
+
 func (this *Application) serializeResponseBody(body interface{}) (string, error) {
 	if body == nil {
 		return "", nil
