@@ -61,6 +61,6 @@ class RestListener(
 
       new Zahtjev()
         .setEmail(email)
-        .setKadaID(kadaID getOrElse null)
+        .setKadaID(kadaID.map(_.toString) getOrElse null)
     }
 }
