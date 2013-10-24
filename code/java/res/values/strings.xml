@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">EmajliramoKade</string>
+    <string name="action_settings">Settings</string>
+    <string name="descripton">Background image</string>
+    <string name="button_text">Send</string>
+
+</resources>

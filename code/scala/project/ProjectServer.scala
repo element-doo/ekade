@@ -2,6 +2,7 @@ import sbt._
 import Keys._
 
 object Server extends Build with Default with Dependencies {
+  // Root project. Container and central dispatcher.
   lazy val api = (
     scalaProject("Api")
     inject(
@@ -10,14 +11,12 @@ object Server extends Build with Default with Dependencies {
     , logback
     , ngsCore
 //    , akka
-//    , jeroMQ
 //    , rabbitMQ
-//    , protobuf
 //    , dispatch
 //    , etbUtil
 //    , mimeTypes
-//    , Serialization.json
-//    , Serialization.proto
+      , Services.root
+      , Util.root
     )
     settings(liftSettings(10040, "emajliramokade.war"): _*)
   )

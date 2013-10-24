@@ -2,73 +2,108 @@
 #include <zmq.h>
 #include <stdlib.h>
 #include <string.h>
+#include <assert.h>
 #include <stdio.h>
 //#include <unistd.h>
 
-typedef struct
-{
-	int height;
-	int width;
-	char format[5]; //13bajta do ovde
-	size_t originalna_duljina_slike;
-	unsigned char *polje;
-}struktura_slike;
+#define MAX_SIZE 26214400 //25MB
 
 typedef struct
 {
-	size_t len;
-	unsigned char *string;
-}nova_slika;
+	int width;
+	int height;
+	int depth;
+	char format[5];
+}z;
+
+typedef struct
+{
+	int broj_zahtjeva; //3 ili 4 ce bit
+	z zhtv[4]; //jer je max zahtjeva 4 
+}zahtjevi;
 
 
 int main(int argc,char **argv)
-{	//________________________________-provjera argumenata______________________________________________//
-	if(argc != 6)
-	{
-		printf("Poziv treba izgledati:\n\nzmq_client.exe ime_slike.ext kopija.ext zeljeni_height zeljeni_width zeljeni_format!!!");
-		exit(1);
-	}
-
+{	
 	//_________________________________________________________ZMQ________//
     printf ("Connecting to imagemagick server...\n");
     void *context = zmq_ctx_new ();
     void *requester = zmq_socket (context, ZMQ_REQ);
-    zmq_connect (requester, "tcp://localhost:5555");
 	
-
+	int rc = zmq_connect (requester, "tcp://localhost:5555");
+	assert (rc == 0);
+	
 
 	//________________________________VARIJABLE________________________________________//
-	
-	
-	struktura_slike slika;
-	nova_slika nova;
 	FILE *pic, *kopija;
-	int len;
-	
+	unsigned char *polje, *string;
+	int len, i, j, broj_zahtjeva;
+	zahtjevi zahtjev;
+	int novi_len;
+	unsigned char *novi_string;
 
+	
 	//______________________________otvaranje slika, odreðivanje velicine originalne slike i citanje bajtova prve slike________//
+	
+	if((pic = fopen(argv[1],"rb")) == NULL)
+	{
+		printf("neuspjesno otvaranje slike, slika je prevelika\n");
+		exit(1);
+	}
+	
 	pic = fopen(argv[1],"rb");
-	kopija = fopen(argv[2], "wb");
 
 	fseek(pic,0,SEEK_END);
 	len = ftell(pic);
+
+	if(len > MAX_SIZE)
+	{
+		printf("Max size of image is limited to 25 MB\n");
+		exit(1);
+	}
+
 	fseek(pic,0,SEEK_SET);
 
+	polje = (unsigned char*) malloc (len);
 
-	slika.polje = (unsigned char*) malloc (len);
-	fread(slika.polje,1,len,pic);
+	fread(polje,1,len,pic);
 
 
 	//________________upsi podataka u strukturu___________________//
-	slika.height = atoi(argv[3]);
-	slika.width = atoi(argv[4]);
-	strcpy(slika.format,argv[5]);
-	slika.format[4] = '\0';        //xxxx\0  
-	if(strlen(argv[5]) == 3)		
-		slika.format[3] = '\0';		//xxx\0
-	slika.originalna_duljina_slike = len;
+	broj_zahtjeva = atoi(argv[2]);
+	zahtjev.broj_zahtjeva = broj_zahtjeva;
 
-	printf("height = %d\nwidth = %d\noriginalna_vel_slike = %d\nformat = %s\npolje = %d\n",slika.height,slika.width,slika.originalna_duljina_slike,slika.format,slika.polje);
+	for(i = 0; i < broj_zahtjeva; i++)
+	{
+		zahtjev.zhtv[i].width = atoi(argv[3+i*4]);
+		zahtjev.zhtv[i].height = atoi(argv[4+i*4]);
+		zahtjev.zhtv[i].depth = atoi(argv[5+i*4]);
+		strcpy(zahtjev.zhtv[i].format, argv[6+i*4]);
+		for(j = 0; j < strlen(zahtjev.zhtv[i].format); j++)
+			if(zahtjev.zhtv[i].format[j] == '0')
+			    	zahtjev.zhtv[i].format[j] = '\0';
+			
+
+
+	}
+
+	printf("%d\n",zahtjev.broj_zahtjeva);
+	for(i = 0; i < broj_zahtjeva; i++)
+	{
+		printf("zahtjev.zhtv[%d].width = %d\n",i,zahtjev.zhtv[i].width);
+		printf("zahtjev.zhtv[%d].height = %d\n",i,zahtjev.zhtv[i].height);
+		printf("zahtjev.zhtv[%d].depth = %d\n",i,zahtjev.zhtv[i].depth);
+		printf("zahtjev.zhtv[%d].format = %s\n",i,zahtjev.zhtv[i].format);
+		printf("\n");
+	}
+
+	
+	
+
+
+	
+
+//	printf("height = %d\nwidth = %d\noriginalna_vel_slike = %d\nformat = %s\npolje = %d\n",slika.height,slika.width,slika.originalna_duljina_slike,slika.format,slika.polje);
 
 
  
@@ -76,20 +111,34 @@ int main(int argc,char **argv)
 				
 		
 		//_____________SLANJE BAJTOVA____________________________________________//
-		zmq_send (requester, &slika, 24, 0); //posalje array bajtova serveru
+		zmq_send (requester, &len, 4, ZMQ_SNDMORE); //posalje velicinu arraya bajtova
+		zmq_send (requester, polje, len, ZMQ_SNDMORE); //posalje array bajtova
         printf("Poslan array bajtova\n");
-		free(slika.polje);
 
+		free(polje);
+		polje = NULL;
 		
-		
-		zmq_recv(requester,&nova,8,0);
+		zmq_send (requester, &zahtjev, sizeof(zahtjev), 0); //poslani zahtjevi za resize slike
+
+		zmq_recv (requester, &novi
+
+
+
+
+		/*
+		zmq_recv(requester,&nova,sizeof(nova),0);
+		polje = (unsigned char*)malloc(nova.len);
+
+		zmq_recv(requester, polje, nova.len, 0);
+
         printf("Primljen array bajtova\n");
 
 
+
 		//_______________________________________ISPIS OBRADENE SLIKE________________//
-		fwrite(nova.string,1,nova.len,kopija);
-		free(nova.string);
+		fwrite(polje,1,nova.len,kopija);
 		printf ("Nova slika je kreirana...\n");
+		free(polje);
     
 	fclose(pic);
 	fclose(kopija);
@@ -97,6 +146,8 @@ int main(int argc,char **argv)
 
     zmq_close (requester);
     zmq_ctx_destroy (context);
+	// */
+	fclose(pic);
 	system("pause");
     return 0;
 }

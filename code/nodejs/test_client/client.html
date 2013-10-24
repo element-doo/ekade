@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <!-- the following can be used to get socket.io.js JavaScript library directly from the nodejs server -->
+    <!--<script src="SOCKET_SERVER_URI:SOCKET_SERVER_PORT/socket.io/socket.io.js"></script>-->
+
+    <!-- if not, use the local version that is supplied -->
+    <script src="./socketio/socket.io.js"></script>
+
+</head>
+<body>
+
+<script>
+    var socket = io.connect('http://10.0.0.201:8042');
+    socket.on('new_kada', function (data)
+    {
+        // show a picture
+        console.log('got data', data);
+    });
+</script>
+
+</body>
+</html>

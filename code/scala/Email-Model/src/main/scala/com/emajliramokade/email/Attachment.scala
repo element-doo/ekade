@@ -1,4 +1,5 @@
-package com.emajliramokade.email
+package com.emajliramokade
+package email
 
 case class Attachment(
     filename: String

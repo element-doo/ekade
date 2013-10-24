@@ -1,0 +1,22 @@
+program je testiran na sbcl-1.1.8
+
+na sistemu treba biti instaliran 0MQ3 i ImageMagick
+
+instaliraj quicklisp (http://www.quicklisp.org/beta/)
+
+$ curl -O http://beta.quicklisp.org/quicklisp.lisp
+$ sbcl --load quicklisp.lisp
+* (quicklisp-quickstart:install)
+* (ql:quickload "pzmq")
+* (ql:add-to-init-file)
+
+starta se sa
+$ sbcl --load emajl.lisp --eval '(emajl::main)' 'tcp://*:5555'
+
+ili samo (default port je 5555)
+
+$ sbcl --load emajl.lisp --eval '(emajl::main)'
+
+test klijent se starta sa
+
+$ sbcl --load client.lisp --eval '(emajl::run-test)'

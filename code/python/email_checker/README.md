@@ -33,7 +33,7 @@ Then, install the required Python packages:
 
 ## Running
 
-To start the server (listening on all interfaces on port 8000), run:
+To start the server (listening on all interfaces on port 10060), run:
 
     make server
 
@@ -48,7 +48,7 @@ a valid email, or 400, which indicates an invalid email.
 
 Example:
 
-    curl -F 'email=foo@bar.com' http://localhost:8000/api/v1/check/
+    curl -F 'email=foo@bar.com' http://localhost:10060/api/v1/check/
 
 Response:
 
@@ -57,7 +57,7 @@ Response:
 JSON requests are also valid:
 
     curl -H 'Content-Type: application/json' -X POST \
-        -d '{"email":"foo@bar.com"}' http://localhost:8000/api/v1/check/
+        -d '{"email":"foo@bar.com"}' http://localhost:10060/api/v1/check/
 
 ## Tests
 
@@ -81,6 +81,9 @@ This will create a `htmlcov` directory with a bunch of HTML files. Open
 If you want to have a different local development settings, create
 a `email_checker/settings/local.py` with your settings. It will be imported
 if it exists. Use the `email_checker/settings/prod.py` as a template.
+
+The ALLOWED_HOSTS setting is ignored if DEBUG=True but if not, be sure to set it 
+accordingly in the aforementioned local.py setting file.
 
 ## Why?
 

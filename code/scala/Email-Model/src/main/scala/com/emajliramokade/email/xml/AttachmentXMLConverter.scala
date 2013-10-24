@@ -1,8 +1,9 @@
-package com.emajliramokade.email
+package com.emajliramokade
+package email
 package xml
 
-import scala.xml.NodeSeq
 import hr.element.etb.Pimps._
+import scala.xml.NodeSeq
 
 import org.apache.commons.codec.binary.Base64
 
@@ -11,6 +12,6 @@ trait AttachmentXMLConverter extends XMLConverter { this: Attachment =>
 <Attachment>
   <fileName>{ filename }</fileName>
   <mimeType>{ mimeType }</mimeType>
-  <content>{ new String(Base64.encodeBase64Chunked(bytes), "UTF-8").trim }</content>
+  <content>{ new String(Base64.encodeBase64Chunked(bytes), Encoding).trim }</content>
 </Attachment>.prettyPrint
 }

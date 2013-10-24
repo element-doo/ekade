@@ -22,12 +22,15 @@ trait Dependencies  {
   val ngsCore       = "hr.ngs" %% "ngs-core" % "0.3.19"
   val mimeTypes     = "hr.element.onebyseven.common" % "mimetypes" % "2013-10-21"
 
-  val jeroMQ        = "org.jeromq" % "jeromq" % "0.2.0"
+  // Both have identical APIs, so they should be interchangeable.
+  val jeroMQ        = "org.jeromq" % "jeromq" % "0.2.0"  // Pure Java implementation
+  val jzmq          = "org.zeromq" % "jzmq"   % "2.2.2"  // Wrapper around native 0MQ
+
   val rabbitMQ      = "com.rabbitmq" % "amqp-client" % "3.1.4"
   val protobuf      = "com.google.protobuf" % "protobuf-java" % "2.5.0"
   val akka          = "com.typesafe.akka" %% "akka-actor" % "2.2.1"
 
-  val dslHttp       = "com.dslplatform" % "dsl-client-http" % "0.4.13" 
+  val dslHttp       = "com.dslplatform" % "dsl-client-http" % "0.4.13"
   val dispatch      = "net.databinder.dispatch" %% "dispatch-core" % "0.11.0"
 
   val scalaTest     = Seq(
