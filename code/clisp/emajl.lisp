@@ -23,7 +23,7 @@
 	 (req-buff (ptr-offset img-buff (+ size 4))) 
 	 (reqs (loop repeat reqnum
 		  for buff = req-buff then
-		    (ptr-offset req-buff *resize-request-size*)
+		    (ptr-offset buff *resize-request-size*)
 		  for req = (parse-resize buff)
 		  collecting req)))
     (when (magick-read-image-blob img img-buff size)    

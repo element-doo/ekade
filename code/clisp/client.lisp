@@ -61,5 +61,7 @@
   (multiple-value-bind (len buff)
       (request-buffer "pic.jpg"
 		      '(1280 800 8 jpg)
-		      '(200 100 8 jpg))
+		      '(200 100 8 jpg)
+		      '(100 100 8 jpg)
+		      '(400 400 8 jpg))
     (request-send buff len)))
