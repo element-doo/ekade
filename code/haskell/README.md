@@ -1,7 +1,12 @@
+## wat ##
+
+0K, the HTTP-to-0MQ bridge.
+
+## install ##
+
 get [ghc][ghc] and the [haskell platform][hp]
 
 (on unix, just do `aptitude install ghc cabal-install`)
-
 
 cd here and:
 

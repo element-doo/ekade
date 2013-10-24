@@ -18,7 +18,8 @@
   (img magick-wand) (len :pointer :ulong))
 (defcfun ("CloneMagickWand" magick-wand-clone) magick-wand
   (img magick-wand))
-
+(defcfun ("DestroyMagickWand" magick-wand-destroy) :pointer
+  (img magick-wand))
 (magick-wand-genesis)
 
 ;; misc binary manipulation
@@ -26,10 +27,10 @@
   (multiple-value-bind (rem a4) (truncate ui32 #x100)
     (multiple-value-bind (rem a3) (truncate rem #x100)
       (multiple-value-bind (rem a2) (truncate rem #x100)
-	(multiple-value-bind (rem a1) (truncate rem #x100)
-	  (declare (ignore rem))
-	  (make-array 4 :element-type '(unsigned-byte 8)
-		      :initial-contents (list a1 a2 a3 a4)))))))
+    (multiple-value-bind (rem a1) (truncate rem #x100)
+      (declare (ignore rem))
+      (make-array 4 :element-type '(unsigned-byte 8)
+              :initial-contents (list a1 a2 a3 a4)))))))
 
  (defun read-ui32 (ptr)
    (let ((ui32 0))
