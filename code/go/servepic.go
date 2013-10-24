@@ -57,5 +57,5 @@ func (this *ServePictureController) Get(ctx *ripple.Context) {
 func getField(p *Picture, field string) []byte {
 	r := reflect.ValueOf(p)
 	f := reflect.Indirect(r).FieldByName(field)
-	return f.Bytes
+	return f.Bytes()
 }
