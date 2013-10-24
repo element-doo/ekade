@@ -31,7 +31,7 @@ abstract class ZahtjevArrayConverter
     {
         $ret = array();
         $ret['email'] = $item->email;
-        $ret['kadaID'] = $item->kadaID;
+        $ret['kadaID'] = $item->kadaID === null ? null : $item->kadaID->__toString();
         return $ret;
     }
 

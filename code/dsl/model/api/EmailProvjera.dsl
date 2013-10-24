@@ -2,7 +2,7 @@ module EmailProvjera
 {
   value Zahtjev {
     String  email;
-    String? kadaID;
+    GUID?   kadaID;
   }
 
   value Odgovor {
