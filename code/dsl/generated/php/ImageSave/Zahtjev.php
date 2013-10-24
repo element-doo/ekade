@@ -7,6 +7,7 @@ require_once __DIR__.'/ZahtjevArrayConverter.php';
 /**
  * Generated from NGS DSL
  *
+ * @property \NGS\UUID $kadaID a uuid
  * @property \NGS\ByteStream $thumbnail a byte stream
  * @property \NGS\ByteStream $original a byte stream
  * @property \NGS\ByteStream $email a byte stream
@@ -17,6 +18,7 @@ require_once __DIR__.'/ZahtjevArrayConverter.php';
  */
 class Zahtjev implements \IteratorAggregate
 {
+    protected $kadaID;
     protected $thumbnail;
     protected $original;
     protected $email;
@@ -43,6 +45,8 @@ class Zahtjev implements \IteratorAggregate
      */
     private static function provideDefaults(array &$data)
     {
+        if(!array_key_exists('kadaID', $data))
+            $data['kadaID'] = new \NGS\UUID(); // a uuid
         if(!array_key_exists('thumbnail', $data))
             $data['thumbnail'] = new \NGS\ByteStream(); // a byte stream
         if(!array_key_exists('original', $data))
@@ -62,6 +66,9 @@ class Zahtjev implements \IteratorAggregate
     {
         $this->provideDefaults($data);
 
+        if (array_key_exists('kadaID', $data))
+            $this->setKadaID($data['kadaID']);
+        unset($data['kadaID']);
         if (array_key_exists('thumbnail', $data))
             $this->setThumbnail($data['thumbnail']);
         unset($data['thumbnail']);
@@ -80,6 +87,14 @@ class Zahtjev implements \IteratorAggregate
     }
 
 // ============================================================================
+
+    /**
+     * @return a uuid
+     */
+    public function getKadaID()
+    {
+        return $this->kadaID;
+    }
 
     /**
      * @return a byte stream
@@ -122,6 +137,8 @@ class Zahtjev implements \IteratorAggregate
      */
     public function __get($name)
     {
+        if ($name === 'kadaID')
+            return $this->getKadaID(); // a uuid
         if ($name === 'thumbnail')
             return $this->getThumbnail(); // a byte stream
         if ($name === 'original')
@@ -145,6 +162,8 @@ class Zahtjev implements \IteratorAggregate
      */
     public function __isset($name)
     {
+        if ($name === 'kadaID')
+            return true; // a uuid (always set)
         if ($name === 'thumbnail')
             return true; // a byte stream (always set)
         if ($name === 'original')
@@ -155,6 +174,20 @@ class Zahtjev implements \IteratorAggregate
             return true; // a byte stream (always set)
 
         return false;
+    }
+
+    /**
+     * @param \NGS\UUID $value a uuid
+     *
+     * @return \NGS\UUID
+     */
+    public function setKadaID($value)
+    {
+        if ($value === null)
+            throw new \InvalidArgumentException('Property "kadaID" cannot be set to null because it is non-nullable!');
+        $value = new \NGS\UUID($value);
+        $this->kadaID = $value;
+        return $value;
     }
 
     /**
@@ -221,6 +254,8 @@ class Zahtjev implements \IteratorAggregate
      */
     public function __set($name, $value)
     {
+        if ($name === 'kadaID')
+            return $this->setKadaID($value); // a uuid
         if ($name === 'thumbnail')
             return $this->setThumbnail($value); // a byte stream
         if ($name === 'original')
@@ -239,6 +274,8 @@ class Zahtjev implements \IteratorAggregate
      */
     public function __unset($name)
     {
+        if ($name === 'kadaID')
+            throw new \LogicException('The property "kadaID" cannot be unset because it is non-nullable!'); // a uuid (cannot be unset)
         if ($name === 'thumbnail')
             throw new \LogicException('The property "thumbnail" cannot be unset because it is non-nullable!'); // a byte stream (cannot be unset)
         if ($name === 'original')

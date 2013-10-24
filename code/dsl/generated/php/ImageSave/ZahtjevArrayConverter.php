@@ -30,6 +30,7 @@ abstract class ZahtjevArrayConverter
     private static function toArrayObject($item)
     {
         $ret = array();
+        $ret['kadaID'] = $item->kadaID->__toString();
         $ret['thumbnail'] = $item->thumbnail->__toString();
         $ret['original'] = $item->original->__toString();
         $ret['email'] = $item->email->__toString();
