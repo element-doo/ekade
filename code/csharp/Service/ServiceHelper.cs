@@ -19,14 +19,12 @@ namespace EmajliramoKade
 
 		protected Stream SerializeXml<T>(IServiceLocator locator, T Object)
 		{
-			var xmlSerialization = locator.Resolve<ISerialization<XElement>>();	
+			var xmlSerialization = locator.Resolve<ISerialization<XElement>>();
 
-			using (var ms = new MemoryStream())
-			{
-				WebOperationContext.Current.OutgoingResponse.ContentType = "application/xml";
-				xmlSerialization.Serialize(Object).Save(ms);
-				return ms;
-			}
+			var ms = new MemoryStream();
+			WebOperationContext.Current.OutgoingResponse.ContentType = "application/xml";
+			xmlSerialization.Serialize(Object).Save(ms);
+			return ms;
 		}
 
 		protected Stream SerializeProtobuf<T>(IServiceLocator locator, T Object)

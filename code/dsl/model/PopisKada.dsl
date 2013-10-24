@@ -7,21 +7,20 @@ module PopisKada
     Timestamp? odobrena;
     Timestamp? odbijena;
     Int        brojacSlanja;
-    String?    komentar;
 
     detail slikeKade Resursi.SlikeKade.kada;
     persistence { optimistic concurrency; }
   }
 
   mixin KadaEvent {
-    Guid kadaID;
+    Guid  kadaID;
   }
 
   // Ovaj event stvara kadu, definiranu Guidom na strani onoga koji je poslao event
   // Ovo omogućuje konkurentno stvaranje svih loosly-coupled reprezentacija kade
   event KadaDodana {
     has mixin KadaEvent;
-    String? komentar;
+    has mixin Resursi.SlikeUseCases;
   }
 
   // Odobravanje kade postavlja "odobrena" timestamp agregata na trenutačno vrijeme
@@ -40,6 +39,17 @@ module PopisKada
   // Slanje kade atomski povećava "brojacSlanja"
   event KadaPoslana {
     has mixin KadaEvent;
+  }
+
+  value ModeriranaKada {
+    has mixin KadaEvent;
+
+    // Ukoliko je odobrena false, kada ce biti odbijena (nece biti NOOP).
+    bool  odobrena;
+  }
+
+  event MasovnaModeracija {
+    List<ModeriranaKada>  moderacijeKada;
   }
 
   // Izvor podataka se koristi na dva načina

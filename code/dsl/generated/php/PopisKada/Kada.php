@@ -14,7 +14,6 @@ require_once __DIR__.'/../Resursi/SlikeKade.php';
  * @property \NGS\Timestamp $odobrena a timestamp with time zone, can be null
  * @property \NGS\Timestamp $odbijena a timestamp with time zone, can be null
  * @property int $brojacSlanja an integer number
- * @property string $komentar a string, can be null
  * @property string $slikeKadeURI reference to an array of objects of class "PopisKada\Kada" (read-only)
  * @property array $slikeKade an array of objects of class "Resursi\SlikeKade" (read-only)
  *
@@ -29,7 +28,6 @@ class Kada extends \NGS\Patterns\AggregateRoot implements \IteratorAggregate
     protected $odobrena;
     protected $odbijena;
     protected $brojacSlanja;
-    protected $komentar;
     protected $slikeKadeURI;
     protected $slikeKade;
 
@@ -99,9 +97,6 @@ class Kada extends \NGS\Patterns\AggregateRoot implements \IteratorAggregate
         if (array_key_exists('brojacSlanja', $data))
             $this->setBrojacSlanja($data['brojacSlanja']);
         unset($data['brojacSlanja']);
-        if (array_key_exists('komentar', $data))
-            $this->setKomentar($data['komentar']);
-        unset($data['komentar']);
         if (array_key_exists('slikeKade', $data))
             $this->setSlikeKade($data['slikeKade']);
         unset($data['slikeKade']);
@@ -167,14 +162,6 @@ class Kada extends \NGS\Patterns\AggregateRoot implements \IteratorAggregate
     }
 
     /**
-     * @return a string, can be null
-     */
-    public function getKomentar()
-    {
-        return $this->komentar;
-    }
-
-    /**
      * @return references to an array of objects of class "Resursi\SlikeKade"
      */
     public function getSlikeKadeURI()
@@ -213,8 +200,6 @@ class Kada extends \NGS\Patterns\AggregateRoot implements \IteratorAggregate
             return $this->getOdbijena(); // a timestamp with time zone, can be null
         if ($name === 'brojacSlanja')
             return $this->getBrojacSlanja(); // an integer number
-        if ($name === 'komentar')
-            return $this->getKomentar(); // a string, can be null
         if ($name === 'slikeKadeURI')
             return $this->getSlikeKadeURI(); // references to an array of objects of class "Resursi\SlikeKade"
         if ($name === 'slikeKade')
@@ -244,8 +229,6 @@ class Kada extends \NGS\Patterns\AggregateRoot implements \IteratorAggregate
             return $this->getOdbijena() !== null; // a timestamp with time zone, can be null
         if ($name === 'brojacSlanja')
             return true; // an integer number (always set)
-        if ($name === 'komentar')
-            return $this->getKomentar() !== null; // a string, can be null
         if ($name === 'slikeKade')
             return true; // an array of objects of class "Resursi\SlikeKade" (always set)
         if ($name === 'slikeKadeURI')
@@ -323,18 +306,6 @@ class Kada extends \NGS\Patterns\AggregateRoot implements \IteratorAggregate
     }
 
     /**
-     * @param string $value a string, can be null
-     *
-     * @return string
-     */
-    public function setKomentar($value)
-    {
-        $value = $value !== null ? \NGS\Converter\PrimitiveConverter::toString($value) : null;
-        $this->komentar = $value;
-        return $value;
-    }
-
-    /**
      * @param array $value an array of objects of class "Resursi\SlikeKade"
      *
      * @return array
@@ -374,8 +345,6 @@ class Kada extends \NGS\Patterns\AggregateRoot implements \IteratorAggregate
             return $this->setOdbijena($value); // a timestamp with time zone, can be null
         if ($name === 'brojacSlanja')
             return $this->setBrojacSlanja($value); // an integer number
-        if ($name === 'komentar')
-            return $this->setKomentar($value); // a string, can be null
         if ($name === 'slikeKade')
             return $this->setSlikeKade($value); // an array of objects of class "Resursi\SlikeKade"
         throw new \InvalidArgumentException('Property "'.$name.'" in class "PopisKada\Kada" does not exist and could not be set!');
@@ -398,8 +367,6 @@ class Kada extends \NGS\Patterns\AggregateRoot implements \IteratorAggregate
             $this->setOdbijena(null);; // a timestamp with time zone, can be null
         if ($name === 'brojacSlanja')
             throw new \LogicException('The property "brojacSlanja" cannot be unset because it is non-nullable!'); // an integer number (cannot be unset)
-        if ($name === 'komentar')
-            $this->setKomentar(null);; // a string, can be null
         if ($name === 'slikeKade')
             throw new \LogicException('The property "slikeKade" cannot be unset because it is non-nullable!'); // references to an array of objects of class "Resursi\SlikeKade" (cannot be unset)
     }
@@ -427,7 +394,6 @@ class Kada extends \NGS\Patterns\AggregateRoot implements \IteratorAggregate
         $this->odobrena = $result->odobrena;
         $this->odbijena = $result->odbijena;
         $this->brojacSlanja = $result->brojacSlanja;
-        $this->komentar = $result->komentar;
         $this->slikeKade = $result->slikeKade;
         $this->slikeKadeURI = $result->slikeKadeURI;
     }
