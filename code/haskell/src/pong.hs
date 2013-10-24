@@ -1,5 +1,9 @@
 {-# LANGUAGE OverloadedStrings  #-}
 
+--
+-- Test pong proggie to talk with 0k.
+--
+
 import Control.Monad
 
 import Data.Monoid
@@ -15,25 +19,13 @@ import System.ZMQ3 hiding (message)
 import System.Environment
 
 import Data.Serialize (runPut, runGetLazy)
-import Data.ProtocolBuffers ( encodeMessage, decodeMessage, putField, getField, Encode(..), Decode(..) )
+import Data.ProtocolBuffers
 
 import Types
 
 def_addr = "tcp://127.0.0.1:10011"
 
 getAddr = (`fmap` getArgs) . foldr const $ def_addr
-
-type Trans = [B.ByteString] -> IO [B.ByteString]
-
-lockstep :: Trans -> IO ()
-lockstep x = do
-  addr <- getAddr
-  putStrLn $ "using " ++ addr
-
-  sock <- context >>= (`socket` Rep)
-  connect sock addr
-
-  forever $ receiveMulti sock >>= x >>= sendMulti sock . fromList
 
 prefork x = do
   mq <- context
@@ -47,7 +39,6 @@ prefork x = do
       forever $ receiveMulti sock >>= x >>= sendMulti sock . fromList
 
 
-report :: Trans
 report bss = do
   putStrLn $ "-> " ++ show msg
   putStrLn $ "<- " ++ show rep

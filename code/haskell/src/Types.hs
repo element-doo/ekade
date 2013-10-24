@@ -1,4 +1,13 @@
 {-# LANGUAGE DeriveGeneric, FlexibleInstances, OverlappingInstances, UndecidableInstances #-}
+
+--
+-- 0k/pong message definitions. Incoming/outgoing datatype and the corresponding
+-- JSON and on-the-wire protobuf representations.
+--
+-- Caveat: datatype definitions themself entail protobuf encoding. No .proto
+-- files.
+--
+
 module Types (Ingress(..), Outgress(..), (><)) where
 
 import GHC.Generics hiding (D1)
