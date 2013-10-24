@@ -36,6 +36,13 @@
 		  (mapcar #'resize-request->arr resize)))
       (values total-len ptr)))))
 
+(defun parse-pics (num ptr)
+  (unless (zerop num)
+    (let ((size (read-ui32 ptr))
+	  (img (magick-wand-new)))
+      (format t "~A ~A~%" size (magick-read-image-blob img (ptr-offset ptr 4) size))
+      (parse-pics (1- num) (ptr-offset ptr (+ 4 size))))))
+
 (defun request-send (buff len &optional (server-address "tcp://localhost:5555"))
   (pzmq:with-context (ctx :max-sockets 10)
     (pzmq:with-socket (requester ctx) (:req :affinity 3 :linger 100)
@@ -45,7 +52,10 @@
       (write-string "receiving ... ")
       (pzmq::with-message msg
 	(pzmq::msg-recv msg requester)
-	(print (pzmq::msg-size msg))))))
+	(let ((size (pzmq::msg-size msg))
+	      (num (read-ui32 (pzmq::msg-data msg))))
+	  (format t "size ~A,  pics ~A~%" size num)
+	  (parse-pics num (ptr-offset (pzmq::msg-data msg) 4)))))))
 
 (defun run-test ()
   (multiple-value-bind (len buff)

@@ -18,7 +18,8 @@
   (img magick-wand) (len :pointer :ulong))
 (defcfun ("CloneMagickWand" magick-wand-clone) magick-wand
   (img magick-wand))
-
+(defcfun ("DestroyMagickWand" magick-wand-destroy) :pointer
+  (img magick-wand))
 (magick-wand-genesis)
 
 ;; misc binary manipulation

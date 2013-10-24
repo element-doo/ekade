@@ -25,23 +25,40 @@
 		  for buff = req-buff then
 		    (ptr-offset req-buff *resize-request-size*)
 		  for req = (parse-resize buff)
-		  collecting req do (print req))))
-    (magick-read-image-blob img img-buff size)    
-    (values img reqs)))
+		  collecting req)))
+    (when (magick-read-image-blob img img-buff size)    
+	(values img reqs))))
 
 (defun image-resize (img rsz)
   (let ((new-img (magick-wand-clone img)))
-	(magic-adaptive-resize-image new-img (first rsz) (second rsz))
-	#+nil (magick-write-image
-	       new-img
-	       (concatenate 'string (symbol-name (gensym)) ".jpg"))
-	(with-foreign-object (psize :int)
-	  (let ((buff (magick-get-image-blob new-img psize)))
-	    (c-arr->vector buff (mem-aref psize :int))))))
+    (unwind-protect
+	 (progn
+	   (magic-adaptive-resize-image new-img (first rsz) (second rsz))
+	   (with-foreign-object (psize :int)
+	     (let ((buff (magick-get-image-blob new-img psize)))
+	       (c-arr->vector buff (mem-aref psize :int)))))
+      (magick-wand-destroy new-img))))
 
 (defun persist-image (img)
   (concatenate `(vector (unsigned-byte 8) ,(+ 4 (length img)))
 	       (write-ui32 (length img)) img))
+
+(defun ok-reply (img resizes responder)
+  (let* ((imgs (mapcar (lambda (res) (image-resize img res)) resizes))
+	 (imgs-len (apply #'+ (mapcar #'length imgs)))
+	 (total-len (+ 4 (* 4 (length imgs)) imgs-len)))
+    (with-pointer-to-vector-data
+	(ptr
+	 (apply #'concatenate
+		`(vector (unsigned-byte 8) ,total-len)
+		(write-ui32 (length imgs))
+		(mapcar #'persist-image imgs)))
+      (pzmq:send responder ptr :len total-len))))
+
+(defun empty-reply (responder)
+  (with-pointer-to-vector-data
+      (ptr (write-ui32 0))
+	   (pzmq:send responder ptr :len 4)))
 
 (defun server (&optional (listen-address "tcp://*:5555"))
   (pzmq:with-context nil ; use *default-context*
@@ -53,20 +70,11 @@
 	   (pzmq::msg-recv msg responder)
 	   (multiple-value-bind (img resizes)
 	       (parse-request (pzmq::msg-size msg) (pzmq::msg-data msg))
-	     (let* ((imgs (mapcar (lambda (res) (image-resize img res)) resizes))
-		    (imgs-len (apply #'+ (mapcar #'length imgs)))
-		    (total-len (+ 4 (* 4 (length imgs)) imgs-len)))
-	       (with-pointer-to-vector-data
-		   (ptr
-		    (apply #'concatenate
-			   `(vector (unsigned-byte 8) ,total-len)
-			   (write-ui32 (length imgs))
-			   (mapcar #'persist-image imgs)))
-		 (pzmq:send responder ptr :len total-len)))))))))
+	     (if img
+		 (ok-reply img resizes responder)
+		 (empty-reply responder))))))))
 
-;;main
-(if (> (length sb-ext:*posix-argv*) 1)
-    (progn
-      (print (second sb-ext:*posix-argv*))
-      (server (second sb-ext:*posix-argv*)))
-    (server))
+(defun main ()
+  (if (> (length sb-ext:*posix-argv*) 1)
+      (server (second sb-ext:*posix-argv*))
+      (server)))

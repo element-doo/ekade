@@ -11,11 +11,11 @@ $ sbcl --load quicklisp.lisp
 * (ql:add-to-init-file)
 
 starta se sa
-$ sbcl --load emajl.lisp 'tcp://*:5555'
+$ sbcl --load emajl.lisp --eval '(emajl::main)' 'tcp://*:5555'
 
 ili samo (default port je 5555)
 
-$ sbcl --load emajl.lisp
+$ sbcl --load emajl.lisp --eval '(emajl::main)'
 
 test klijent se starta sa
 
