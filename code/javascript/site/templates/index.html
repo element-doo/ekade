@@ -1,0 +1,32 @@
+  <div class="container">
+    <!-- slider -->
+    <div class="slider">
+      <div id="slider" class="flexslider">
+        <ul class="slides">
+            <li ng-repeat="kada in kade">
+            <img src="img/pic-1.jpg" />
+          </li>
+        </ul>
+      </div>
+      <div id="carousel" class="flexslider">
+        <ul class="slides">
+          <li ng-repeat="kada in kade">
+            <span class="badge badge-info js-tooltip carousel-badge" data-placement="right" data-toggle="tooltip" title="Poslana 8 puta">8</span>
+            <img src="img/pic-1.jpg" />
+          </li>
+        </ul>
+      </div>
+      <!-- email form -->
+      <div class="email-form-container">
+        <form id="app-login" action="">
+          <div class="input-append">
+            <input class="slider-input js-tooltip" id="appendedInputButton" type="email" placeholder="Pošaljite kadu na ovaj email" title="Pošaljite kadu na ovaj email" data-toggle="tooltip" />
+            <button class="btn slider-input-btn js-btn-send" type="button" data-target="#modal-send-success" role="button" data-toggle="modal"><i class="icon-double-angle-right white icon-2x"></i></button>
+          </div>
+        </form>
+      </div>
+      <!-- end email form -->
+    </div>
+    <!-- end slider -->
+    <p class="text-right upper title-bg"><span class="title title-right"><a href="#"><i class="icon-th-large"></i> Pogledajte sve slike</a></span></p>
+  </div>

@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using NGS.DomainPatterns;
 using PopisKada;
+using System.ServiceModel.Web;
 
 namespace EmajliramoKade
 {

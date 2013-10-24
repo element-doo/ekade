@@ -60,12 +60,11 @@ namespace EmajliramoKade
 			return Execute(guid, new KadaOdbijena());
 		}
 
+		//TODO: Implement
 		public Stream DodajKadu(string guid, Stream komentar)
 		{
 			var @event = new KadaDodana();
-			return Execute(guid, @event, () =>
-				@event.komentar = new StreamReader(komentar).ReadToEnd()
-			);
+			return Execute(guid, @event);
 		}
 
 
