@@ -4,9 +4,7 @@ $(document).ready(function(){
   $('#carousel').flexslider({
     animation: "slide",
     controlNav: false,
-    animationLoop: false,
-    slideshow: false,
-    itemWidth: 210,
+    itemWidth: 140,
     itemMargin: 5,
     asNavFor: '#slider'
   });
@@ -14,9 +12,9 @@ $(document).ready(function(){
   $('#slider').flexslider({
     animation: "slide",
     controlNav: false,
-    animationLoop: false,
-    slideshow: false,
-    keyboard: true,
+    smoothHeight : true,
+    animationSpeed : 500,
+    slideshowSpeed : 2000,
     sync: "#carousel"
   });
 
