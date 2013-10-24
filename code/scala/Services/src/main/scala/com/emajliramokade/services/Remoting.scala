@@ -3,6 +3,7 @@ package services
 
 import scala.concurrent.Future
 
-trait Remoting {
-  def send(body: Array[Byte]): Future[Array[Byte]]
+trait Remoting[T] {
+  def serviceUrlFactory(t: T): String
+  def send(serviceUrl: String, body: Array[Byte]): Future[Array[Byte]]
 }

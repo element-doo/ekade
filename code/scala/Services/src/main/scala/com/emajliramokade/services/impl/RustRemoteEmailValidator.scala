@@ -10,15 +10,16 @@ import scala.concurrent.Future
 class RustRemoteEmailValidator(
     val serialization: ISerialization[String])
     extends abstracts.RemoteEmailValidator
-    with    RemotingZeroMQ {
-  val serviceUrl = "tcp://emajliramokade.com:10090"
+    with    RemotingZeroMQ[Zahtjev] {
+  def serviceUrlFactory(t: Zahtjev) = "tcp://emajliramokade.com:10090"
 
   // Overrides RemoteEmailValidator's JSON serialization, and rolls its own.
   override def validate(zahtjev: Zahtjev): Future[Odgovor] = {
     zahtjev.getEmail.split('@') toList match {
       case path :: domain :: Nil =>
+        val serviceUrl = serviceUrlFactory(zahtjev)
         val body = domain.toUTF8
-        send(body) map { responseBody =>
+        send(serviceUrl, body) map { responseBody =>
           val response = responseBody.fromUTF8
           response match {
             case "YES" => odgovor(true,  "Email domena postoji")

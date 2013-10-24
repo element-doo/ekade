@@ -9,7 +9,7 @@ import java.nio.{ ByteBuffer, ByteOrder }
 import scala.concurrent.Future
 
 trait RemoteImageResizer
-    extends interfaces.ImageResizer { this: Remoting =>
+    extends interfaces.ImageResizer { this: Remoting[Seq[ResizeZahtjev]] =>
 
   def resize(original: Array[Byte], resizeTargetList: Seq[ResizeZahtjev]): Future[Map[ResizeZahtjev, Slika]] = {
     val targetSeqList  = resizeTargetList map resizeTargetToBA
@@ -18,9 +18,9 @@ trait RemoteImageResizer
     val targetCountArr: Array[Byte] = resizeTargetList.size.be32
     val targetArr:      Array[Byte] = targetSeqList.flatten.toArray
 
+    val serviceUrl = serviceUrlFactory(resizeTargetList)
     val reqArr: Array[Byte] = payloadArr ++ targetCountArr ++ targetArr
-
-    send(reqArr) map { resArr =>
+    send(serviceUrl, reqArr) map { resArr =>
       val slikaList = parseRes(resArr) map new Slika().setBody
       resizeTargetList zip slikaList toMap
     }
