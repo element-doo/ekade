@@ -15,6 +15,8 @@ require_once __DIR__.'/Resursi/PodaciSlike.php';
 require_once __DIR__.'/Sigurnost/Korisnik.php';
 require_once __DIR__.'/EmailProvjera/Zahtjev.php';
 require_once __DIR__.'/EmailProvjera/Odgovor.php';
+require_once __DIR__.'/ImageLoad/Zahtjev.php';
+require_once __DIR__.'/ImageLoad/Odgovor.php';
 require_once __DIR__.'/ImageProvjera/Zahtjev.php';
 require_once __DIR__.'/ImageProvjera/DimenzijeSlike.php';
 require_once __DIR__.'/ImageProvjera/Odgovor.php';
