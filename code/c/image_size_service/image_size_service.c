@@ -12,11 +12,14 @@
 #define zahtjev_unpack com__emajliramokade__image__proto__zahtjev__unpack
 #define zahtjev_get_packed_size com__emajliramokade__image__proto__zahtjev__get_packed_size
 
-#define Dimenzija_Slike Com__Emajliramokade__Image__Proto__DimenzijeSlike
-#define dimenzija_Slike_Init COM__EMAJLIRAMOKADE__IMAGE__PROTO__DIMENZIJE_SLIKE__INIT
-#define Odgovor Com__Emajliramokade__Image__Proto__Odogovor
+#define Dimenzije_Slike Com__Emajliramokade__Image__Proto__DimenzijeSlike
+#define dimenzija_slike_init COM__EMAJLIRAMOKADE__IMAGE__PROTO__DIMENZIJE_SLIKE__INIT 
+#define Odgovor Com__Emajliramokade__Image__Proto__Odgovor
 #define odgovor_pack com__emajliramokade__image__proto__odgovor__pack
+#define odgovor_get_packed_size com__emajliramokade__image__proto__odgovor__get_packed_size
+#define odgovor_init COM__EMAJLIRAMOKADE__IMAGE__PROTO__ODGOVOR__INIT
 
+int getImageMagickSize (const Zahtjev * z, Odgovor * o);
 
 int main (int argc, const char * argv []) {
 
@@ -45,39 +48,47 @@ int main (int argc, const char * argv []) {
 	while (1) {
 		unsigned char buffer [POCKET_MAX_SIZE];
 		int len = zmq_recv (responder, buffer, POCKET_MAX_SIZE, 0);
+		printf ("Received message size: %d\n", len);
 		Zahtjev * msg = zahtjev_unpack (NULL, len, buffer);
-		int message_size = zahtjev_get_packed_size(msg);
-		Dimenzija_Slike
 
-		printf("Received message size: %d\n", message_size);
-		zmq_send (responder, "Pong", 4, 0);
+		Dimenzije_Slike ds = dimenzija_slike_init;
+		Odgovor odgovor = odgovor_init;
+		odgovor.dimenzijeslike = &ds;
+		getImageMagickSize (msg, &odgovor);
+
+		int message_size = odgovor_get_packed_size (&odgovor);
+    	unsigned char *message_buffer = (unsigned char *) malloc (message_size);
+    	odgovor_pack (&odgovor, message_buffer);
+		
+    	zmq_send (responder, message_buffer, message_size, 0);
+    	printf ("Sent message size: %d\n", message_size);
+    	printf ("Sent poruka: %s\n", odgovor.poruka);
 	}
 }
 
-Dimenzija_Slike doMagick (Zahtjev z) {
-	Dimenzija_Slike sd = dimenzija_Slike_Init;
-	MagickWand	*image_wand;
-	MagickBooleanType status;
-	unsigned char buffer [z.originalnaslika.len];
-	size_t width, height;
 
-  
+int getImageMagickSize (const Zahtjev * z, Odgovor * odgovor) {
+	MagickWand *image_wand;	
+
 	MagickWandGenesis();
 	image_wand = NewMagickWand();
 
-	//buffer = (unsigned char*) malloc (z.orginalnaSlika.len);
-
-	status = MagickReadImageBlob (image_wand, buffer, z.originalnaslika.len);
+	MagickBooleanType status = MagickReadImageBlob (image_wand, z->originalnaslika.data, z->originalnaslika.len);
 	if (status == MagickFalse) {
-		printf("\nnevalja status\n"); exit(-1);
+		odgovor->status =  0;
+		odgovor->poruka = "MagickFalse";
+		odgovor->dimenzijeslike = NULL;
+		return 0;
+	} else {
+		printf("Magick running. \n");
 	}
 
-	MagickGetSize (image_wand, &width, &height);
-	sd.width = width;
-	sd.height = height;
-	free(buffer);
-
-    image_wand = DestroyMagickWand (image_wand); 
+	odgovor->dimenzijeslike->width = MagickGetImageWidth (image_wand);
+	odgovor->dimenzijeslike->height = MagickGetImageHeight (image_wand);
+    
+    image_wand = DestroyMagickWand (image_wand);
 	MagickWandTerminus();
-    return sd;
+	odgovor->status = 1;
+	odgovor->poruka = "Dimenzije Slike su...";
+	return 1;
 }
