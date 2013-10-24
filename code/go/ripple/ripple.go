@@ -2,7 +2,6 @@ package ripple
 
 import (
 	"encoding/json"
-	"fmt"
 	"log"
 	"net/http"
 	"net/url"
@@ -182,7 +181,7 @@ func (this *Application) serializeResponseBody(body interface{}) (string, error)
 
 		contentType := this.contentType
 		if contentType != "application/json" {
-			output = fmt.Sprintf("%s", body)
+			output = body.(string)
 		}
 
 		if contentType == "application/json" {

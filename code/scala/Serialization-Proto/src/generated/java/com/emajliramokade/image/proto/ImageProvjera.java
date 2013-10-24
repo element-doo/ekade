@@ -343,7 +343,7 @@ public final class ImageProvjera {
 
       public final boolean isInitialized() {
         if (!hasOriginalnaSlika()) {
-          
+
           return false;
         }
         return true;
@@ -802,11 +802,11 @@ public final class ImageProvjera {
 
       public final boolean isInitialized() {
         if (!hasWidth()) {
-          
+
           return false;
         }
         if (!hasHeight()) {
-          
+
           return false;
         }
         return true;
@@ -1097,7 +1097,7 @@ public final class ImageProvjera {
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
-        com.google.protobuf.ByteString bs = 
+        com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
         if (bs.isValidUtf8()) {
@@ -1113,7 +1113,7 @@ public final class ImageProvjera {
         getPorukaBytes() {
       java.lang.Object ref = poruka_;
       if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
+        com.google.protobuf.ByteString b =
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
         poruka_ = b;
@@ -1410,16 +1410,16 @@ public final class ImageProvjera {
 
       public final boolean isInitialized() {
         if (!hasStatus()) {
-          
+
           return false;
         }
         if (!hasPoruka()) {
-          
+
           return false;
         }
         if (hasDimenzijeSlike()) {
           if (!getDimenzijeSlike().isInitialized()) {
-            
+
             return false;
           }
         }
@@ -1507,7 +1507,7 @@ public final class ImageProvjera {
           getPorukaBytes() {
         java.lang.Object ref = poruka_;
         if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString b =
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
           poruka_ = b;
@@ -1656,7 +1656,7 @@ public final class ImageProvjera {
        * <code>optional .com.emajliramokade.image.proto.DimenzijeSlike dimenzijeSlike = 3;</code>
        */
       private com.google.protobuf.SingleFieldBuilder<
-          com.emajliramokade.image.proto.ImageProvjera.DimenzijeSlike, com.emajliramokade.image.proto.ImageProvjera.DimenzijeSlike.Builder, com.emajliramokade.image.proto.ImageProvjera.DimenzijeSlikeOrBuilder> 
+          com.emajliramokade.image.proto.ImageProvjera.DimenzijeSlike, com.emajliramokade.image.proto.ImageProvjera.DimenzijeSlike.Builder, com.emajliramokade.image.proto.ImageProvjera.DimenzijeSlikeOrBuilder>
           getDimenzijeSlikeFieldBuilder() {
         if (dimenzijeSlikeBuilder_ == null) {
           dimenzijeSlikeBuilder_ = new com.google.protobuf.SingleFieldBuilder<

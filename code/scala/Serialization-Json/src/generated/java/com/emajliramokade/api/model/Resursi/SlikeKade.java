@@ -4,7 +4,11 @@ import com.dslplatform.patterns.*;
 import com.dslplatform.client.*;
 import com.fasterxml.jackson.annotation.*;
 
-public class SlikeKade implements java.io.Serializable, AggregateRoot {
+public class SlikeKade
+        implements
+        java.io.Serializable,
+        AggregateRoot,
+        com.emajliramokade.api.model.Resursi.SlikeUseCases<com.emajliramokade.api.model.Resursi.SlikeKade> {
     public SlikeKade() {
         _serviceLocator = Bootstrap.getLocator();
         _domainProxy = _serviceLocator.resolve(DomainProxy.class);

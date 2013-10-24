@@ -2,14 +2,19 @@ module Resursi
 {
   // Rucno popisane razlicite sve velicine kada potrebne za sustav
   // Velicine nisu striktno zadane, već su limitirane nekakvim maximalnim boxom
-  root SlikeKade(ID) {
-    Guid                ID;
-    PopisKada.Kada(ID)  *kada;
 
+  mixin SlikeUseCases {
     PodaciSlike  original;  // uploadana slika
     PodaciSlike  web;       // max: 1280x800
     PodaciSlike  email;     // max: 640x400
     PodaciSlike  thumbnail; // max: 200x120
+  }
+
+  root SlikeKade(ID) {
+    Guid                ID;
+    PopisKada.Kada(ID)  *kada;
+
+    has mixin SlikeUseCases;
 
     persistence { optimistic concurrency; }
   }

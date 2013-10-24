@@ -7,16 +7,27 @@ public final class KadaDodana
         implements
         DomainEvent,
         java.io.Serializable,
-        com.emajliramokade.api.model.PopisKada.KadaEvent<com.emajliramokade.api.model.PopisKada.KadaDodana> {
+        com.emajliramokade.api.model.PopisKada.KadaEvent<com.emajliramokade.api.model.PopisKada.KadaDodana>,
+        com.emajliramokade.api.model.Resursi.SlikeUseCases<com.emajliramokade.api.model.PopisKada.KadaDodana> {
     public KadaDodana(
-            final String komentar,
-            final java.util.UUID kadaID) {
-        setKomentar(komentar);
+            final java.util.UUID kadaID,
+            final com.emajliramokade.api.model.Resursi.PodaciSlike original,
+            final com.emajliramokade.api.model.Resursi.PodaciSlike web,
+            final com.emajliramokade.api.model.Resursi.PodaciSlike email,
+            final com.emajliramokade.api.model.Resursi.PodaciSlike thumbnail) {
         setKadaID(kadaID);
+        setOriginal(original);
+        setWeb(web);
+        setEmail(email);
+        setThumbnail(thumbnail);
     }
 
     public KadaDodana() {
         this.kadaID = java.util.UUID.randomUUID();
+        this.original = new com.emajliramokade.api.model.Resursi.PodaciSlike();
+        this.web = new com.emajliramokade.api.model.Resursi.PodaciSlike();
+        this.email = new com.emajliramokade.api.model.Resursi.PodaciSlike();
+        this.thumbnail = new com.emajliramokade.api.model.Resursi.PodaciSlike();
     }
 
     private String URI;
@@ -49,18 +60,6 @@ public final class KadaDodana
 
     private static final long serialVersionUID = 0x0097000a;
 
-    private String komentar;
-
-    public String getKomentar() {
-        return komentar;
-    }
-
-    public KadaDodana setKomentar(final String value) {
-        this.komentar = value;
-
-        return this;
-    }
-
     private java.util.UUID kadaID;
 
     public java.util.UUID getKadaID() {
@@ -72,6 +71,70 @@ public final class KadaDodana
             throw new IllegalArgumentException(
                     "Property \"kadaID\" cannot be null!");
         this.kadaID = value;
+
+        return this;
+    }
+
+    private com.emajliramokade.api.model.Resursi.PodaciSlike original;
+
+    public com.emajliramokade.api.model.Resursi.PodaciSlike getOriginal() {
+        return original;
+    }
+
+    public KadaDodana setOriginal(
+            final com.emajliramokade.api.model.Resursi.PodaciSlike value) {
+        if (value == null)
+            throw new IllegalArgumentException(
+                    "Property \"original\" cannot be null!");
+        this.original = value;
+
+        return this;
+    }
+
+    private com.emajliramokade.api.model.Resursi.PodaciSlike web;
+
+    public com.emajliramokade.api.model.Resursi.PodaciSlike getWeb() {
+        return web;
+    }
+
+    public KadaDodana setWeb(
+            final com.emajliramokade.api.model.Resursi.PodaciSlike value) {
+        if (value == null)
+            throw new IllegalArgumentException(
+                    "Property \"web\" cannot be null!");
+        this.web = value;
+
+        return this;
+    }
+
+    private com.emajliramokade.api.model.Resursi.PodaciSlike email;
+
+    public com.emajliramokade.api.model.Resursi.PodaciSlike getEmail() {
+        return email;
+    }
+
+    public KadaDodana setEmail(
+            final com.emajliramokade.api.model.Resursi.PodaciSlike value) {
+        if (value == null)
+            throw new IllegalArgumentException(
+                    "Property \"email\" cannot be null!");
+        this.email = value;
+
+        return this;
+    }
+
+    private com.emajliramokade.api.model.Resursi.PodaciSlike thumbnail;
+
+    public com.emajliramokade.api.model.Resursi.PodaciSlike getThumbnail() {
+        return thumbnail;
+    }
+
+    public KadaDodana setThumbnail(
+            final com.emajliramokade.api.model.Resursi.PodaciSlike value) {
+        if (value == null)
+            throw new IllegalArgumentException(
+                    "Property \"thumbnail\" cannot be null!");
+        this.thumbnail = value;
 
         return this;
     }

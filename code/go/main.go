@@ -14,24 +14,23 @@ func main() {
 	}
 	defer session.Close()
 
-	col := session.DB("Kada").C("Slike")
+	col := session.DB("Kade").C("Slike")
 
 	app := ripple.NewApplication()
 	picController := NewPictureController(col)
 	app.RegisterController("Kada", picController)
-	app.AddRoute(ripple.Route{Pattern: ":_controller/:guid/Slike"})
-	app.AddRoute(ripple.Route{Pattern: ":_controller/:guid/Slike/:type"})
-
-	app.SetBaseUrl("/")
-	http.HandleFunc("/", app.ServeHTTP)
+	app.AddRoute(ripple.Route{Pattern: ":_controller/:kadaID/Slike"})
+	app.AddRoute(ripple.Route{Pattern: ":_controller/:kadaID/Slike/:type"})
+	app.SetBaseUrl("/crud/")
+	http.HandleFunc("/crud/", app.ServeHTTP)
 
 	servePic := ripple.NewApplication()
 	servePicController := NewServePictureController(col)
-	servePic.RegisterController("pic", servePicController)
-	servePic.AddRoute(ripple.Route{Pattern: ":_controller/:guid/:type"})
-	servePic.SetBaseUrl("/serve/")
+	servePic.RegisterController("Slike", servePicController)
+	servePic.AddRoute(ripple.Route{Pattern: ":_controller/:kadaID/:type"})
 	servePic.SetContType("image/jpeg")
-	http.HandleFunc("/serve/", servePic.ServeHTTP)
+	servePic.SetBaseUrl("/public/")
+	http.HandleFunc("/public/", servePic.ServeHTTP)
 
 	port := "10080"
 	log.Println("Starting server @ " + port)
