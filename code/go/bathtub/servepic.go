@@ -8,7 +8,6 @@ import (
 	"net/http"
 	"reflect"
 	"strings"
-	"fmt"
 )
 
 type ServePictureController struct {
