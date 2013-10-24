@@ -9,7 +9,10 @@ class EmailCheckerEndpoint(Endpoint):
     def post(self, request):
         form = EmailForm(request.data)
         if form.is_valid():
-            return {'status': 'valid'}
+            return {'status': True, 'poruka': "Emajl provjeren!"}
         else:
-            raise HttpError(400, 'Mail Not Verified',
-                error=form.errors['email'][0])
+            return {'status': False, 'poruka': 'Emajl ne valja!'}
+
+#			Nije mi toliko bitan 400, koliko da je status: boolean 
+#			raise HttpError(400, 'Mail Not Verified',
+#			error=form.errors['email'][0])
