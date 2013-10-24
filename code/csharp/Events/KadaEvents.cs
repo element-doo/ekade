@@ -96,5 +96,6 @@ namespace EmajliramoKade
 
 			Kade.Update(kade.Values);
 		}
+
 	}
 }
