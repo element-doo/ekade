@@ -9,7 +9,7 @@ import java.nio.{ ByteBuffer, ByteOrder }
 import scala.concurrent.Future
 
 trait RemoteImageResizer
-    extends interfaces.ImageResizer { this: Remoting =>
+    extends interfaces.ImageResizer { this: Remoting[Seq[ResizeZahtjev]] =>
 
   def resize(original: Array[Byte], resizeTargetList: Seq[ResizeZahtjev]): Future[Map[ResizeZahtjev, Slika]] = {
     val targetSeqList  = resizeTargetList map resizeTargetToBA
@@ -18,35 +18,35 @@ trait RemoteImageResizer
     val targetCountArr: Array[Byte] = resizeTargetList.size.be32
     val targetArr:      Array[Byte] = targetSeqList.flatten.toArray
 
+    val serviceUrl = serviceUrlFactory(resizeTargetList)
     val reqArr: Array[Byte] = payloadArr ++ targetCountArr ++ targetArr
-
-    send(reqArr) map { resArr =>
+    send(serviceUrl, reqArr) map { resArr =>
       val slikaList = parseRes(resArr) map new Slika().setBody
       resizeTargetList zip slikaList toMap
     }
   }
 
   private def parseRes(res: Array[Byte]): Array[Array[Byte]] = {
-    def doParseRes(remainingRes: Array[Byte], bodyList: Array[Array[Byte]]): Array[Array[Byte]] = {
-      val len = remainingRes.head
-      val (body, newRes) = remainingRes.tail.splitAt(len)
-      if (newRes.isEmpty) {
+    def doParseRes(resPos: Int, bodyList: Array[Array[Byte]]): Array[Array[Byte]] = {
+      if (resPos >= res.length) {
         bodyList
       } else {
-        doParseRes(newRes, bodyList :+ body)
+        val len = res.getInt(resPos)
+        val body = res.slice(resPos+4, resPos + 4 + len)
+        doParseRes(resPos + 4 + len, bodyList :+ body)
       }
     }
 
-    doParseRes(res, Array())
+    doParseRes(4, Array())
   }
 
   private def resizeTargetToBA(rt: ResizeZahtjev): Array[Byte] =
-    rt.getWidth.be32 ++ rt.getHeight.be32 ++ Array(rt.getDepth.toByte) ++ rt.getFormat.nullTerm(5)
+    rt.getWidth.be32 ++ rt.getHeight.be32 ++ Array(rt.getDepth.toByte) ++ rt.getFormat.toUTF8
 
   private implicit class RichString(s: String) {
     def nullTerm(length: Int): Array[Byte] = {
-      require(s.length > length, "Specified length must be greater then string length")
-      val padding = s.length - length
+      require(length > s.length, "Specified length must be greater then string length")
+      val padding = length - s.length
       s.toUTF8.padTo(padding, 0.toByte)
     }
   }
@@ -59,4 +59,10 @@ trait RemoteImageResizer
         .putInt(i)
         .array
   }
+
+  private implicit class PimpedByteArray(ba: Array[Byte]) {
+    def getInt(position: Int) =
+      ByteBuffer.wrap(ba, position, 4).getInt
+  }
+
 }

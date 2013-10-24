@@ -3,7 +3,7 @@ package com.emajliramokade.api.model.EmailProvjera;
 public final class Zahtjev implements java.io.Serializable {
     public Zahtjev(
             final String email,
-            final String kadaID) {
+            final java.util.UUID kadaID) {
         setEmail(email);
         setKadaID(kadaID);
     }
@@ -61,13 +61,13 @@ public final class Zahtjev implements java.io.Serializable {
         return this;
     }
 
-    private String kadaID;
+    private java.util.UUID kadaID;
 
-    public String getKadaID() {
+    public java.util.UUID getKadaID() {
         return kadaID;
     }
 
-    public Zahtjev setKadaID(final String value) {
+    public Zahtjev setKadaID(final java.util.UUID value) {
         this.kadaID = value;
 
         return this;

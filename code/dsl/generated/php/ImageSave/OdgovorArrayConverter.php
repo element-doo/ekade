@@ -1,37 +1,35 @@
 <?php
-namespace EmailProvjera;
+namespace ImageSave;
 
-require_once __DIR__.'/Zahtjev.php';
+require_once __DIR__.'/Odgovor.php';
 
 /**
  * Generated from NGS DSL
  *
- * Converts an object of class EmailProvjera\Zahtjev into a simple array and backwards.
+ * Converts an object of class ImageSave\Odgovor into a simple array and backwards.
  *
- * @package EmailProvjera
+ * @package ImageSave
  * @version 0.9.9 beta
  */
-abstract class ZahtjevArrayConverter
+abstract class OdgovorArrayConverter
 {/**
-     * @param array|\EmailProvjera\Zahtjev An object or an array of objects of type "EmailProvjera\Zahtjev"
+     * @param array|\ImageSave\Odgovor An object or an array of objects of type "ImageSave\Odgovor"
      *
      * @return array A simple array representation
      */
     public static function toArray($item, $allowNullValues=false)
     {
-        if ($item instanceof \EmailProvjera\Zahtjev)
+        if ($item instanceof \ImageSave\Odgovor)
             return self::toArrayObject($item);
         if (is_array($item))
             return self::toArrayList($item, $allowNullValues);
 
-        throw new \InvalidArgumentException('Argument was not an instance of class "EmailProvjera\Zahtjev" nor an array of said instances!');
+        throw new \InvalidArgumentException('Argument was not an instance of class "ImageSave\Odgovor" nor an array of said instances!');
     }
 
     private static function toArrayObject($item)
     {
         $ret = array();
-        $ret['email'] = $item->email;
-        $ret['kadaID'] = $item->kadaID === null ? null : $item->kadaID->__toString();
         return $ret;
     }
 
@@ -44,8 +42,8 @@ abstract class ZahtjevArrayConverter
                 $ret[] = null;
             }
             else {
-                if (!$val instanceof \EmailProvjera\Zahtjev)
-                    throw new \InvalidArgumentException('Element with index "'.$key.'" was not an object of class "EmailProvjera\Zahtjev"! Type was: '.\NGS\Utils::getType($val));
+                if (!$val instanceof \ImageSave\Odgovor)
+                    throw new \InvalidArgumentException('Element with index "'.$key.'" was not an object of class "ImageSave\Odgovor"! Type was: '.\NGS\Utils::getType($val));
 
                 $ret[] = $val->toArray();
             }
@@ -56,12 +54,12 @@ abstract class ZahtjevArrayConverter
 
     public static function fromArray($item)
     {
-        if ($item instanceof \EmailProvjera\Zahtjev)
+        if ($item instanceof \ImageSave\Odgovor)
             return $item;
         if (is_array($item))
-            return new \EmailProvjera\Zahtjev($item);
+            return new \ImageSave\Odgovor($item);
 
-        throw new \InvalidArgumentException('Argument was not an instance of class "EmailProvjera\Zahtjev" nor an array of said instances!');
+        throw new \InvalidArgumentException('Argument was not an instance of class "ImageSave\Odgovor" nor an array of said instances!');
     }
 
     public static function fromArrayList(array $items, $allowNullValues=false)
@@ -72,12 +70,12 @@ abstract class ZahtjevArrayConverter
                     continue;
                 if($val === null)
                     throw new \InvalidArgumentException('Null value found in provided array');
-                if(!$val instanceof \EmailProvjera\Zahtjev)
-                    $val = new \EmailProvjera\Zahtjev($val);
+                if(!$val instanceof \ImageSave\Odgovor)
+                    $val = new \ImageSave\Odgovor($val);
             }
         }
         catch (\Exception $e) {
-            throw new \InvalidArgumentException('Element at index '.$key.' could not be converted to object "EmailProvjera\Zahtjev"!', 42, $e);
+            throw new \InvalidArgumentException('Element at index '.$key.' could not be converted to object "ImageSave\Odgovor"!', 42, $e);
         }
 
         return $items;

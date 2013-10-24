@@ -11,8 +11,8 @@ int main (int argc,char **argv)
  {
 	FILE *fp;
 	unsigned char *polje;
-	char format[5];
-	int len, i;
+	char format[5] = {0};
+	int len;
 	size_t width, height;
 
 	MagickWand	*image_wand;
@@ -37,32 +37,21 @@ int main (int argc,char **argv)
 
 	status = MagickReadImageBlob(image_wand, polje, len);
 	
-	//status = MagickReadImage(image_wand,argv[1]);
-	
 	free(polje);
 	if (status == MagickFalse)
 					{printf("\nnevalja status\n"); exit(-1);}
 
-	for(i = 0; i < 5; i++)
-		format[i] = '\0';
+	strcpy(format,MagickGetImageFormat(image_wand));
+	width = MagickGetImageWidth(image_wand);
+	height = MagickGetImageHeight(image_wand);
 
-	strcpy(format,MagickGetFormat(image_wand));
-	MagickGetSize(image_wand, &width, &height);
-
-	puts(MagickGetFormat(image_wand));
-	printf("Format is %s\n", MagickGetFormat(image_wand));
-	printf("Resolution is %dx%d\n", width, height);
+	printf("width = %d\nheight = %d\nformat = %s\n",width,height,format);
 
 	fclose(fp);
-
-	//MagickWriteImage(image_wand,"avatar2.jpg");
-
-
-
 
 	image_wand = DestroyMagickWand(image_wand); 
 	MagickWandTerminus();
 
 	system("pause");
-     return 0;
+    return 0;
  }

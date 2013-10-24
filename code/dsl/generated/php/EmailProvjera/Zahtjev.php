@@ -8,7 +8,7 @@ require_once __DIR__.'/ZahtjevArrayConverter.php';
  * Generated from NGS DSL
  *
  * @property string $email a string
- * @property string $kadaID a string, can be null
+ * @property \NGS\UUID $kadaID a uuid, can be null
  *
  * @package EmailProvjera
  * @version 0.9.9 beta
@@ -74,7 +74,7 @@ class Zahtjev implements \IteratorAggregate
     }
 
     /**
-     * @return a string, can be null
+     * @return a uuid, can be null
      */
     public function getKadaID()
     {
@@ -93,7 +93,7 @@ class Zahtjev implements \IteratorAggregate
         if ($name === 'email')
             return $this->getEmail(); // a string
         if ($name === 'kadaID')
-            return $this->getKadaID(); // a string, can be null
+            return $this->getKadaID(); // a uuid, can be null
 
         throw new \InvalidArgumentException('Property "'.$name.'" in class "EmailProvjera\Zahtjev" does not exist and could not be retrieved!');
     }
@@ -112,7 +112,7 @@ class Zahtjev implements \IteratorAggregate
         if ($name === 'email')
             return true; // a string (always set)
         if ($name === 'kadaID')
-            return $this->getKadaID() !== null; // a string, can be null
+            return $this->getKadaID() !== null; // a uuid, can be null
 
         return false;
     }
@@ -132,13 +132,13 @@ class Zahtjev implements \IteratorAggregate
     }
 
     /**
-     * @param string $value a string, can be null
+     * @param \NGS\UUID $value a uuid, can be null
      *
-     * @return string
+     * @return \NGS\UUID
      */
     public function setKadaID($value)
     {
-        $value = $value !== null ? \NGS\Converter\PrimitiveConverter::toString($value) : null;
+        $value = $value !== null ? new \NGS\UUID($value) : null;
         $this->kadaID = $value;
         return $value;
     }
@@ -154,7 +154,7 @@ class Zahtjev implements \IteratorAggregate
         if ($name === 'email')
             return $this->setEmail($value); // a string
         if ($name === 'kadaID')
-            return $this->setKadaID($value); // a string, can be null
+            return $this->setKadaID($value); // a uuid, can be null
         throw new \InvalidArgumentException('Property "'.$name.'" in class "EmailProvjera\Zahtjev" does not exist and could not be set!');
     }
 
@@ -168,7 +168,7 @@ class Zahtjev implements \IteratorAggregate
         if ($name === 'email')
             throw new \LogicException('The property "email" cannot be unset because it is non-nullable!'); // a string (cannot be unset)
         if ($name === 'kadaID')
-            $this->setKadaID(null);; // a string, can be null
+            $this->setKadaID(null);; // a uuid, can be null
     }
 
     public function toJson()
