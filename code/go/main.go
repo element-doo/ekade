@@ -14,20 +14,20 @@ func main() {
 	}
 	defer session.Close()
 
-	col := session.DB("kada").C("pics")
+	col := session.DB("Kada").C("Slike")
 
 	app := ripple.NewApplication()
 	picController := NewPictureController(col)
-	app.RegisterController("pictures", picController)
-	app.AddRoute(ripple.Route{Pattern: ":_controller/all/:type"})
-	app.AddRoute(ripple.Route{Pattern: ":_controller/:guid/:type"})
-	app.AddRoute(ripple.Route{Pattern: ":_controller/:guid"})
-	app.AddRoute(ripple.Route{Pattern: ":_controller"})
+	app.RegisterController("Kada", picController)
+	app.AddRoute(ripple.Route{Pattern: ":_controller/:guid/Slike"})
+	app.AddRoute(ripple.Route{Pattern: ":_controller/:guid/Slike/:type"})
+//	app.AddRoute(ripple.Route{Pattern: ":_controller/all/:type"})
+//	app.AddRoute(ripple.Route{Pattern: ":_controller"})
 
-	app.SetBaseUrl("/api/")
-	http.HandleFunc("/api/", app.ServeHTTP)
+	app.SetBaseUrl("/")
+	http.HandleFunc("/", app.ServeHTTP)
 
-	log.Println("Starting server...")
-	http.ListenAndServe(":8080", nil)
-
+	port := "10080"
+	log.Println("Starting server @ " + port)
+	http.ListenAndServe(":" + port, nil)
 }
