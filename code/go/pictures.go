@@ -1,12 +1,12 @@
 package main
 
 import (
+	"./github.com/nu7hatch/gouuid"
 	"./labix.org/v2/mgo"
 	"./labix.org/v2/mgo/bson"
 	"./ripple"
 	"encoding/json"
 	"fmt"
-	"github.com/nu7hatch/gouuid"
 	"io/ioutil"
 	"net/http"
 	"strings"
