@@ -8,7 +8,6 @@ import (
 	"net/http"
 	"reflect"
 	"strings"
-	"fmt"
 )
 
 type ServePictureController struct {
@@ -32,14 +31,14 @@ func (this *ServePictureController) Get(ctx *ripple.Context) {
 			ctx.Response.Status = http.StatusBadRequest
 		} else {
 			g := u.String()
-			
+
 			var result *Picture
 			var lwrType = strings.ToLower(t)
 
 			err := this.col.Find(bson.M{"kadaid": g}).
 				Select(bson.M{"kadaid": 1, lwrType: 1}).
 				One(&result)
-			
+
 			if err != nil {
 				ctx.Response.Body = err
 				ctx.Response.Status = http.StatusNotFound
@@ -57,5 +56,5 @@ func (this *ServePictureController) Get(ctx *ripple.Context) {
 func getField(p *Picture, field string) []byte {
 	r := reflect.ValueOf(p)
 	f := reflect.Indirect(r).FieldByName(field)
-	return f.Bytes
+	return f.Bytes()
 }
