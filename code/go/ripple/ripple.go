@@ -155,7 +155,6 @@ func (this *Application) serializeResponseBody(body interface{}) (string, error)
 	switch body.(type) {
 
 	case string:
-
 		output = body.(string)
 
 	case int, int8, int16, int32, int64:
@@ -178,6 +177,10 @@ func (this *Application) serializeResponseBody(body interface{}) (string, error)
 			output = "false"
 		}
 
+	case []byte:
+		
+		output = "???" // HILFE!!!
+		
 	default:
 
 		contentType := this.contentType

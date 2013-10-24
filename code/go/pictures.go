@@ -14,7 +14,7 @@ import (
 
 type Picture struct {
 	Id        bson.ObjectId "_id,omitempty"
-	GUID      string        `json:"guid,omitempty"`
+	KadaID    string        `json:"kadaid,omitempty"`
 	Original  []byte        `json:"original,omitempty"`
 	Thumbnail []byte        `json:"thumbnail,omitempty"`
 	Email     []byte        `json:"email,omitempty"`
@@ -32,7 +32,7 @@ func NewPictureController(col *mgo.Collection) *PictureController {
 }
 
 func (this *PictureController) Get(ctx *ripple.Context) {
-	var ug = ctx.Params["guid"]
+	var ug = ctx.Params["kadaID"]
 	var t = ctx.Params["type"]
 
 	if len(ug) > 0 {
@@ -44,9 +44,9 @@ func (this *PictureController) Get(ctx *ripple.Context) {
 			g := u.String()
 
 			var result *Picture
-			query := this.col.Find(bson.M{"guid": g})
+			query := this.col.Find(bson.M{"kadaid": g})
 			if len(t) > 0 {
-				query.Select(bson.M{"guid": 1, t: 1})
+				query.Select(bson.M{"kadaid": 1, t: 1})
 			}
 			err := query.One(&result)
 			if err != nil {
@@ -54,31 +54,7 @@ func (this *PictureController) Get(ctx *ripple.Context) {
 				ctx.Response.Body = err
 			} else {
 				ctx.Response.Status = http.StatusOK
-
-				if len(t) == 0 {
-					ctx.Response.Body = result
-				} else {
-					// Nemam blage o Gou, ovo se vjerojatno moze bolje, no
-					// glavni problem nije u ovom switchu već u Rippleovom
-					// Context.Response-u koji izgleda da sve želi pretvorit u
-					// "application/json". Ovo nam nikako ne paše pošto želimo
-					// binary output, a ne Base64 enkodirani JSON string
-					// See: https://github.com/laurent22/ripple/blob/master/ripple.go
-					// - Marko
-
-					switch t {
-					case "original":
-						ctx.Response.Body = result.Original
-					case "thumbnail":
-						ctx.Response.Body = result.Thumbnail
-					case "email":
-						ctx.Response.Body = result.Email
-					case "web":
-						ctx.Response.Body = result.Web
-					default:
-						panic("Impossibulj?!")
-					}
-				}
+				ctx.Response.Body = result
 			}
 		}
 	} /* else {
@@ -86,7 +62,7 @@ func (this *PictureController) Get(ctx *ripple.Context) {
 		query := this.col.Find(nil)
 		if len(t) > 0 {
 			if t != "all" {
-				query.Select(bson.M{"guid": 1, t: 1})
+				query.Select(bson.M{"kadaid": 1, t: 1})
 			}
 		}
 		err := query.All(&result)
@@ -99,7 +75,7 @@ func (this *PictureController) Get(ctx *ripple.Context) {
 }
 
 func (this *PictureController) postPut(ctx *ripple.Context) {
-	var ug = ctx.Params["guid"]
+	var ug = ctx.Params["kadaID"]
 	body, _ := ioutil.ReadAll(ctx.Request.Body)
 
 	if len(ug) > 0 {
@@ -110,20 +86,21 @@ func (this *PictureController) postPut(ctx *ripple.Context) {
 		} else {
 			g := u.String()
 
-			var pic = Picture{GUID: g}
+			var pic = Picture{KadaID: g}
 			json.Unmarshal(body, &pic)
 
 			var result *Picture
-			this.col.Find(bson.M{"guid": g}).One(&result)
+			this.col.Find(bson.M{"kadaid": g}).One(&result)
 
 			if result != nil {
 				fmt.Println("update: ", g)
-				this.col.Update(bson.M{"guid": g}, pic)
+				this.col.Update(bson.M{"kadaid": g}, pic)
 			} else {
 				fmt.Println("insert: ", g)
 				this.col.Upsert(pic, pic)
 			}
 
+			ctx.Response.Body = pic
 			ctx.Response.Status = http.StatusOK
 		}
 	} else {
@@ -144,7 +121,7 @@ func (this *PictureController) Delete(ctx *ripple.Context) {
 	// ovo nebi bilo tragično copy-pasteano tri puta
 	// - Marko
 
-	var ug = ctx.Params["guid"]
+	var ug = ctx.Params["kadaID"]
 	if len(ug) > 0 {
 		u, err := uuid.ParseHex(strings.ToLower(ug))
 		if err != nil {
@@ -153,7 +130,7 @@ func (this *PictureController) Delete(ctx *ripple.Context) {
 		} else {
 			g := u.String()
 
-			err := this.col.Remove(bson.M{"guid": g})
+			err := this.col.Remove(bson.M{"kadaid": g})
 			if err != nil {
 				ctx.Response.Body = err
 				ctx.Response.Status = http.StatusNotFound
