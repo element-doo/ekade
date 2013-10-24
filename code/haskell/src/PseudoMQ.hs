@@ -9,11 +9,13 @@ module PseudoMQ (sudo_sandwich) where
 
 import           Control.Applicative
 import           Control.Monad
+import           Control.Arrow
 
 import qualified Data.ByteString.Char8 as B
 import qualified Data.HashMap.Strict as M
 import           Data.List.NonEmpty
 
+import qualified Control.Exception as E
 import           Control.Concurrent
 import           Control.Concurrent.Chan
 import           Control.Concurrent.MVar
@@ -34,10 +36,15 @@ sudo_sandwich addr =
 send_recv ::  Manager -> Message -> IO Message
 send_recv (Manager st downstream) messages = do
   back <- newEmptyMVar
-  n    <- atomicModifyIORef st $ \(n, chans) ->
+  n    <- mod_st $ \(n, chans) ->
     ((n + 1, M.insert n back chans), n)
-  writeChan downstream (n, messages)
-  takeMVar back
+
+  (writeChan downstream (n, messages) >> takeMVar back)
+    `E.onException`
+    mod_st (second (M.delete n) &&& id)
+
+  where mod_st = atomicModifyIORef st
+
 
 mkManager :: Context -> String -> IO Manager
 mkManager mq addr = do
@@ -46,8 +53,7 @@ mkManager mq addr = do
   bind socket addr
 
   down <- newChan
-  forkOn 0 $ forever $
-    readChan down >>= sendMulti socket . form
+  forkOn 0 $ forever $ readChan down >>= sendMulti socket . form
 
   st <- newIORef (0, M.empty)
   forkOn 0 $ dispatch socket st
@@ -57,7 +63,6 @@ mkManager mq addr = do
 dispatch :: Receiver a => Socket a -> IORef (b, M.HashMap Id (MVar Message)) -> IO ()
 dispatch socket st = forever $ do
   ms <- receiveMulti socket
-  print $ show ms
   case deform ms of
        Nothing        -> nope ms
        Just (id, ms') ->
