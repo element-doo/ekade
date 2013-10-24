@@ -1,27 +1,31 @@
 {-# LANGUAGE OverloadedStrings #-}
 
+--
+-- A webserver translating HTTP to 0MQ and back. Run with --help for options.
+--
+
 module Main where
 
 import Control.Applicative
 import Control.Monad.Trans
 import Data.Monoid
 
-import           Blaze.ByteString.Builder
+import           Blaze.ByteString.Builder       ( fromLazyByteString )
 import           Blaze.ByteString.Builder.Char8 ( fromString )
-import qualified Data.ByteString.Char8 as B
-import qualified Data.ByteString.Lazy  as B ( fromChunks )
+import           Data.ByteString.Char8          ( ByteString )
+import qualified Data.ByteString.Lazy  as B     ( fromChunks )
 
-import qualified Data.Aeson as A ( FromJSON(..), ToJSON(..), decode, encode )
-import           Data.ProtocolBuffers ( encodeMessage, decodeMessage, getField, Encode(..), Decode(..) )
-import           Data.Serialize ( runPut, runGetLazy )
+import qualified Data.Aeson as A      ( FromJSON(..), ToJSON(..), decode, encode )
+import           Data.ProtocolBuffers ( encodeMessage, decodeMessage, Encode(..), Decode(..) )
+import           Data.Serialize       ( runPut, runGetLazy )
 
-import Data.Conduit
-import Data.Conduit.List
-import Network.Wai
-import Network.Wai.Handler.Warp
+import Data.Conduit              ( ConduitM, ($$) )
+import Data.Conduit.List         ( consume )
+import Network.Wai               ( Request(..), Response(..) )
+import Network.Wai.Handler.Warp  ( run )
 import Network.HTTP.Types.Status
 
-import System.Timeout
+import System.Timeout ( timeout )
 
 import Types
 import ZeroOpts
@@ -52,13 +56,13 @@ main = do
 o_timeout_usec = floor . (* 1000000) . o_timeout
 
 
-proto   :: Encode a => a -> [B.ByteString]
-unproto :: Decode a => [B.ByteString] -> Maybe a
+proto   :: Encode a => a -> [ByteString]
+unproto :: Decode a => [ByteString] -> Maybe a
 
 proto = (:[]) . runPut . encodeMessage
 unproto = either (\_ -> Nothing) Just . runGetLazy decodeMessage . B.fromChunks
 
-consumeJSON :: (A.FromJSON a, Monad m) => ConduitM B.ByteString t m (Maybe a)
+consumeJSON  :: (A.FromJSON a, Monad m) => ConduitM ByteString t m (Maybe a)
 responseJSON :: A.ToJSON a => a -> Response
 
 consumeJSON = (A.decode . B.fromChunks) `fmap` consume
