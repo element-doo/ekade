@@ -33,7 +33,7 @@ Then, install the required Python packages:
 
 ## Running
 
-To start the server (listening on all interfaces on port 8000), run:
+To start the server (listening on all interfaces on port 10060), run:
 
     make server
 
@@ -48,7 +48,7 @@ a valid email, or 400, which indicates an invalid email.
 
 Example:
 
-    curl -F 'email=foo@bar.com' http://localhost:10080/api/v1/check/
+    curl -F 'email=foo@bar.com' http://localhost:10060/api/v1/check/
 
 Response:
 
@@ -57,7 +57,7 @@ Response:
 JSON requests are also valid:
 
     curl -H 'Content-Type: application/json' -X POST \
-        -d '{"email":"foo@bar.com"}' http://localhost:10080/api/v1/check/
+        -d '{"email":"foo@bar.com"}' http://localhost:10060/api/v1/check/
 
 ## Tests
 
