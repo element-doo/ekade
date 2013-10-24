@@ -11,7 +11,7 @@ import org.slf4j.Logger
 import scala.concurrent.Await
 import scala.concurrent.duration._
 import scala.util.{ Failure, Success, Try }
-
+import io.jvm.uuid._
 
 class RestListener(
     logger: Logger
@@ -53,11 +53,14 @@ class RestListener(
   def parseParams(req: Req): Try[Zahtjev] =
     Try {
       val params = req._params
+
       val email = params("email").head
-      val kadaID = params.get("kadaID") flatMap (_.headOption) orNull
+      val kadaID = Try {
+        UUID(params("kadaID").head)
+      }
 
       new Zahtjev()
         .setEmail(email)
-        .setKadaID(kadaID)
+        .setKadaID(kadaID getOrElse null)
     }
 }
