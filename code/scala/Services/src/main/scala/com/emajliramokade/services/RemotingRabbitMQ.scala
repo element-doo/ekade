@@ -4,8 +4,8 @@ package services
 import com.rabbitmq.client.{ ConnectionFactory, QueueingConsumer }
 import scala.concurrent.Future
 
-trait RemotingRabbitMQ extends Remoting with Service {
-  def send(body: Array[Byte]): Future[Array[Byte]] =
+trait RemotingRabbitMQ[T] extends Remoting[T] {
+  def send(serviceUrl: String, body: Array[Byte]): Future[Array[Byte]] =
     Future {
       val queue = new RabbitQueue(serviceUrl)
       queue.send(body)
@@ -16,7 +16,7 @@ trait RemotingRabbitMQ extends Remoting with Service {
 
   private object RabbitQueue {
     val factory = new ConnectionFactory()
-    factory.setHost(serviceUrl)
+    factory.setHost("")
   }
 
   private class RabbitQueue(val name: String) {

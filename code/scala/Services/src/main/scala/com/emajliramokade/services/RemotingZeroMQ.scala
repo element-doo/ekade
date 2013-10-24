@@ -4,10 +4,10 @@ package services
 import org.zeromq.ZMQ
 import scala.concurrent.Future
 
-trait RemotingZeroMQ extends Remoting with Service {
-  def send(body: Array[Byte]): Future[Array[Byte]] =
+trait RemotingZeroMQ[T] extends Remoting[T] {
+  def send(serviceUrl: String, body: Array[Byte]): Future[Array[Byte]] =
     Future {
-      val socket = new ZeroSocket()
+      val socket = new ZeroSocket(serviceUrl)
       socket.send(body)
       val response = socket.receive()
       socket.close()
@@ -18,11 +18,11 @@ trait RemotingZeroMQ extends Remoting with Service {
     val context = ZMQ.context(1)
   }
 
-  private class ZeroSocket() {
+  private class ZeroSocket(url: String) {
     import ZeroSocket._
 
     val socket = context.socket(ZMQ.REQ)
-    socket.connect(serviceUrl)
+    socket.connect(url)
 
     def send(body: Array[Byte]) {
       val sendOk = socket.send(body, 0)

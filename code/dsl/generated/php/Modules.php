@@ -20,3 +20,5 @@ require_once __DIR__.'/ImageResize/Slika.php';
 require_once __DIR__.'/ImageResize/ResizeZahtjev.php';
 require_once __DIR__.'/ImageResize/Zahtjev.php';
 require_once __DIR__.'/ImageResize/Odgovor.php';
+require_once __DIR__.'/ImageSave/Zahtjev.php';
+require_once __DIR__.'/ImageSave/Odgovor.php';

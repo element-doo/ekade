@@ -7,11 +7,12 @@ import image.proto.ImageProvjera.{ Odgovor, Zahtjev }
 import scala.concurrent.Future
 
 trait RemoteImageVerifier
-    extends interfaces.ImageVerifier { this: Remoting =>
+    extends interfaces.ImageVerifier { this: Remoting[Zahtjev] =>
 
   def verify(zahtjev: Zahtjev): Future[Odgovor] = {
+    val serviceUrl = serviceUrlFactory(zahtjev)
     val body = zahtjev.getOriginalnaSlika.toByteArray
-    val responseFut = send(body)
+    val responseFut = send(serviceUrl, body)
     responseFut map Odgovor.parseFrom
   }
 }
