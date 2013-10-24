@@ -1,13 +1,13 @@
 package main
 
 import (
+	"./labix.org/v2/mgo"
+	"./labix.org/v2/mgo/bson"
+	"./ripple"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"labix.org/v2/mgo"
-	"labix.org/v2/mgo/bson"
 	"net/http"
-	"ripple"
 )
 
 type Picture struct {

@@ -1,10 +1,10 @@
 package main
 
 import (
-	"labix.org/v2/mgo"
+	"./labix.org/v2/mgo"
+	"./ripple"
 	"log"
 	"net/http"
-	"ripple"
 )
 
 func main() {
@@ -26,6 +26,14 @@ func main() {
 
 	app.SetBaseUrl("/api/")
 	http.HandleFunc("/api/", app.ServeHTTP)
+
+	servePic := ripple.NewApplication()
+	servePicController := NewServePictureController(col)
+	servePic.RegisterController("pic", servePicController)
+	servePic.AddRoute(ripple.Route{Pattern: ":_controller/:guid/:type"})
+	servePic.SetBaseUrl("/serve/")
+	servePic.SetContType("image/jpeg")
+	http.HandleFunc("/serve/", servePic.ServeHTTP)
 
 	log.Println("Starting server...")
 	http.ListenAndServe(":8080", nil)
