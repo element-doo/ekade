@@ -6,13 +6,15 @@ import api.model.EmailProvjera.Zahtjev
 
 import hr.ngs.patterns.ISerialization
 
-class LaravelRemoteEmailValidator(
-    val serialization: ISerialization[String])
+class DjangoRemoteEmailValidator(
+    protected val serialization: ISerialization[String])
     extends abstracts.RemoteEmailValidator
     with    RemotingDispatch[Zahtjev] {
 
   val method = "POST"
 
+  // TODO: Switch to localhost in production
+  //"http://localhost:10060/api/v1/check/"
   def serviceUrlFactory(t: Zahtjev) =
-    "http://emajliramokade.com:10070/zahtjev-check"
+    "https://emajliramokade.com/api/v1/check/"
 }

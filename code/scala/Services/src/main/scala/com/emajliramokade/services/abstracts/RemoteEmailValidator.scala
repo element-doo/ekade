@@ -18,7 +18,9 @@ trait RemoteEmailValidator
 
     val serviceUrl = serviceUrlFactory(zahtjev)
     val reqBody = reqStr.getBytes
-    send(serviceUrl, reqBody) map { resBody =>
+    val headers = Map("Content-Type" -> "application/json")
+
+    send(serviceUrl, reqBody, headers) map { resBody =>
       val resStr = resBody.fromUTF8
       serialization.deserialize[Odgovor](resStr, null)
     }
