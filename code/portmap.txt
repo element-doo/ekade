@@ -1,0 +1,14 @@
+Sanity check reference to avoid clashes:
+
+      c
+10100 clisp
+      clojure
+      csharp
+10080 go
+      haskell
+      java
+      nodejs
+10070 php
+10060 python
+10120 rust
+      scala
