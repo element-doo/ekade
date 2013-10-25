@@ -105,10 +105,11 @@ galleryModel = ->
       URI:    item.URI
       width:  item.width
       height: item.height
+      status: null
       timestamp: item.timestamp
+      filename:  item.filename
       imgPath:   item.imgPath
       fullPath:  item.fullPath
-      status: null
 
   @__markAll = (status) ->
     i = 0
@@ -127,7 +128,7 @@ gallery = null
 
 fetchKade = (offset = 0, limit = 100) ->
   requestUrl = 'https://emajliramokade.com/platform/Moderiraj.svc/KadaIzvorPodataka/NemoderiraneKade'
-  imageBase = 'http://emajliramokade.com:10080/public/Slike/'
+  imageBase =  'https://static.emajliramokade.com/'
 
   jQuery.ajax
     type: 'GET'
@@ -137,8 +138,8 @@ fetchKade = (offset = 0, limit = 100) ->
       limit:  limit
     dataType: 'json'
     headers:
-      'Content-Type': 'application/json'
-      Authorization:  'Basic cm9iaTppYm9y'
+      'Content-Type':  'application/json'
+      'Authorization': 'Basic cm9iaTppYm9y'
     success:  (response) =>
       gallery.images []
       response.forEach (item) ->
@@ -150,8 +151,9 @@ fetchKade = (offset = 0, limit = 100) ->
             height: kada.thumbnail.height
             status: null
             timestamp: item.dodana
-            imgPath:   imageBase+kada.URI+'/Thumbnail'
-            fullPath:  imageBase+kada.URI+'/Email'
+            filename:  kada.web.filename
+            imgPath:   imageBase+'thumbnail/'+kada.URI+'/'+kada.thumbnail.filename
+            fullPath:  imageBase+'web/'+kada.URI+'/'+kada.web.filename
 
           gallery.images.push img
         return

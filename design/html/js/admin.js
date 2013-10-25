@@ -101,10 +101,11 @@ galleryModel = function() {
       URI: item.URI,
       width: item.width,
       height: item.height,
+      status: null,
       timestamp: item.timestamp,
+      filename: item.filename,
       imgPath: item.imgPath,
-      fullPath: item.fullPath,
-      status: null
+      fullPath: item.fullPath
     };
   };
   this.__markAll = function(status) {
@@ -132,7 +133,7 @@ fetchKade = function(offset, limit) {
     limit = 100;
   }
   requestUrl = 'https://emajliramokade.com/platform/Moderiraj.svc/KadaIzvorPodataka/NemoderiraneKade';
-  imageBase = 'http://emajliramokade.com:10080/public/Slike/';
+  imageBase = 'https://static.emajliramokade.com/';
   jQuery.ajax({
     type: 'GET',
     url: requestUrl,
@@ -143,7 +144,7 @@ fetchKade = function(offset, limit) {
     dataType: 'json',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: 'Basic cm9iaTppYm9y'
+      'Authorization': 'Basic cm9iaTppYm9y'
     },
     success: function(response) {
       gallery.images([]);
@@ -157,8 +158,9 @@ fetchKade = function(offset, limit) {
             height: kada.thumbnail.height,
             status: null,
             timestamp: item.dodana,
-            imgPath: imageBase + kada.URI + '/Thumbnail',
-            fullPath: imageBase + kada.URI + '/Email'
+            filename: kada.web.filename,
+            imgPath: imageBase + 'thumbnail/' + kada.URI + '/' + kada.thumbnail.filename,
+            fullPath: imageBase + 'web/' + kada.URI + '/' + kada.web.filename
           };
           gallery.images.push(img);
         }
