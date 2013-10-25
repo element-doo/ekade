@@ -1,13 +1,24 @@
 module Resursi
 {
+  root MaxDimenzije(ID) {
+    String  ID; // "web", "email", "thumbnail"
+    Int     width;
+    Int     height;
+
+    static original  'Original'  { create 'width = 4000, height = 4000'; }
+    static web       'Web'       { create 'width = 1280, height =  960'; }
+    static email     'Email'     { create 'width =  640, height =  640'; }
+    static thumbnail 'Thumbnail' { create 'width =  200, height =  200'; }
+  }
+
   // Rucno popisane razlicite sve velicine kada potrebne za sustav
   // Velicine nisu striktno zadane, već su limitirane nekakvim maximalnim boxom
 
   mixin SlikeUseCases {
     PodaciSlike  original;  // uploadana slika
-    PodaciSlike  web;       // max: 1280x800
-    PodaciSlike  email;     // max: 640x400
-    PodaciSlike  thumbnail; // max: 200x120
+    PodaciSlike  web;       // za prikaz online
+    PodaciSlike  email;     // za slanje emajlom
+    PodaciSlike  thumbnail; // za galeriju
   }
 
   root SlikeKade(ID) {

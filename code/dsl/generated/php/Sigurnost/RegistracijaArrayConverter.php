@@ -1,30 +1,30 @@
 <?php
 namespace Sigurnost;
 
-require_once __DIR__.'/Korisnik.php';
+require_once __DIR__.'/Registracija.php';
 
 /**
  * Generated from NGS DSL
  *
- * Converts an object of class Sigurnost\Korisnik into a simple array and backwards.
+ * Converts an object of class Sigurnost\Registracija into a simple array and backwards.
  *
  * @package Sigurnost
  * @version 0.9.9 beta
  */
-abstract class KorisnikArrayConverter
+abstract class RegistracijaArrayConverter
 {/**
-     * @param array|\Sigurnost\Korisnik An object or an array of objects of type "Sigurnost\Korisnik"
+     * @param array|\Sigurnost\Registracija An object or an array of objects of type "Sigurnost\Registracija"
      *
      * @return array A simple array representation
      */
     public static function toArray($item, $allowNullValues=false)
     {
-        if ($item instanceof \Sigurnost\Korisnik)
+        if ($item instanceof \Sigurnost\Registracija)
             return self::toArrayObject($item);
         if (is_array($item))
             return self::toArrayList($item, $allowNullValues);
 
-        throw new \InvalidArgumentException('Argument was not an instance of class "Sigurnost\Korisnik" nor an array of said instances!');
+        throw new \InvalidArgumentException('Argument was not an instance of class "Sigurnost\Registracija" nor an array of said instances!');
     }
 
     private static function toArrayObject($item)
@@ -32,8 +32,7 @@ abstract class KorisnikArrayConverter
         $ret = array();
         $ret['URI'] = $item->URI;
         $ret['username'] = $item->username;
-        $ret['salt'] = $item->salt;
-        $ret['hashSifra'] = $item->hashSifra->__toString();
+        $ret['sifra'] = $item->sifra;
         return $ret;
     }
 
@@ -46,8 +45,8 @@ abstract class KorisnikArrayConverter
                 $ret[] = null;
             }
             else {
-                if (!$val instanceof \Sigurnost\Korisnik)
-                    throw new \InvalidArgumentException('Element with index "'.$key.'" was not an object of class "Sigurnost\Korisnik"! Type was: '.\NGS\Utils::getType($val));
+                if (!$val instanceof \Sigurnost\Registracija)
+                    throw new \InvalidArgumentException('Element with index "'.$key.'" was not an object of class "Sigurnost\Registracija"! Type was: '.\NGS\Utils::getType($val));
 
                 $ret[] = $val->toArray();
             }
@@ -58,12 +57,12 @@ abstract class KorisnikArrayConverter
 
     public static function fromArray($item)
     {
-        if ($item instanceof \Sigurnost\Korisnik)
+        if ($item instanceof \Sigurnost\Registracija)
             return $item;
         if (is_array($item))
-            return new \Sigurnost\Korisnik($item, 'build_internal');
+            return new \Sigurnost\Registracija($item);
 
-        throw new \InvalidArgumentException('Argument was not an instance of class "Sigurnost\Korisnik" nor an array of said instances!');
+        throw new \InvalidArgumentException('Argument was not an instance of class "Sigurnost\Registracija" nor an array of said instances!');
     }
 
     public static function fromArrayList(array $items, $allowNullValues=false)
@@ -74,12 +73,12 @@ abstract class KorisnikArrayConverter
                     continue;
                 if($val === null)
                     throw new \InvalidArgumentException('Null value found in provided array');
-                if(!$val instanceof \Sigurnost\Korisnik)
-                    $val = new \Sigurnost\Korisnik($val, 'build_internal');
+                if(!$val instanceof \Sigurnost\Registracija)
+                    $val = new \Sigurnost\Registracija($val);
             }
         }
         catch (\Exception $e) {
-            throw new \InvalidArgumentException('Element at index '.$key.' could not be converted to object "Sigurnost\Korisnik"!', 42, $e);
+            throw new \InvalidArgumentException('Element at index '.$key.' could not be converted to object "Sigurnost\Registracija"!', 42, $e);
         }
 
         return $items;

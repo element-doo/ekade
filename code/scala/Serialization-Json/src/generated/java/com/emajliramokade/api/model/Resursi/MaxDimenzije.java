@@ -1,17 +1,17 @@
-package com.emajliramokade.api.model.Sigurnost;
+package com.emajliramokade.api.model.Resursi;
 
 import com.dslplatform.patterns.*;
 import com.dslplatform.client.*;
 import com.fasterxml.jackson.annotation.*;
 
-public class Korisnik implements java.io.Serializable, AggregateRoot {
-    public Korisnik() {
+public class MaxDimenzije implements java.io.Serializable, AggregateRoot {
+    public MaxDimenzije() {
         _serviceLocator = Bootstrap.getLocator();
         _domainProxy = _serviceLocator.resolve(DomainProxy.class);
         _crudProxy = _serviceLocator.resolve(CrudProxy.class);
-        this.username = "";
-        this.salt = "";
-        this.hashSifra = new byte[0];
+        this.ID = "";
+        this.width = 0;
+        this.height = 0;
     }
 
     private transient final ServiceLocator _serviceLocator;
@@ -36,74 +36,58 @@ public class Korisnik implements java.io.Serializable, AggregateRoot {
         if (obj == null) return false;
 
         if (getClass() != obj.getClass()) return false;
-        final Korisnik other = (Korisnik) obj;
+        final MaxDimenzije other = (MaxDimenzije) obj;
 
         return URI != null && URI.equals(other.URI);
     }
 
     @Override
     public String toString() {
-        return URI != null ? "Korisnik(" + URI + ')' : "new Korisnik("
+        return URI != null ? "MaxDimenzije(" + URI + ')' : "new MaxDimenzije("
                 + super.hashCode() + ')';
     }
 
     private static final long serialVersionUID = 0x0097000a;
 
-    public Korisnik(
-            final String username,
-            final String salt,
-            final byte[] hashSifra) {
+    public MaxDimenzije(
+            final String ID,
+            final int width,
+            final int height) {
         _serviceLocator = Bootstrap.getLocator();
         _domainProxy = _serviceLocator.resolve(DomainProxy.class);
         _crudProxy = _serviceLocator.resolve(CrudProxy.class);
-        setUsername(username);
-        setSalt(salt);
-        setHashSifra(hashSifra);
+        setID(ID);
+        setWidth(width);
+        setHeight(height);
     }
 
     @JsonCreator
-    private Korisnik(
+    private MaxDimenzije(
             @JacksonInject("_serviceLocator") final ServiceLocator _serviceLocator,
             @JsonProperty("URI") final String URI,
-            @JsonProperty("username") final String username,
-            @JsonProperty("salt") final String salt,
-            @JsonProperty("hashSifra") final byte[] hashSifra) {
+            @JsonProperty("ID") final String ID,
+            @JsonProperty("width") final int width,
+            @JsonProperty("height") final int height) {
         this._serviceLocator = _serviceLocator;
         this._domainProxy = _serviceLocator.resolve(DomainProxy.class);
         this._crudProxy = _serviceLocator.resolve(CrudProxy.class);
         this.URI = URI;
-        this.username = username == null ? "" : username;
-        this.salt = salt == null ? "" : salt;
-        this.hashSifra = hashSifra == null ? new byte[0] : hashSifra;
+        this.ID = ID == null ? "" : ID;
+        this.width = width;
+        this.height = height;
     }
 
-    public static Korisnik find(final String uri) throws java.io.IOException {
+    public static MaxDimenzije find(final String uri)
+            throws java.io.IOException {
         return find(uri, Bootstrap.getLocator());
     }
 
-    public static Korisnik find(final String uri, final ServiceLocator locator)
-            throws java.io.IOException {
-        try {
-            return (locator != null ? locator : Bootstrap.getLocator())
-                    .resolve(CrudProxy.class).read(Korisnik.class, uri).get();
-        } catch (final InterruptedException e) {
-            throw new java.io.IOException(e);
-        } catch (final java.util.concurrent.ExecutionException e) {
-            throw new java.io.IOException(e);
-        }
-    }
-
-    public static java.util.List<Korisnik> find(final Iterable<String> uris)
-            throws java.io.IOException {
-        return find(uris, Bootstrap.getLocator());
-    }
-
-    public static java.util.List<Korisnik> find(
-            final Iterable<String> uris,
+    public static MaxDimenzije find(
+            final String uri,
             final ServiceLocator locator) throws java.io.IOException {
         try {
             return (locator != null ? locator : Bootstrap.getLocator())
-                    .resolve(DomainProxy.class).find(Korisnik.class, uris)
+                    .resolve(CrudProxy.class).read(MaxDimenzije.class, uri)
                     .get();
         } catch (final InterruptedException e) {
             throw new java.io.IOException(e);
@@ -112,29 +96,18 @@ public class Korisnik implements java.io.Serializable, AggregateRoot {
         }
     }
 
-    public static java.util.List<Korisnik> findAll() throws java.io.IOException {
-        return findAll(null, null, Bootstrap.getLocator());
-    }
-
-    public static java.util.List<Korisnik> findAll(final ServiceLocator locator)
+    public static java.util.List<MaxDimenzije> find(final Iterable<String> uris)
             throws java.io.IOException {
-        return findAll(null, null, locator);
+        return find(uris, Bootstrap.getLocator());
     }
 
-    public static java.util.List<Korisnik> findAll(
-            final Integer limit,
-            final Integer offset) throws java.io.IOException {
-        return findAll(limit, offset, Bootstrap.getLocator());
-    }
-
-    public static java.util.List<Korisnik> findAll(
-            final Integer limit,
-            final Integer offset,
+    public static java.util.List<MaxDimenzije> find(
+            final Iterable<String> uris,
             final ServiceLocator locator) throws java.io.IOException {
         try {
             return (locator != null ? locator : Bootstrap.getLocator())
-                    .resolve(DomainProxy.class)
-                    .findAll(Korisnik.class, limit, offset, null).get();
+                    .resolve(DomainProxy.class).find(MaxDimenzije.class, uris)
+                    .get();
         } catch (final InterruptedException e) {
             throw new java.io.IOException(e);
         } catch (final java.util.concurrent.ExecutionException e) {
@@ -142,27 +115,58 @@ public class Korisnik implements java.io.Serializable, AggregateRoot {
         }
     }
 
-    public static java.util.List<Korisnik> search(
-            final Specification<Korisnik> specification)
+    public static java.util.List<MaxDimenzije> findAll()
+            throws java.io.IOException {
+        return findAll(null, null, Bootstrap.getLocator());
+    }
+
+    public static java.util.List<MaxDimenzije> findAll(
+            final ServiceLocator locator) throws java.io.IOException {
+        return findAll(null, null, locator);
+    }
+
+    public static java.util.List<MaxDimenzije> findAll(
+            final Integer limit,
+            final Integer offset) throws java.io.IOException {
+        return findAll(limit, offset, Bootstrap.getLocator());
+    }
+
+    public static java.util.List<MaxDimenzije> findAll(
+            final Integer limit,
+            final Integer offset,
+            final ServiceLocator locator) throws java.io.IOException {
+        try {
+            return (locator != null ? locator : Bootstrap.getLocator())
+                    .resolve(DomainProxy.class)
+                    .findAll(MaxDimenzije.class, limit, offset, null).get();
+        } catch (final InterruptedException e) {
+            throw new java.io.IOException(e);
+        } catch (final java.util.concurrent.ExecutionException e) {
+            throw new java.io.IOException(e);
+        }
+    }
+
+    public static java.util.List<MaxDimenzije> search(
+            final Specification<MaxDimenzije> specification)
             throws java.io.IOException {
         return search(specification, null, null, Bootstrap.getLocator());
     }
 
-    public static java.util.List<Korisnik> search(
-            final Specification<Korisnik> specification,
+    public static java.util.List<MaxDimenzije> search(
+            final Specification<MaxDimenzije> specification,
             final ServiceLocator locator) throws java.io.IOException {
         return search(specification, null, null, locator);
     }
 
-    public static java.util.List<Korisnik> search(
-            final Specification<Korisnik> specification,
+    public static java.util.List<MaxDimenzije> search(
+            final Specification<MaxDimenzije> specification,
             final Integer limit,
             final Integer offset) throws java.io.IOException {
         return search(specification, limit, offset, Bootstrap.getLocator());
     }
 
-    public static java.util.List<Korisnik> search(
-            final Specification<Korisnik> specification,
+    public static java.util.List<MaxDimenzije> search(
+            final Specification<MaxDimenzije> specification,
             final Integer limit,
             final Integer offset,
             final ServiceLocator locator) throws java.io.IOException {
@@ -185,7 +189,7 @@ public class Korisnik implements java.io.Serializable, AggregateRoot {
             throws java.io.IOException {
         try {
             return (locator != null ? locator : Bootstrap.getLocator())
-                    .resolve(DomainProxy.class).count(Korisnik.class).get()
+                    .resolve(DomainProxy.class).count(MaxDimenzije.class).get()
                     .longValue();
         } catch (final InterruptedException e) {
             throw new java.io.IOException(e);
@@ -194,13 +198,13 @@ public class Korisnik implements java.io.Serializable, AggregateRoot {
         }
     }
 
-    public static long count(final Specification<Korisnik> specification)
+    public static long count(final Specification<MaxDimenzije> specification)
             throws java.io.IOException {
         return count(specification, Bootstrap.getLocator());
     }
 
     public static long count(
-            final Specification<Korisnik> specification,
+            final Specification<MaxDimenzije> specification,
             final ServiceLocator locator) throws java.io.IOException {
         try {
             return (locator != null ? locator : Bootstrap.getLocator())
@@ -214,16 +218,16 @@ public class Korisnik implements java.io.Serializable, AggregateRoot {
     }
 
     private void updateWithAnother(
-            final com.emajliramokade.api.model.Sigurnost.Korisnik result) {
+            final com.emajliramokade.api.model.Resursi.MaxDimenzije result) {
         this.URI = result.URI;
 
-        this.username = result.username;
-        this.salt = result.salt;
-        this.hashSifra = result.hashSifra;
+        this.ID = result.ID;
+        this.width = result.width;
+        this.height = result.height;
     }
 
-    public Korisnik persist() throws java.io.IOException {
-        final Korisnik result;
+    public MaxDimenzije persist() throws java.io.IOException {
+        final MaxDimenzije result;
         try {
             result = this.URI == null
                     ? _crudProxy.create(this).get()
@@ -237,9 +241,9 @@ public class Korisnik implements java.io.Serializable, AggregateRoot {
         return this;
     }
 
-    public Korisnik delete() throws java.io.IOException {
+    public MaxDimenzije delete() throws java.io.IOException {
         try {
-            return _crudProxy.delete(Korisnik.class, URI).get();
+            return _crudProxy.delete(MaxDimenzije.class, URI).get();
         } catch (final InterruptedException e) {
             throw new java.io.IOException(e);
         } catch (final java.util.concurrent.ExecutionException e) {
@@ -247,54 +251,124 @@ public class Korisnik implements java.io.Serializable, AggregateRoot {
         }
     }
 
-    private String username;
+    private String ID;
 
-    @JsonProperty("username")
+    @JsonProperty("ID")
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    public String getUsername() {
-        return username;
+    public String getID() {
+        return ID;
     }
 
-    public Korisnik setUsername(final String value) {
+    public MaxDimenzije setID(final String value) {
         if (value == null)
             throw new IllegalArgumentException(
-                    "Property \"username\" cannot be null!");
-        this.username = value;
+                    "Property \"ID\" cannot be null!");
+        this.ID = value;
 
         return this;
     }
 
-    private String salt;
+    private int width;
 
-    @JsonProperty("salt")
+    @JsonProperty("width")
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    public String getSalt() {
-        return salt;
+    public int getWidth() {
+        return width;
     }
 
-    public Korisnik setSalt(final String value) {
-        if (value == null)
-            throw new IllegalArgumentException(
-                    "Property \"salt\" cannot be null!");
-        this.salt = value;
+    public MaxDimenzije setWidth(final int value) {
+        this.width = value;
 
         return this;
     }
 
-    private byte[] hashSifra;
+    private int height;
 
-    @JsonProperty("hashSifra")
+    @JsonProperty("height")
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    public byte[] getHashSifra() {
-        return hashSifra;
+    public int getHeight() {
+        return height;
     }
 
-    public Korisnik setHashSifra(final byte[] value) {
-        if (value == null)
-            throw new IllegalArgumentException(
-                    "Property \"hashSifra\" cannot be null!");
-        this.hashSifra = value;
+    public MaxDimenzije setHeight(final int value) {
+        this.height = value;
 
         return this;
+    }
+
+    private static MaxDimenzije StaticInstanceoriginal;
+
+    public static MaxDimenzije original() throws java.io.IOException {
+        if (StaticInstanceoriginal == null) {
+            try {
+                StaticInstanceoriginal = Bootstrap
+                        .getLocator()
+                        .resolve(CrudProxy.class)
+                        .read(com.emajliramokade.api.model.Resursi.MaxDimenzije.class,
+                                "Original").get();
+            } catch (final InterruptedException e) {
+                throw new java.io.IOException(e);
+            } catch (final java.util.concurrent.ExecutionException e) {
+                throw new java.io.IOException(e);
+            }
+        }
+        return StaticInstanceoriginal;
+    }
+
+    private static MaxDimenzije StaticInstanceweb;
+
+    public static MaxDimenzije web() throws java.io.IOException {
+        if (StaticInstanceweb == null) {
+            try {
+                StaticInstanceweb = Bootstrap
+                        .getLocator()
+                        .resolve(CrudProxy.class)
+                        .read(com.emajliramokade.api.model.Resursi.MaxDimenzije.class,
+                                "Web").get();
+            } catch (final InterruptedException e) {
+                throw new java.io.IOException(e);
+            } catch (final java.util.concurrent.ExecutionException e) {
+                throw new java.io.IOException(e);
+            }
+        }
+        return StaticInstanceweb;
+    }
+
+    private static MaxDimenzije StaticInstanceemail;
+
+    public static MaxDimenzije email() throws java.io.IOException {
+        if (StaticInstanceemail == null) {
+            try {
+                StaticInstanceemail = Bootstrap
+                        .getLocator()
+                        .resolve(CrudProxy.class)
+                        .read(com.emajliramokade.api.model.Resursi.MaxDimenzije.class,
+                                "Email").get();
+            } catch (final InterruptedException e) {
+                throw new java.io.IOException(e);
+            } catch (final java.util.concurrent.ExecutionException e) {
+                throw new java.io.IOException(e);
+            }
+        }
+        return StaticInstanceemail;
+    }
+
+    private static MaxDimenzije StaticInstancethumbnail;
+
+    public static MaxDimenzije thumbnail() throws java.io.IOException {
+        if (StaticInstancethumbnail == null) {
+            try {
+                StaticInstancethumbnail = Bootstrap
+                        .getLocator()
+                        .resolve(CrudProxy.class)
+                        .read(com.emajliramokade.api.model.Resursi.MaxDimenzije.class,
+                                "Thumbnail").get();
+            } catch (final InterruptedException e) {
+                throw new java.io.IOException(e);
+            } catch (final java.util.concurrent.ExecutionException e) {
+                throw new java.io.IOException(e);
+            }
+        }
+        return StaticInstancethumbnail;
     }
 }
