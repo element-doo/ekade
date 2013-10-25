@@ -9,5 +9,5 @@ import hr.ngs.patterns.ISerialization
 class CRemoteImageVerifier()
     extends abstracts.RemoteImageVerifier
     with    RemotingZeroMQ[Zahtjev] {
-  def serviceUrlFactory(t: Zahtjev) = "tcp://10.5.13.1:20000"
+  def serviceUrlFactory(t: Zahtjev) = "tcp://144.76.184.25:10030"
 }
