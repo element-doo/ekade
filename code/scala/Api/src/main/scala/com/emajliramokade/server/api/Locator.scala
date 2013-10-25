@@ -2,7 +2,7 @@ package com.emajliramokade
 package server.api
 
 import net.liftweb.http.rest.RestHelper
-import services.impl.{ LaravelRemoteEmailValidator, RustRemoteEmailValidator, DjangoRemoteEmailValidator }
+import services.impl._
 import server.api.rest.RestListener
 import hr.ngs.patterns.{ DependencyContainer, ISerialization, IServiceLocator, JsonSerialization }
 import org.slf4j.LoggerFactory
@@ -10,6 +10,7 @@ import scala.reflect.runtime.universe.TypeTag
 import com.dslplatform.client.Bootstrap
 import com.dslplatform.client.DomainProxy
 import com.dslplatform.patterns.ServiceLocator
+import com.emajliramokade.server.api.zmq.ZMQListener
 
 object Locator extends IServiceLocator {
   private val container = {
@@ -27,10 +28,13 @@ object Locator extends IServiceLocator {
       .register[LaravelRemoteEmailValidator]
       .register[RustRemoteEmailValidator]
       .register[DjangoRemoteEmailValidator]
+      .register[CLispRemoteImageResizer]
 
-      .register[Dispatcher]
+      .register[UploadDispatcher]
       .register[ServiceLocator](locator)
       .register[DomainProxy](domainProxy)
+
+      .register[ZMQListener]
   }
 
   def resolve[T: TypeTag] =

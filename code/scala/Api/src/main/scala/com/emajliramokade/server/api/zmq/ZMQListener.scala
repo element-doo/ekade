@@ -3,11 +3,16 @@ package server.api
 package zmq
 
 import org.jeromq.{ ZContext, ZMQ, ZMQException }
+import org.slf4j.Logger
 
-class ZMQListener extends Combinators {
+class ZMQListener(
+    logger: Logger
+  ) extends Combinators {
 
-  val frontend_addr = "tcp://127.0.0.1:10011"
+  val frontend_addr = "tcp://144.76.184.25:10011"
   val n_listeners   = 100
+
+  logger.info("Booting up ZMQ Listener ...")
 
   val mq = new ZContext(1)
   val threads = (0 to n_listeners) map (n => spawn_thread { listen(mq) })
@@ -20,13 +25,13 @@ class ZMQListener extends Combinators {
       val msg     = sock.recv
       val zahtjev = com.emajliramokade.email.proto.EmailProvjera.Zahtjev.parseFrom(msg)
 
-      println("[" + java.lang.Thread.currentThread + "] -> " + zahtjev)
+      logger.debug("[" + java.lang.Thread.currentThread + "] -> " + zahtjev)
       java.lang.Thread.sleep(3000)
 
       val builder = com.emajliramokade.email.proto.EmailProvjera.Odgovor.newBuilder
       builder setStatus true
       builder setPoruka "Krasan api."
-      
+
       sock send builder.build.toByteArray
     }
   }

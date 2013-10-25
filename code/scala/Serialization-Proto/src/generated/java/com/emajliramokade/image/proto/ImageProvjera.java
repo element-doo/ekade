@@ -343,7 +343,7 @@ public final class ImageProvjera {
 
       public final boolean isInitialized() {
         if (!hasOriginalnaSlika()) {
-
+          
           return false;
         }
         return true;
@@ -802,11 +802,11 @@ public final class ImageProvjera {
 
       public final boolean isInitialized() {
         if (!hasWidth()) {
-
+          
           return false;
         }
         if (!hasHeight()) {
-
+          
           return false;
         }
         return true;
@@ -936,19 +936,39 @@ public final class ImageProvjera {
     com.google.protobuf.ByteString
         getPorukaBytes();
 
-    // optional .com.emajliramokade.image.proto.DimenzijeSlike dimenzijeSlike = 3;
+    // required bytes sha1Bytes = 3;
     /**
-     * <code>optional .com.emajliramokade.image.proto.DimenzijeSlike dimenzijeSlike = 3;</code>
+     * <code>required bytes sha1Bytes = 3;</code>
+     */
+    boolean hasSha1Bytes();
+    /**
+     * <code>required bytes sha1Bytes = 3;</code>
+     */
+    com.google.protobuf.ByteString getSha1Bytes();
+
+    // optional .com.emajliramokade.image.proto.DimenzijeSlike dimenzijeSlike = 4;
+    /**
+     * <code>optional .com.emajliramokade.image.proto.DimenzijeSlike dimenzijeSlike = 4;</code>
      */
     boolean hasDimenzijeSlike();
     /**
-     * <code>optional .com.emajliramokade.image.proto.DimenzijeSlike dimenzijeSlike = 3;</code>
+     * <code>optional .com.emajliramokade.image.proto.DimenzijeSlike dimenzijeSlike = 4;</code>
      */
     com.emajliramokade.image.proto.ImageProvjera.DimenzijeSlike getDimenzijeSlike();
     /**
-     * <code>optional .com.emajliramokade.image.proto.DimenzijeSlike dimenzijeSlike = 3;</code>
+     * <code>optional .com.emajliramokade.image.proto.DimenzijeSlike dimenzijeSlike = 4;</code>
      */
     com.emajliramokade.image.proto.ImageProvjera.DimenzijeSlikeOrBuilder getDimenzijeSlikeOrBuilder();
+
+    // optional bytes sha1Pixels = 5;
+    /**
+     * <code>optional bytes sha1Pixels = 5;</code>
+     */
+    boolean hasSha1Pixels();
+    /**
+     * <code>optional bytes sha1Pixels = 5;</code>
+     */
+    com.google.protobuf.ByteString getSha1Pixels();
   }
   /**
    * Protobuf type {@code com.emajliramokade.image.proto.Odgovor}
@@ -1012,8 +1032,13 @@ public final class ImageProvjera {
               break;
             }
             case 26: {
+              bitField0_ |= 0x00000004;
+              sha1Bytes_ = input.readBytes();
+              break;
+            }
+            case 34: {
               com.emajliramokade.image.proto.ImageProvjera.DimenzijeSlike.Builder subBuilder = null;
-              if (((bitField0_ & 0x00000004) == 0x00000004)) {
+              if (((bitField0_ & 0x00000008) == 0x00000008)) {
                 subBuilder = dimenzijeSlike_.toBuilder();
               }
               dimenzijeSlike_ = input.readMessage(com.emajliramokade.image.proto.ImageProvjera.DimenzijeSlike.PARSER, extensionRegistry);
@@ -1021,7 +1046,12 @@ public final class ImageProvjera {
                 subBuilder.mergeFrom(dimenzijeSlike_);
                 dimenzijeSlike_ = subBuilder.buildPartial();
               }
-              bitField0_ |= 0x00000004;
+              bitField0_ |= 0x00000008;
+              break;
+            }
+            case 42: {
+              bitField0_ |= 0x00000010;
+              sha1Pixels_ = input.readBytes();
               break;
             }
           }
@@ -1097,7 +1127,7 @@ public final class ImageProvjera {
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
-        com.google.protobuf.ByteString bs =
+        com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
         if (bs.isValidUtf8()) {
@@ -1113,7 +1143,7 @@ public final class ImageProvjera {
         getPorukaBytes() {
       java.lang.Object ref = poruka_;
       if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b =
+        com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
         poruka_ = b;
@@ -1123,32 +1153,66 @@ public final class ImageProvjera {
       }
     }
 
-    // optional .com.emajliramokade.image.proto.DimenzijeSlike dimenzijeSlike = 3;
-    public static final int DIMENZIJESLIKE_FIELD_NUMBER = 3;
-    private com.emajliramokade.image.proto.ImageProvjera.DimenzijeSlike dimenzijeSlike_;
+    // required bytes sha1Bytes = 3;
+    public static final int SHA1BYTES_FIELD_NUMBER = 3;
+    private com.google.protobuf.ByteString sha1Bytes_;
     /**
-     * <code>optional .com.emajliramokade.image.proto.DimenzijeSlike dimenzijeSlike = 3;</code>
+     * <code>required bytes sha1Bytes = 3;</code>
      */
-    public boolean hasDimenzijeSlike() {
+    public boolean hasSha1Bytes() {
       return ((bitField0_ & 0x00000004) == 0x00000004);
     }
     /**
-     * <code>optional .com.emajliramokade.image.proto.DimenzijeSlike dimenzijeSlike = 3;</code>
+     * <code>required bytes sha1Bytes = 3;</code>
+     */
+    public com.google.protobuf.ByteString getSha1Bytes() {
+      return sha1Bytes_;
+    }
+
+    // optional .com.emajliramokade.image.proto.DimenzijeSlike dimenzijeSlike = 4;
+    public static final int DIMENZIJESLIKE_FIELD_NUMBER = 4;
+    private com.emajliramokade.image.proto.ImageProvjera.DimenzijeSlike dimenzijeSlike_;
+    /**
+     * <code>optional .com.emajliramokade.image.proto.DimenzijeSlike dimenzijeSlike = 4;</code>
+     */
+    public boolean hasDimenzijeSlike() {
+      return ((bitField0_ & 0x00000008) == 0x00000008);
+    }
+    /**
+     * <code>optional .com.emajliramokade.image.proto.DimenzijeSlike dimenzijeSlike = 4;</code>
      */
     public com.emajliramokade.image.proto.ImageProvjera.DimenzijeSlike getDimenzijeSlike() {
       return dimenzijeSlike_;
     }
     /**
-     * <code>optional .com.emajliramokade.image.proto.DimenzijeSlike dimenzijeSlike = 3;</code>
+     * <code>optional .com.emajliramokade.image.proto.DimenzijeSlike dimenzijeSlike = 4;</code>
      */
     public com.emajliramokade.image.proto.ImageProvjera.DimenzijeSlikeOrBuilder getDimenzijeSlikeOrBuilder() {
       return dimenzijeSlike_;
     }
 
+    // optional bytes sha1Pixels = 5;
+    public static final int SHA1PIXELS_FIELD_NUMBER = 5;
+    private com.google.protobuf.ByteString sha1Pixels_;
+    /**
+     * <code>optional bytes sha1Pixels = 5;</code>
+     */
+    public boolean hasSha1Pixels() {
+      return ((bitField0_ & 0x00000010) == 0x00000010);
+    }
+    /**
+     * <code>optional bytes sha1Pixels = 5;</code>
+     */
+    public com.google.protobuf.ByteString getSha1Pixels() {
+      return sha1Pixels_;
+    }
+
     private void initFields() {
       status_ = false;
       poruka_ = "";
+      sha1Bytes_ = com.google.protobuf.ByteString.EMPTY;
       dimenzijeSlike_ = com.emajliramokade.image.proto.ImageProvjera.DimenzijeSlike.getDefaultInstance();
+      sha1Pixels_ = com.google.protobuf.ByteString.EMPTY;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -1160,6 +1224,10 @@ public final class ImageProvjera {
         return false;
       }
       if (!hasPoruka()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasSha1Bytes()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -1183,7 +1251,13 @@ public final class ImageProvjera {
         output.writeBytes(2, getPorukaBytes());
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        output.writeMessage(3, dimenzijeSlike_);
+        output.writeBytes(3, sha1Bytes_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        output.writeMessage(4, dimenzijeSlike_);
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        output.writeBytes(5, sha1Pixels_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -1204,7 +1278,15 @@ public final class ImageProvjera {
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(3, dimenzijeSlike_);
+          .computeBytesSize(3, sha1Bytes_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(4, dimenzijeSlike_);
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(5, sha1Pixels_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -1327,12 +1409,16 @@ public final class ImageProvjera {
         bitField0_ = (bitField0_ & ~0x00000001);
         poruka_ = "";
         bitField0_ = (bitField0_ & ~0x00000002);
+        sha1Bytes_ = com.google.protobuf.ByteString.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000004);
         if (dimenzijeSlikeBuilder_ == null) {
           dimenzijeSlike_ = com.emajliramokade.image.proto.ImageProvjera.DimenzijeSlike.getDefaultInstance();
         } else {
           dimenzijeSlikeBuilder_.clear();
         }
-        bitField0_ = (bitField0_ & ~0x00000004);
+        bitField0_ = (bitField0_ & ~0x00000008);
+        sha1Pixels_ = com.google.protobuf.ByteString.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000010);
         return this;
       }
 
@@ -1372,11 +1458,19 @@ public final class ImageProvjera {
         if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
           to_bitField0_ |= 0x00000004;
         }
+        result.sha1Bytes_ = sha1Bytes_;
+        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+          to_bitField0_ |= 0x00000008;
+        }
         if (dimenzijeSlikeBuilder_ == null) {
           result.dimenzijeSlike_ = dimenzijeSlike_;
         } else {
           result.dimenzijeSlike_ = dimenzijeSlikeBuilder_.build();
         }
+        if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
+          to_bitField0_ |= 0x00000010;
+        }
+        result.sha1Pixels_ = sha1Pixels_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -1401,8 +1495,14 @@ public final class ImageProvjera {
           poruka_ = other.poruka_;
           onChanged();
         }
+        if (other.hasSha1Bytes()) {
+          setSha1Bytes(other.getSha1Bytes());
+        }
         if (other.hasDimenzijeSlike()) {
           mergeDimenzijeSlike(other.getDimenzijeSlike());
+        }
+        if (other.hasSha1Pixels()) {
+          setSha1Pixels(other.getSha1Pixels());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -1410,16 +1510,20 @@ public final class ImageProvjera {
 
       public final boolean isInitialized() {
         if (!hasStatus()) {
-
+          
           return false;
         }
         if (!hasPoruka()) {
-
+          
+          return false;
+        }
+        if (!hasSha1Bytes()) {
+          
           return false;
         }
         if (hasDimenzijeSlike()) {
           if (!getDimenzijeSlike().isInitialized()) {
-
+            
             return false;
           }
         }
@@ -1507,7 +1611,7 @@ public final class ImageProvjera {
           getPorukaBytes() {
         java.lang.Object ref = poruka_;
         if (ref instanceof String) {
-          com.google.protobuf.ByteString b =
+          com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
           poruka_ = b;
@@ -1552,18 +1656,54 @@ public final class ImageProvjera {
         return this;
       }
 
-      // optional .com.emajliramokade.image.proto.DimenzijeSlike dimenzijeSlike = 3;
+      // required bytes sha1Bytes = 3;
+      private com.google.protobuf.ByteString sha1Bytes_ = com.google.protobuf.ByteString.EMPTY;
+      /**
+       * <code>required bytes sha1Bytes = 3;</code>
+       */
+      public boolean hasSha1Bytes() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      /**
+       * <code>required bytes sha1Bytes = 3;</code>
+       */
+      public com.google.protobuf.ByteString getSha1Bytes() {
+        return sha1Bytes_;
+      }
+      /**
+       * <code>required bytes sha1Bytes = 3;</code>
+       */
+      public Builder setSha1Bytes(com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000004;
+        sha1Bytes_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required bytes sha1Bytes = 3;</code>
+       */
+      public Builder clearSha1Bytes() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        sha1Bytes_ = getDefaultInstance().getSha1Bytes();
+        onChanged();
+        return this;
+      }
+
+      // optional .com.emajliramokade.image.proto.DimenzijeSlike dimenzijeSlike = 4;
       private com.emajliramokade.image.proto.ImageProvjera.DimenzijeSlike dimenzijeSlike_ = com.emajliramokade.image.proto.ImageProvjera.DimenzijeSlike.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.emajliramokade.image.proto.ImageProvjera.DimenzijeSlike, com.emajliramokade.image.proto.ImageProvjera.DimenzijeSlike.Builder, com.emajliramokade.image.proto.ImageProvjera.DimenzijeSlikeOrBuilder> dimenzijeSlikeBuilder_;
       /**
-       * <code>optional .com.emajliramokade.image.proto.DimenzijeSlike dimenzijeSlike = 3;</code>
+       * <code>optional .com.emajliramokade.image.proto.DimenzijeSlike dimenzijeSlike = 4;</code>
        */
       public boolean hasDimenzijeSlike() {
-        return ((bitField0_ & 0x00000004) == 0x00000004);
+        return ((bitField0_ & 0x00000008) == 0x00000008);
       }
       /**
-       * <code>optional .com.emajliramokade.image.proto.DimenzijeSlike dimenzijeSlike = 3;</code>
+       * <code>optional .com.emajliramokade.image.proto.DimenzijeSlike dimenzijeSlike = 4;</code>
        */
       public com.emajliramokade.image.proto.ImageProvjera.DimenzijeSlike getDimenzijeSlike() {
         if (dimenzijeSlikeBuilder_ == null) {
@@ -1573,7 +1713,7 @@ public final class ImageProvjera {
         }
       }
       /**
-       * <code>optional .com.emajliramokade.image.proto.DimenzijeSlike dimenzijeSlike = 3;</code>
+       * <code>optional .com.emajliramokade.image.proto.DimenzijeSlike dimenzijeSlike = 4;</code>
        */
       public Builder setDimenzijeSlike(com.emajliramokade.image.proto.ImageProvjera.DimenzijeSlike value) {
         if (dimenzijeSlikeBuilder_ == null) {
@@ -1585,11 +1725,11 @@ public final class ImageProvjera {
         } else {
           dimenzijeSlikeBuilder_.setMessage(value);
         }
-        bitField0_ |= 0x00000004;
+        bitField0_ |= 0x00000008;
         return this;
       }
       /**
-       * <code>optional .com.emajliramokade.image.proto.DimenzijeSlike dimenzijeSlike = 3;</code>
+       * <code>optional .com.emajliramokade.image.proto.DimenzijeSlike dimenzijeSlike = 4;</code>
        */
       public Builder setDimenzijeSlike(
           com.emajliramokade.image.proto.ImageProvjera.DimenzijeSlike.Builder builderForValue) {
@@ -1599,15 +1739,15 @@ public final class ImageProvjera {
         } else {
           dimenzijeSlikeBuilder_.setMessage(builderForValue.build());
         }
-        bitField0_ |= 0x00000004;
+        bitField0_ |= 0x00000008;
         return this;
       }
       /**
-       * <code>optional .com.emajliramokade.image.proto.DimenzijeSlike dimenzijeSlike = 3;</code>
+       * <code>optional .com.emajliramokade.image.proto.DimenzijeSlike dimenzijeSlike = 4;</code>
        */
       public Builder mergeDimenzijeSlike(com.emajliramokade.image.proto.ImageProvjera.DimenzijeSlike value) {
         if (dimenzijeSlikeBuilder_ == null) {
-          if (((bitField0_ & 0x00000004) == 0x00000004) &&
+          if (((bitField0_ & 0x00000008) == 0x00000008) &&
               dimenzijeSlike_ != com.emajliramokade.image.proto.ImageProvjera.DimenzijeSlike.getDefaultInstance()) {
             dimenzijeSlike_ =
               com.emajliramokade.image.proto.ImageProvjera.DimenzijeSlike.newBuilder(dimenzijeSlike_).mergeFrom(value).buildPartial();
@@ -1618,11 +1758,11 @@ public final class ImageProvjera {
         } else {
           dimenzijeSlikeBuilder_.mergeFrom(value);
         }
-        bitField0_ |= 0x00000004;
+        bitField0_ |= 0x00000008;
         return this;
       }
       /**
-       * <code>optional .com.emajliramokade.image.proto.DimenzijeSlike dimenzijeSlike = 3;</code>
+       * <code>optional .com.emajliramokade.image.proto.DimenzijeSlike dimenzijeSlike = 4;</code>
        */
       public Builder clearDimenzijeSlike() {
         if (dimenzijeSlikeBuilder_ == null) {
@@ -1631,19 +1771,19 @@ public final class ImageProvjera {
         } else {
           dimenzijeSlikeBuilder_.clear();
         }
-        bitField0_ = (bitField0_ & ~0x00000004);
+        bitField0_ = (bitField0_ & ~0x00000008);
         return this;
       }
       /**
-       * <code>optional .com.emajliramokade.image.proto.DimenzijeSlike dimenzijeSlike = 3;</code>
+       * <code>optional .com.emajliramokade.image.proto.DimenzijeSlike dimenzijeSlike = 4;</code>
        */
       public com.emajliramokade.image.proto.ImageProvjera.DimenzijeSlike.Builder getDimenzijeSlikeBuilder() {
-        bitField0_ |= 0x00000004;
+        bitField0_ |= 0x00000008;
         onChanged();
         return getDimenzijeSlikeFieldBuilder().getBuilder();
       }
       /**
-       * <code>optional .com.emajliramokade.image.proto.DimenzijeSlike dimenzijeSlike = 3;</code>
+       * <code>optional .com.emajliramokade.image.proto.DimenzijeSlike dimenzijeSlike = 4;</code>
        */
       public com.emajliramokade.image.proto.ImageProvjera.DimenzijeSlikeOrBuilder getDimenzijeSlikeOrBuilder() {
         if (dimenzijeSlikeBuilder_ != null) {
@@ -1653,10 +1793,10 @@ public final class ImageProvjera {
         }
       }
       /**
-       * <code>optional .com.emajliramokade.image.proto.DimenzijeSlike dimenzijeSlike = 3;</code>
+       * <code>optional .com.emajliramokade.image.proto.DimenzijeSlike dimenzijeSlike = 4;</code>
        */
       private com.google.protobuf.SingleFieldBuilder<
-          com.emajliramokade.image.proto.ImageProvjera.DimenzijeSlike, com.emajliramokade.image.proto.ImageProvjera.DimenzijeSlike.Builder, com.emajliramokade.image.proto.ImageProvjera.DimenzijeSlikeOrBuilder>
+          com.emajliramokade.image.proto.ImageProvjera.DimenzijeSlike, com.emajliramokade.image.proto.ImageProvjera.DimenzijeSlike.Builder, com.emajliramokade.image.proto.ImageProvjera.DimenzijeSlikeOrBuilder> 
           getDimenzijeSlikeFieldBuilder() {
         if (dimenzijeSlikeBuilder_ == null) {
           dimenzijeSlikeBuilder_ = new com.google.protobuf.SingleFieldBuilder<
@@ -1667,6 +1807,42 @@ public final class ImageProvjera {
           dimenzijeSlike_ = null;
         }
         return dimenzijeSlikeBuilder_;
+      }
+
+      // optional bytes sha1Pixels = 5;
+      private com.google.protobuf.ByteString sha1Pixels_ = com.google.protobuf.ByteString.EMPTY;
+      /**
+       * <code>optional bytes sha1Pixels = 5;</code>
+       */
+      public boolean hasSha1Pixels() {
+        return ((bitField0_ & 0x00000010) == 0x00000010);
+      }
+      /**
+       * <code>optional bytes sha1Pixels = 5;</code>
+       */
+      public com.google.protobuf.ByteString getSha1Pixels() {
+        return sha1Pixels_;
+      }
+      /**
+       * <code>optional bytes sha1Pixels = 5;</code>
+       */
+      public Builder setSha1Pixels(com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000010;
+        sha1Pixels_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional bytes sha1Pixels = 5;</code>
+       */
+      public Builder clearSha1Pixels() {
+        bitField0_ = (bitField0_ & ~0x00000010);
+        sha1Pixels_ = getDefaultInstance().getSha1Pixels();
+        onChanged();
+        return this;
       }
 
       // @@protoc_insertion_point(builder_scope:com.emajliramokade.image.proto.Odgovor)
@@ -1707,10 +1883,11 @@ public final class ImageProvjera {
       "\n\031model/ImageProvjera.proto\022\036com.emajlir" +
       "amokade.image.proto\"\"\n\007Zahtjev\022\027\n\017origin" +
       "alnaSlika\030\001 \002(\014\"/\n\016DimenzijeSlike\022\r\n\005wid" +
-      "th\030\001 \002(\r\022\016\n\006height\030\002 \002(\r\"q\n\007Odgovor\022\016\n\006s" +
-      "tatus\030\001 \002(\010\022\016\n\006poruka\030\002 \002(\t\022F\n\016dimenzije" +
-      "Slike\030\003 \001(\0132..com.emajliramokade.image.p" +
-      "roto.DimenzijeSlike"
+      "th\030\001 \002(\r\022\016\n\006height\030\002 \002(\r\"\230\001\n\007Odgovor\022\016\n\006" +
+      "status\030\001 \002(\010\022\016\n\006poruka\030\002 \002(\t\022\021\n\tsha1Byte" +
+      "s\030\003 \002(\014\022F\n\016dimenzijeSlike\030\004 \001(\0132..com.em" +
+      "ajliramokade.image.proto.DimenzijeSlike\022" +
+      "\022\n\nsha1Pixels\030\005 \001(\014"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -1734,7 +1911,7 @@ public final class ImageProvjera {
           internal_static_com_emajliramokade_image_proto_Odgovor_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_emajliramokade_image_proto_Odgovor_descriptor,
-              new java.lang.String[] { "Status", "Poruka", "DimenzijeSlike", });
+              new java.lang.String[] { "Status", "Poruka", "Sha1Bytes", "DimenzijeSlike", "Sha1Pixels", });
           return null;
         }
       };

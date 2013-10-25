@@ -14,6 +14,7 @@ public class SlikeKade
         _domainProxy = _serviceLocator.resolve(DomainProxy.class);
         _crudProxy = _serviceLocator.resolve(CrudProxy.class);
         this.ID = java.util.UUID.randomUUID();
+        this.digest = new com.emajliramokade.api.model.Resursi.Fingerprint();
         this.original = new com.emajliramokade.api.model.Resursi.PodaciSlike();
         this.web = new com.emajliramokade.api.model.Resursi.PodaciSlike();
         this.email = new com.emajliramokade.api.model.Resursi.PodaciSlike();
@@ -57,6 +58,7 @@ public class SlikeKade
 
     public SlikeKade(
             final com.emajliramokade.api.model.PopisKada.Kada kada,
+            final com.emajliramokade.api.model.Resursi.Fingerprint digest,
             final com.emajliramokade.api.model.Resursi.PodaciSlike original,
             final com.emajliramokade.api.model.Resursi.PodaciSlike web,
             final com.emajliramokade.api.model.Resursi.PodaciSlike email,
@@ -65,6 +67,7 @@ public class SlikeKade
         _domainProxy = _serviceLocator.resolve(DomainProxy.class);
         _crudProxy = _serviceLocator.resolve(CrudProxy.class);
         setKada(kada);
+        setDigest(digest);
         setOriginal(original);
         setWeb(web);
         setEmail(email);
@@ -77,6 +80,7 @@ public class SlikeKade
             @JsonProperty("URI") final String URI,
             @JsonProperty("ID") final java.util.UUID ID,
             @JsonProperty("kadaURI") final String kadaURI,
+            @JsonProperty("digest") final com.emajliramokade.api.model.Resursi.Fingerprint digest,
             @JsonProperty("original") final com.emajliramokade.api.model.Resursi.PodaciSlike original,
             @JsonProperty("web") final com.emajliramokade.api.model.Resursi.PodaciSlike web,
             @JsonProperty("email") final com.emajliramokade.api.model.Resursi.PodaciSlike email,
@@ -87,6 +91,9 @@ public class SlikeKade
         this.URI = URI;
         this.ID = ID == null ? java.util.UUID.randomUUID() : ID;
         this.kadaURI = kadaURI == null ? null : kadaURI;
+        this.digest = digest == null
+                ? new com.emajliramokade.api.model.Resursi.Fingerprint()
+                : digest;
         this.original = original == null
                 ? new com.emajliramokade.api.model.Resursi.PodaciSlike()
                 : original;
@@ -245,6 +252,7 @@ public class SlikeKade
         this.ID = result.ID;
         this.kada = result.kada;
         this.kadaURI = result.kadaURI;
+        this.digest = result.digest;
         this.original = result.original;
         this.web = result.web;
         this.email = result.email;
@@ -337,6 +345,23 @@ public class SlikeKade
         this.kadaURI = value.getURI();
 
         this.ID = value.getID();
+        return this;
+    }
+
+    private com.emajliramokade.api.model.Resursi.Fingerprint digest;
+
+    @JsonProperty("digest")
+    public com.emajliramokade.api.model.Resursi.Fingerprint getDigest() {
+        return digest;
+    }
+
+    public SlikeKade setDigest(
+            final com.emajliramokade.api.model.Resursi.Fingerprint value) {
+        if (value == null)
+            throw new IllegalArgumentException(
+                    "Property \"digest\" cannot be null!");
+        this.digest = value;
+
         return this;
     }
 

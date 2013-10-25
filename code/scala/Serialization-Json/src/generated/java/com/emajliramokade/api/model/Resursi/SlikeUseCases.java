@@ -1,6 +1,10 @@
 package com.emajliramokade.api.model.Resursi;
 
 public interface SlikeUseCases<T> {
+    com.emajliramokade.api.model.Resursi.Fingerprint getDigest();
+
+    T setDigest(final com.emajliramokade.api.model.Resursi.Fingerprint value);
+
     com.emajliramokade.api.model.Resursi.PodaciSlike getOriginal();
 
     T setOriginal(final com.emajliramokade.api.model.Resursi.PodaciSlike value);
