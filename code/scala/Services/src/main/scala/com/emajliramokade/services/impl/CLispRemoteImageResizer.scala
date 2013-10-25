@@ -9,5 +9,5 @@ import hr.ngs.patterns.ISerialization
 class CLispRemoteImageResizer()
     extends abstracts.RemoteImageResizer
     with    RemotingZeroMQ[Seq[ResizeZahtjev]] {
-  def serviceUrlFactory(t: Seq[ResizeZahtjev]) = "tcp://10.6.2.1:10100"
+  def serviceUrlFactory(t: Seq[ResizeZahtjev]) = "tcp://144.76.184.25:10100"
 }
