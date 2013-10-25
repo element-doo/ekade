@@ -9,56 +9,20 @@ galleryModel = function() {
   this.changes = ko.observable(0);
   this.isWorking = ko.observable(false);
   this.actionApprove = function() {
-    var i, newItem, requestUrl,
-      _this = this;
-    requestUrl = 'https://emajliramokade.com/platform/Moderiraj.svc/KadaOdobrena/';
+    var i, newItem;
     i = gallery.images.indexOf(this);
     newItem = gallery.__cloneItem(i);
     newItem.status = true;
-    jQuery.ajax({
-      type: 'PUT',
-      url: requestUrl + this.URI,
-      data: {},
-      dataType: 'json',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: 'Basic cm9iaTppYm9y'
-      },
-      success: function(response) {
-        console.log(response);
-        gallery.images.splice(i, 1, newItem);
-        gallery.changes(gallery.changes() + 1);
-      },
-      error: function(response) {
-        console.warn('Got error. ', response);
-      }
-    });
+    gallery.images.splice(i, 1, newItem);
+    gallery.changes(gallery.changes() + 1);
   };
   this.actionReject = function() {
-    var i, newItem, requestUrl,
-      _this = this;
-    requestUrl = 'https://emajliramokade.com/platform/Moderiraj.svc/KadaOdobrena/';
+    var i, newItem;
     i = gallery.images.indexOf(this);
     newItem = gallery.__cloneItem(i);
     newItem.status = false;
-    jQuery.ajax({
-      type: 'PUT',
-      url: requestUrl + this.URI,
-      data: {},
-      dataType: 'json',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: 'Basic cm9iaTppYm9y'
-      },
-      success: function(response) {
-        console.log(response);
-        gallery.images.splice(i, 1, newItem);
-        gallery.changes(gallery.changes() + 1);
-      },
-      error: function(response) {
-        console.warn('Got error. ', response);
-      }
-    });
+    gallery.images.splice(i, 1, newItem);
+    gallery.changes(gallery.changes() + 1);
   };
   this.actionMarkAllConfirmed = function() {
     _this.__markAll(true);
@@ -67,18 +31,40 @@ galleryModel = function() {
     _this.__markAll(false);
   };
   this.actionSaveChanges = function() {
-    var data;
+    var data, moderiraneKade, requestUrl;
+    requestUrl = 'https://emajliramokade.com/platform/Moderiraj.svc/MasovnaModeracija';
     _this.isWorking(true);
     data = [];
     _this.images().forEach(function(item) {
+      var kada;
+      kada = {
+        kadaID: item.URI,
+        odobrena: item.status
+      };
       if (item.status !== null) {
-        data.push(item);
+        data.push(kada);
       }
     });
-    console.log('--> ', JSON.stringify(data));
-    setTimeout((function() {
-      return gallery.isWorking(false);
-    }), 5000);
+    moderiraneKade = {
+      moderacijeKada: data
+    };
+    jQuery.ajax({
+      type: 'PUT',
+      url: requestUrl,
+      data: JSON.stringify(moderiraneKade),
+      dataType: 'json',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Basic cm9iaTppYm9y'
+      },
+      success: function(response) {
+        fetchKade();
+        gallery.isWorking(false);
+      },
+      error: function(response) {
+        console.warn('Got error. ', response);
+      }
+    });
   };
   this.pagePrev = function() {
     _this.currPage((_this.currPage() === 1 ? 1 : _this.currPage() - 1));

@@ -52,8 +52,8 @@
               </a>
               <div class="admin-hover js-admin-hover" data-bind="css: { 'admin-approved': (status === true), 'admin-delete': (status === false) }">
                 <p class="controls text-center">
-                  <a href="#" class="btn btn-success approve js-action-approve" data-bind="click: $parent.actionApprove"><i class="icon-ok"></i> Odobri</a>
-                  <a href="#" class="btn btn-danger decline js-action-decline" data-bind="click: $parent.actionReject"><i class="icon-remove"></i> Obriši</a>
+                  <a href="#" class="btn btn-success approve js-action-approve" data-bind="click: $parent.actionApprove, attr: { 'disabled': $parent.isWorking }"><i class="icon-ok"></i> Odobri</a>
+                  <a href="#" class="btn btn-danger decline js-action-decline" data-bind="click: $parent.actionReject, attr: { 'disabled': $parent.isWorking }"><i class="icon-remove"></i> Obriši</a>
                 </p>
               </div>
             </div>
@@ -64,8 +64,8 @@
       <div class="row-fluid">
         <div class="span6" data-bind="css: { 'hide': images().length < 1 }">
           <form class="form-inline">
-            <button type="button" class="btn btn-danger" data-bind="click: actionMarkAllRejected"><i class="icon-remove"></i> Označi sve obrisanim</button>
-            <button type="button" class="btn btn-success" data-bind="click: actionMarkAllConfirmed"><i class="icon-ok"></i> Označi sve odobrenim</button>
+            <button type="button" class="btn btn-danger" data-bind="click: actionMarkAllRejected, attr: { 'disabled': isWorking }"><i class="icon-remove"></i> Označi sve obrisanim</button>
+            <button type="button" class="btn btn-success" data-bind="click: actionMarkAllConfirmed, attr: { 'disabled': isWorking }"><i class="icon-ok"></i> Označi sve odobrenim</button>
           </form>
           <button type="button" class="btn btn-large btn-inverse" data-bind="click: actionSaveChanges, attr: { 'disabled': isWorking }">
             <i class="icon-save" data-bind="css: { 'icon-save': !isWorking(), 'icon-spinner': isWorking, 'icon-spin': isWorking }"></i>&nbsp;

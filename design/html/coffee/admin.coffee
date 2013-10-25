@@ -12,56 +12,21 @@ galleryModel = ->
 
   # actions
   @actionApprove = ->
-    requestUrl = 'https://emajliramokade.com/platform/Moderiraj.svc/KadaOdobrena/'
-
     i = gallery.images.indexOf @
     newItem = gallery.__cloneItem i
     newItem.status = true
 
-    jQuery.ajax
-      type: 'PUT'
-      url:  requestUrl+@.URI
-      data: {}
-      dataType: 'json'
-      headers:
-        'Content-Type': 'application/json'
-        Authorization:  'Basic cm9iaTppYm9y'
-      success:  (response) =>
-        console.log response
-        gallery.images.splice i, 1, newItem
-        gallery.changes gallery.changes()+1
-
-        return
-      error:    (response) ->
-        console.warn 'Got error. ', response
-        return
+    gallery.images.splice i, 1, newItem
+    gallery.changes gallery.changes()+1
     return
 
   @actionReject = ->
-    requestUrl = 'https://emajliramokade.com/platform/Moderiraj.svc/KadaOdobrena/'
-
     i = gallery.images.indexOf @
     newItem = gallery.__cloneItem i
     newItem.status = false
 
-    jQuery.ajax
-      type: 'PUT'
-      url:  requestUrl+@.URI
-      data: {}
-      dataType: 'json'
-      headers:
-        'Content-Type': 'application/json'
-        Authorization:  'Basic cm9iaTppYm9y'
-      success:  (response) =>
-        console.log response
-        gallery.images.splice i, 1, newItem
-        gallery.changes gallery.changes()+1
-
-        return
-      error:    (response) ->
-        console.warn 'Got error. ', response
-        return
-
+    gallery.images.splice i, 1, newItem
+    gallery.changes gallery.changes()+1
     return
 
   @actionMarkAllConfirmed = =>
@@ -73,17 +38,38 @@ galleryModel = ->
     return
 
   @actionSaveChanges = =>
+    requestUrl = 'https://emajliramokade.com/platform/Moderiraj.svc/MasovnaModeracija'
     @isWorking true
 
     data = []
     @images().forEach (item) ->
-      data.push item  if item.status isnt null
-      return
-    console.log '--> ', JSON.stringify data
+      kada =
+        kadaID:   item.URI
+        odobrena: item.status
 
-    setTimeout (->
-      gallery.isWorking false
-    ), 5000
+      data.push kada  if item.status isnt null
+      return
+
+    moderiraneKade =
+      moderacijeKada: data
+
+    jQuery.ajax
+      type: 'PUT'
+      url:  requestUrl
+      data: JSON.stringify moderiraneKade
+      dataType: 'json'
+      headers:
+        'Content-Type': 'application/json'
+        Authorization:  'Basic cm9iaTppYm9y'
+      success:  (response) =>
+        fetchKade()
+        gallery.isWorking false
+        return
+
+      error:    (response) ->
+        console.warn 'Got error. ', response
+        return
+
     return
 
   @pagePrev = =>
