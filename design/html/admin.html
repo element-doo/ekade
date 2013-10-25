@@ -18,7 +18,7 @@
   <![endif]-->
   <link rel="stylesheet" type="text/css" media="all" href="css/style.css" />
   <link rel="stylesheet" type="text/css" media="all" href="css/admin.css" />
-  <link href='http://fonts.googleapis.com/css?family=Dosis:400,700&amp;subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Dosis:400,700&amp;subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 </head>
 <body>
 <!--  HEADER START -->
@@ -63,13 +63,18 @@
       <div class="row-fluid">
         <div class="span6">
           <form class="form-inline">
-            <button type="button" class="btn btn-danger" data-bind="click: actionMarkAllRejected"><i class="icon-ok"></i> Označi sve obrisanim</button>
-            <button type="button" class="btn btn-success" data-bind="click: actionMarkAllConfirmed"><i class="icon-remove"></i> Označi sve odobrenim</button>
+            <button type="button" class="btn btn-danger" data-bind="click: actionMarkAllRejected"><i class="icon-oremove"></i> Označi sve obrisanim</button>
+            <button type="button" class="btn btn-success" data-bind="click: actionMarkAllConfirmed"><i class="icon-ok"></i> Označi sve odobrenim</button>
           </form>
           <button type="button" class="btn btn-large" data-bind="click: actionSaveChanges, attr: { 'disabled': isWorking }">
             <i class="icon-save" data-bind="css: { 'icon-save': !isWorking(), 'icon-spinner': isWorking, 'icon-spin': isWorking }"></i>&nbsp;
             <span data-bind="html: isWorking()? 'Spremanje&hellip;': 'Spremi promjene'">Spremi promjene</span>
           </button>
+        </div>
+        <div class="span4 pull-right">
+          <span class="pull-right">
+            Broj slika: <span data-bind="text: images().length"></span>
+          </span>
         </div>
       </div>
       <div class="pagination pull-right">

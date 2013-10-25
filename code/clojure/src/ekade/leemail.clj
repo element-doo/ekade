@@ -60,7 +60,7 @@
                          :user (:username (:email helpers/config))
                          :pass (:password (:email helpers/config))
                          :ssl (:ssl (:email helpers/config))}
-                         {:from "nikola@plejic.com"
-                          :to "zweistein@gmail.com"
+                         {:from (:from emajl)
+                          :to (:to emajl)
                           :subject (:subject emajl)
                           :body (reduce conj body (vec (:attachments emajl)))})))

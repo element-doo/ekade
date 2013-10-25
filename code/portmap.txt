@@ -1,6 +1,6 @@
 Sanity check reference to avoid clashes:
 
-      c
+10030 c
 10100 clisp
       clojure
       csharp
@@ -11,4 +11,4 @@ Sanity check reference to avoid clashes:
 10070 php
 10060 python
 10120 rust
-      scala
+10040 scala

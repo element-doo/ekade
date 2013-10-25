@@ -1,2 +1,4 @@
+.lein-repl-history
+.nrepl-port
 target
 config.clj

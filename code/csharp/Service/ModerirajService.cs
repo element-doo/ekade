@@ -19,7 +19,7 @@ namespace EmajliramoKade
 		{
 			this.Locator = locator;
 			this.Kade = locator.Resolve<IPersistableRepository<Kada>>();
-			this.KadaIzvorPodataka = locator.Resolve<IPersistableRepository<KadaIzvorPodataka>>();
+			this.KadaIzvorPodataka = locator.Resolve<IQueryableRepository<KadaIzvorPodataka>>();
 		}
 
 		private Stream Execute<TEvent>(string guid, TEvent @event, Action callback = null)
@@ -50,24 +50,17 @@ namespace EmajliramoKade
 			return Execute(guid, new KadaOdobrena());
 		}
 
-		public Stream PosaljiKadu(string guid)
-		{
-			return Execute(guid, new KadaPoslana());
-		}
-
 		public Stream OdbijKadu(string guid)
 		{
 			return Execute(guid, new KadaOdbijena());
 		}
 
-		public Stream DodajKadu(string guid, Stream komentar)
+		public Stream MasovnaModeracija(Stream body)
 		{
-			var @event = new KadaDodana();
-			return Execute(guid, @event, () =>
-				@event.komentar = new StreamReader(komentar).ReadToEnd()
-			);
+			var @event = Deserialize<MasovnaModeracija>(Locator, body);
+			@event.Process(Locator);
+			return new MemoryStream(0);
 		}
-
 
 
 

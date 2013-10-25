@@ -1,7 +1,9 @@
 using System;
+using System.Linq;
 using System.Threading;
 using NGS.DomainPatterns;
 using PopisKada;
+using Resursi;
 
 namespace EmajliramoKade
 {
@@ -9,13 +11,18 @@ namespace EmajliramoKade
 		IDomainEventHandler<KadaDodana>,
 		IDomainEventHandler<KadaOdobrena>,
 		IDomainEventHandler<KadaOdbijena>,
-		IDomainEventHandler<KadaPoslana>
+		IDomainEventHandler<KadaPoslana>,
+		IDomainEventHandler<MasovnaModeracija>
 	{
 		private readonly IPersistableRepository<Kada> Kade;
+		private readonly IPersistableRepository<SlikeKade> SlikeKade;
 
-		public KadaEvents(IPersistableRepository<Kada> kade)
+		public KadaEvents(
+			IPersistableRepository<Kada> kade,
+			IPersistableRepository<SlikeKade> slikeKade)
 		{
 			this.Kade = kade;
+			this.SlikeKade = slikeKade;
 		}
 
 		private void Execute(Guid guid, Action<Kada> callback, int counter = 0)
@@ -41,9 +48,17 @@ namespace EmajliramoKade
 
 		public void Handle(KadaDodana domainEvent)
 		{
-			Execute(domainEvent.kadaID, kada =>
-				kada.komentar = domainEvent.komentar
-			);
+			Execute(domainEvent.kadaID, kada => {
+				SlikeKade.Insert(new SlikeKade
+				{
+					kada = kada,
+					original = domainEvent.original,
+					web = domainEvent.web,
+					email = domainEvent.email,
+					thumbnail = domainEvent.thumbnail,
+					digest = domainEvent.digest
+				});
+			});
 		}
 
 		public void Handle(KadaOdobrena domainEvent)
@@ -66,5 +81,22 @@ namespace EmajliramoKade
 				kada.brojacSlanja++
 			);
 		}
+
+		public void Handle(MasovnaModeracija domainEvent)
+		{
+			var kadeID = domainEvent.moderacijeKada.Select(it => it.kadaID.ToString());
+			var kade = Kade.Find(kadeID).ToDictionary(it => it.ID, it => it);
+
+			foreach (var kada in domainEvent.moderacijeKada)
+			{
+				if (kada.odobrena)
+					kade[kada.kadaID].odobrena = DateTime.Now;
+				else
+					kade[kada.kadaID].odbijena = DateTime.Now;
+			}
+
+			Kade.Update(kade.Values);
+		}
+
 	}
 }

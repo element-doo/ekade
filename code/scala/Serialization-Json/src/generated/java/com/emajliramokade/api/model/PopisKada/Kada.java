@@ -55,7 +55,6 @@ public class Kada implements java.io.Serializable, AggregateRoot {
             final org.joda.time.DateTime odobrena,
             final org.joda.time.DateTime odbijena,
             final int brojacSlanja,
-            final String komentar,
             final com.emajliramokade.api.model.Resursi.SlikeKade[] slikeKade) {
         _serviceLocator = Bootstrap.getLocator();
         _domainProxy = _serviceLocator.resolve(DomainProxy.class);
@@ -64,7 +63,6 @@ public class Kada implements java.io.Serializable, AggregateRoot {
         setOdobrena(odobrena);
         setOdbijena(odbijena);
         setBrojacSlanja(brojacSlanja);
-        setKomentar(komentar);
         setSlikeKade(slikeKade);
     }
 
@@ -77,7 +75,6 @@ public class Kada implements java.io.Serializable, AggregateRoot {
             @JsonProperty("odobrena") final org.joda.time.DateTime odobrena,
             @JsonProperty("odbijena") final org.joda.time.DateTime odbijena,
             @JsonProperty("brojacSlanja") final int brojacSlanja,
-            @JsonProperty("komentar") final String komentar,
             @JsonProperty("slikeKadeURI") final String[] slikeKadeURI) {
         this._serviceLocator = _serviceLocator;
         this._domainProxy = _serviceLocator.resolve(DomainProxy.class);
@@ -88,7 +85,6 @@ public class Kada implements java.io.Serializable, AggregateRoot {
         this.odobrena = odobrena;
         this.odbijena = odbijena;
         this.brojacSlanja = brojacSlanja;
-        this.komentar = komentar;
         this.slikeKadeURI = slikeKadeURI == null ? new String[0] : slikeKadeURI;
     }
 
@@ -235,7 +231,6 @@ public class Kada implements java.io.Serializable, AggregateRoot {
         this.odobrena = result.odobrena;
         this.odbijena = result.odbijena;
         this.brojacSlanja = result.brojacSlanja;
-        this.komentar = result.komentar;
         this.slikeKade = result.slikeKade;
         this.slikeKadeURI = result.slikeKadeURI;
     }
@@ -335,19 +330,6 @@ public class Kada implements java.io.Serializable, AggregateRoot {
 
     public Kada setBrojacSlanja(final int value) {
         this.brojacSlanja = value;
-
-        return this;
-    }
-
-    private String komentar;
-
-    @JsonProperty("komentar")
-    public String getKomentar() {
-        return komentar;
-    }
-
-    public Kada setKomentar(final String value) {
-        this.komentar = value;
 
         return this;
     }

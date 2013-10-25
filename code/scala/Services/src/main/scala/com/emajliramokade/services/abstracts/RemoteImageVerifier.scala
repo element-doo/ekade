@@ -11,7 +11,7 @@ trait RemoteImageVerifier
 
   def verify(zahtjev: Zahtjev): Future[Odgovor] = {
     val serviceUrl = serviceUrlFactory(zahtjev)
-    val body = zahtjev.getOriginalnaSlika.toByteArray
+    val body = zahtjev.toByteArray()
     val responseFut = send(serviceUrl, body)
     responseFut map Odgovor.parseFrom
   }

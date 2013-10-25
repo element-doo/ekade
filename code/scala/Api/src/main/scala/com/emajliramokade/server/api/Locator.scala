@@ -1,25 +1,38 @@
 package com.emajliramokade
 package server.api
 
-import services.impl.{ FakeEmailValidator, LaravelRemoteEmailValidator }
-import server.api.rest.RestListener
-
-import hr.ngs.patterns.{ DependencyContainer, ISerialization, IServiceLocator, JsonSerialization }
 import net.liftweb.http.rest.RestHelper
+import services.impl._
+import server.api.rest.RestListener
+import hr.ngs.patterns.{ DependencyContainer, ISerialization, IServiceLocator, JsonSerialization }
 import org.slf4j.LoggerFactory
 import scala.reflect.runtime.universe.TypeTag
+import com.dslplatform.client.Bootstrap
+import com.dslplatform.client.DomainProxy
+import com.dslplatform.patterns.ServiceLocator
 
 object Locator extends IServiceLocator {
   private val container = {
     val logger = LoggerFactory.getLogger("EKade-Api")
 
+    val locator = Bootstrap.init(sys.props("user.home") + "/.config/ekade/project.ini")
+    val domainProxy = locator.resolve(classOf[DomainProxy])
+
     new DependencyContainer()
       .register[org.slf4j.Logger](logger)
       .register[JsonSerialization, ISerialization[String]]
       .register[RestListener, RestHelper]
+
+      // EmailValidators
       .register[LaravelRemoteEmailValidator]
-      .register[FakeEmailValidator]
-      .register[Dispatcher]
+      .register[RustRemoteEmailValidator]
+      .register[DjangoRemoteEmailValidator]
+      .register[CLispRemoteImageResizer]
+      .register[CRemoteImageVerifier]
+
+      .register[UploadDispatcher]
+      .register[ServiceLocator](locator)
+      .register[DomainProxy](domainProxy)
   }
 
   def resolve[T: TypeTag] =

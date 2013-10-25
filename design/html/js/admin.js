@@ -50,7 +50,7 @@ galleryModel = function() {
   this.pageNext = function() {
     var max;
     max = _this.pages().length;
-    _this.currPage((_this.currPage() >= max ? max : _this.currPage() + 1));
+    gallery.currPage((gallery.currPage() >= max ? max : gallery.currPage() + 1));
   };
   this.pageNum = function() {
     var max;
@@ -98,16 +98,41 @@ galleryModel = function() {
     var i, newItem;
     i = 0;
     while (i < this.images().length) {
-      newItem = gallery.__cloneItem(i);
+      newItem = this.__cloneItem(i);
       newItem.status = status;
-      gallery.images.splice(i, 1, newItem);
-      gallery.changes(gallery.changes() + 1);
+      this.images.splice(i, 1, newItem);
+      this.changes(gallery.changes() + 1);
       i++;
     }
   };
 };
 
 gallery = null;
+
+/*
+fetchData = (offset = 0, limit = 20) ->
+  url = 'https://emajliramokade.com/platform/Moderiraj.svc/KadaIzvorPodataka/NemoderiraneKade'
+  console.log url
+
+  jQuery.ajax
+    type: 'GET'
+    url:  url
+    data:
+      offset: offset
+      limit:  limit
+    dataType: 'json'
+    headers:
+      Authorization: 'Basic cm9iaTppYm9y'
+      Host: 'emajliramokade.com'
+    success:  (response) =>
+      console.log response
+      return
+    error:    (response) ->
+      console.log response
+      return
+  return
+*/
+
 
 $(function() {
   var i, img, __statuses, _h, _w;

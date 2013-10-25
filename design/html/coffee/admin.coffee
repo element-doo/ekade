@@ -59,7 +59,7 @@ galleryModel = ->
 
   @pageNext = =>
     max = @pages().length
-    @currPage (if @currPage() >= max then max else @currPage() + 1)
+    gallery.currPage (if gallery.currPage() >= max then max else gallery.currPage() + 1)
     return
 
   @pageNum = ->
@@ -103,17 +103,41 @@ galleryModel = ->
   @__markAll = (status) ->
     i = 0
     while i < @images().length
-      newItem = gallery.__cloneItem i
+      newItem = @__cloneItem i
       newItem.status = status
-      gallery.images.splice i, 1, newItem
+      @images.splice i, 1, newItem
 
-      gallery.changes gallery.changes()+1
+      @changes gallery.changes()+1
       i++
     return
 
   return
 
 gallery = null
+
+###
+fetchData = (offset = 0, limit = 20) ->
+  url = 'https://emajliramokade.com/platform/Moderiraj.svc/KadaIzvorPodataka/NemoderiraneKade'
+  console.log url
+
+  jQuery.ajax
+    type: 'GET'
+    url:  url
+    data:
+      offset: offset
+      limit:  limit
+    dataType: 'json'
+    headers:
+      Authorization: 'Basic cm9iaTppYm9y'
+      Host: 'emajliramokade.com'
+    success:  (response) =>
+      console.log response
+      return
+    error:    (response) ->
+      console.log response
+      return
+  return
+###
 
 $ ->
   $(window).on 'beforeunload', ->
@@ -124,6 +148,7 @@ $ ->
 
   gallery = new galleryModel()
 
+  #fetchData()
   i = 0
   __statuses = [null, null, null, true, false]
   while i < 20

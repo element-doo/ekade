@@ -1,4 +1,5 @@
 *.csproj.user
+*.pdb
 obj
 logs
 Web.config

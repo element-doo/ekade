@@ -1,0 +1,17 @@
+[
+	{
+		"method": "resize",
+		"params": {
+			"format": "png",
+			"width": "1337",
+			"height": "1337",
+			"maxWidth": "1337",
+			"maxHeight": "1337",
+			"body": "64byte encoded pic"
+		},
+		"returns":{
+			"return":"ret",
+			"error":0
+		}
+	}
+]

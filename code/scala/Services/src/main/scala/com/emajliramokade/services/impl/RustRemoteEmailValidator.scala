@@ -11,7 +11,7 @@ class RustRemoteEmailValidator(
     val serialization: ISerialization[String])
     extends abstracts.RemoteEmailValidator
     with    RemotingZeroMQ[Zahtjev] {
-  def serviceUrlFactory(t: Zahtjev) = "tcp://emajliramokade.com:10090"
+  def serviceUrlFactory(t: Zahtjev) = "tcp://emajliramokade.com:10120"
 
   // Overrides RemoteEmailValidator's JSON serialization, and rolls its own.
   override def validate(zahtjev: Zahtjev): Future[Odgovor] = {

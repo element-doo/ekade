@@ -1,7 +1,10 @@
 package com.emajliramokade
 
+import scala.concurrent.duration._
+
 object `package` {
   val Encoding = "UTF-8"
+  val ServiceTimeout = 5 seconds
 
   implicit val executionContext =
     scala.concurrent.ExecutionContext.fromExecutor(
