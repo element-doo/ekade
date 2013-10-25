@@ -29,6 +29,7 @@ int getSHA1Pixels (PixelIterator *iterator, Odgovor * odgovor);
 void onSignal () {
 	printf ("Application Terminated.\n");
 	MagickWandTerminus ();
+	exit (0);
 }
 
 int main (int argc, const char * argv []) {
