@@ -43,11 +43,12 @@
       <h4 class="title-bg upper"><span class="title title-left">Nove kade</span></h4>
       <div class="row-fluid">
 
-        <ul class="thumbnails" data-bind="foreach: images">
+        <h1 data-bind="css: { 'hide': images().length > 0 }" class="hide muted">Nema niti jedne kade za moderiranje. &nbsp;<i class="icon-frown"></i></h1>
+        <ul class="thumbnails" data-bind="foreach: images, css: { 'hide': images().length < 1 }">
           <li class="item span3">
             <div class="thumbnail-admin">
-              <a href="" class="fancybox" data-bind="attr: { 'href': path, 'title': name }, style: { 'width': width, 'height': height }">
-                <img src="" alt="Slika kade" data-bind="attr: { 'src': path }, style: { 'width': width, 'height': height }"/>
+              <a href="" class="fancybox" data-bind="attr: { 'href': fullPath, 'title': timestamp }, style: { 'width': width, 'height': height }">
+                <img src="" alt="Slika kade" data-bind="attr: { 'src': imgPath }, style: { 'width': width, 'height': height }"/>
               </a>
               <div class="admin-hover js-admin-hover" data-bind="css: { 'admin-approved': (status === true), 'admin-delete': (status === false) }">
                 <p class="controls text-center">
@@ -61,7 +62,7 @@
 
       </div>
       <div class="row-fluid">
-        <div class="span6">
+        <div class="span6" data-bind="css: { 'hide': images().length < 1 }">
           <form class="form-inline">
             <button type="button" class="btn btn-danger" data-bind="click: actionMarkAllRejected"><i class="icon-remove"></i> Označi sve obrisanim</button>
             <button type="button" class="btn btn-success" data-bind="click: actionMarkAllConfirmed"><i class="icon-ok"></i> Označi sve odobrenim</button>
@@ -71,13 +72,13 @@
             <span data-bind="html: isWorking()? 'Spremanje&hellip;': 'Spremi promjene'">Spremi promjene</span>
           </button>
         </div>
-        <div class="span4 pull-right">
+        <div class="span4 pull-right" data-bind="css: { 'hide': images().length < 1 }">
           <span class="pull-right">
             Broj slika: <span data-bind="text: images().length"></span>
           </span>
         </div>
       </div>
-      <div class="pagination pull-right">
+      <div class="pagination pull-right" data-bind="css: { 'hide': images().length < 1 }">
         <ul>
           <li data-bind="css: { 'disabled': currPage() == 1 }, click: pagePrev"><a href="#">&laquo;</a></li>
           <!-- ko foreach: pages -->

@@ -9,20 +9,56 @@ galleryModel = function() {
   this.changes = ko.observable(0);
   this.isWorking = ko.observable(false);
   this.actionApprove = function() {
-    var i, newItem;
+    var i, newItem, requestUrl,
+      _this = this;
+    requestUrl = 'https://emajliramokade.com/platform/Moderiraj.svc/KadaOdobrena/';
     i = gallery.images.indexOf(this);
     newItem = gallery.__cloneItem(i);
     newItem.status = true;
-    gallery.images.splice(i, 1, newItem);
-    gallery.changes(gallery.changes() + 1);
+    jQuery.ajax({
+      type: 'PUT',
+      url: requestUrl + this.URI,
+      data: {},
+      dataType: 'json',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Basic cm9iaTppYm9y'
+      },
+      success: function(response) {
+        console.log(response);
+        gallery.images.splice(i, 1, newItem);
+        gallery.changes(gallery.changes() + 1);
+      },
+      error: function(response) {
+        console.warn('Got error. ', response);
+      }
+    });
   };
   this.actionReject = function() {
-    var i, newItem;
+    var i, newItem, requestUrl,
+      _this = this;
+    requestUrl = 'https://emajliramokade.com/platform/Moderiraj.svc/KadaOdobrena/';
     i = gallery.images.indexOf(this);
     newItem = gallery.__cloneItem(i);
     newItem.status = false;
-    gallery.images.splice(i, 1, newItem);
-    gallery.changes(gallery.changes() + 1);
+    jQuery.ajax({
+      type: 'PUT',
+      url: requestUrl + this.URI,
+      data: {},
+      dataType: 'json',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Basic cm9iaTppYm9y'
+      },
+      success: function(response) {
+        console.log(response);
+        gallery.images.splice(i, 1, newItem);
+        gallery.changes(gallery.changes() + 1);
+      },
+      error: function(response) {
+        console.warn('Got error. ', response);
+      }
+    });
   };
   this.actionMarkAllConfirmed = function() {
     _this.__markAll(true);
@@ -60,20 +96,6 @@ galleryModel = function() {
     gallery.currPage((this.page <= max || this.page >= 1 ? this.page : 1));
     fetchKade(gallery.currPage - 1, 20);
   };
-  this.actionAddRandom = function() {
-    var img, __statuses, _h, _w;
-    __statuses = [null, null, null, true, false];
-    _w = 200 + Math.round(Math.random() * 50);
-    _h = 100 + Math.round(Math.random() * 100);
-    img = {
-      name: 'Image',
-      path: 'http://placekitten.com/' + _w + '/' + _h,
-      width: _w,
-      height: _h,
-      status: __statuses[Math.round(Math.random() * 5)]
-    };
-    this.images.push(img);
-  };
   this.pages = ko.computed(function() {
     var i, pages;
     i = 0;
@@ -90,10 +112,12 @@ galleryModel = function() {
     var item, newItem;
     item = gallery.images()[index];
     return newItem = {
-      name: item.name,
-      path: item.path,
+      URI: item.URI,
       width: item.width,
       height: item.height,
+      timestamp: item.timestamp,
+      imgPath: item.imgPath,
+      fullPath: item.fullPath,
       status: null
     };
   };
@@ -113,18 +137,19 @@ galleryModel = function() {
 gallery = null;
 
 fetchKade = function(offset, limit) {
-  var url,
+  var imageBase, requestUrl,
     _this = this;
   if (offset == null) {
     offset = 0;
   }
   if (limit == null) {
-    limit = 20;
+    limit = 100;
   }
-  url = 'https://emajliramokade.com/platform/Moderiraj.svc/KadaIzvorPodataka/NemoderiraneKade';
+  requestUrl = 'https://emajliramokade.com/platform/Moderiraj.svc/KadaIzvorPodataka/NemoderiraneKade';
+  imageBase = 'http://emajliramokade.com:10080/public/Slike/';
   jQuery.ajax({
     type: 'GET',
-    url: url,
+    url: requestUrl,
     data: {
       offset: offset,
       limit: limit
@@ -137,16 +162,20 @@ fetchKade = function(offset, limit) {
     success: function(response) {
       gallery.images([]);
       response.forEach(function(item) {
-        var img;
-        img = {
-          URI: item.URI,
-          path: item.slikeKade,
-          width: 0,
-          height: 0,
-          status: null,
-          timestamp: item.dodana
-        };
-        gallery.images.push(img);
+        var img, kada;
+        if ((item.slikeKade != null) && item.slikeKade.length !== 0) {
+          kada = item.slikeKade;
+          img = {
+            URI: item.URI,
+            width: kada.thumbnail.width,
+            height: kada.thumbnail.height,
+            status: null,
+            timestamp: item.dodana,
+            imgPath: imageBase + kada.URI + '/Thumbnail',
+            fullPath: imageBase + kada.URI + '/Email'
+          };
+          gallery.images.push(img);
+        }
       });
     },
     error: function(response) {
@@ -161,23 +190,6 @@ $(function() {
   });
   gallery = new galleryModel();
   fetchKade();
-  /*
-    i = 0
-    __statuses = [null, null, null, true, false]
-    while i < 20
-      _w = 200 + Math.round(Math.random()*50)
-      _h = 100 + Math.round(Math.random()*100)
-      img =
-        URI:   'Image-'+(i+1)
-        path:   'http://placekitten.com/'+_w+'/'+_h
-        width:  _w
-        height: _h
-        status: __statuses[Math.round(Math.random()*5)]
-  
-      gallery.images.push img
-      i++
-  */
-
-  gallery.maxPages(Math.round(2 + Math.random() * 4));
+  gallery.maxPages(3);
   ko.applyBindings(gallery);
 });

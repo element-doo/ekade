@@ -1,0 +1,13 @@
+LogLevel debug
+ServerTokens prod
+ServerSignature on
+TraceEnable on
+
+<VirtualHost 10.5.3.1:12000>
+  ServerAdmin neven@emajliramokade.com
+
+  DocumentRoot /home/neven/code/ekade/design/html
+
+  CustomLog /home/neven/code/ekade/logs/apache2_access.log combined
+  ErrorLog /home/neven/code/ekade/logs/apache2_error.log
+</VirtualHost>

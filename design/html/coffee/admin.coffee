@@ -12,23 +12,56 @@ galleryModel = ->
 
   # actions
   @actionApprove = ->
-    i = gallery.images.indexOf @
+    requestUrl = 'https://emajliramokade.com/platform/Moderiraj.svc/KadaOdobrena/'
 
+    i = gallery.images.indexOf @
     newItem = gallery.__cloneItem i
     newItem.status = true
-    gallery.images.splice i, 1, newItem
 
-    gallery.changes gallery.changes()+1
+    jQuery.ajax
+      type: 'PUT'
+      url:  requestUrl+@.URI
+      data: {}
+      dataType: 'json'
+      headers:
+        'Content-Type': 'application/json'
+        Authorization:  'Basic cm9iaTppYm9y'
+      success:  (response) =>
+        console.log response
+        gallery.images.splice i, 1, newItem
+        gallery.changes gallery.changes()+1
+
+        return
+      error:    (response) ->
+        console.warn 'Got error. ', response
+        return
     return
 
   @actionReject = ->
-    i = gallery.images.indexOf @
+    requestUrl = 'https://emajliramokade.com/platform/Moderiraj.svc/KadaOdobrena/'
 
+    i = gallery.images.indexOf @
     newItem = gallery.__cloneItem i
     newItem.status = false
-    gallery.images.splice i, 1, newItem
 
-    gallery.changes gallery.changes()+1
+    jQuery.ajax
+      type: 'PUT'
+      url:  requestUrl+@.URI
+      data: {}
+      dataType: 'json'
+      headers:
+        'Content-Type': 'application/json'
+        Authorization:  'Basic cm9iaTppYm9y'
+      success:  (response) =>
+        console.log response
+        gallery.images.splice i, 1, newItem
+        gallery.changes gallery.changes()+1
+
+        return
+      error:    (response) ->
+        console.warn 'Got error. ', response
+        return
+
     return
 
   @actionMarkAllConfirmed = =>
@@ -70,20 +103,6 @@ galleryModel = ->
     fetchKade gallery.currPage-1, 20
     return
 
-  @actionAddRandom = ->
-    __statuses = [null, null, null, true, false]
-    _w = 200 + Math.round(Math.random()*50)
-    _h = 100 + Math.round(Math.random()*100)
-    img =
-      name:   'Image'
-      path:   'http://placekitten.com/'+_w+'/'+_h
-      width:  _w
-      height: _h
-      status: __statuses[Math.round(Math.random()*5)]
-
-    @images.push img
-    return
-
   @pages = ko.computed =>
     i = 0
     pages = []
@@ -97,10 +116,12 @@ galleryModel = ->
   @__cloneItem = (index) ->
     item = gallery.images()[index]
     newItem =
-      name:   item.name
-      path:   item.path
+      URI:    item.URI
       width:  item.width
       height: item.height
+      timestamp: item.timestamp
+      imgPath:   item.imgPath
+      fullPath:  item.fullPath
       status: null
 
   @__markAll = (status) ->
@@ -118,11 +139,13 @@ galleryModel = ->
 
 gallery = null
 
-fetchKade = (offset = 0, limit = 20) ->
-  url = 'https://emajliramokade.com/platform/Moderiraj.svc/KadaIzvorPodataka/NemoderiraneKade'
+fetchKade = (offset = 0, limit = 100) ->
+  requestUrl = 'https://emajliramokade.com/platform/Moderiraj.svc/KadaIzvorPodataka/NemoderiraneKade'
+  imageBase = 'http://emajliramokade.com:10080/public/Slike/'
+
   jQuery.ajax
     type: 'GET'
-    url:  url
+    url:  requestUrl
     data:
       offset: offset
       limit:  limit
@@ -133,15 +156,18 @@ fetchKade = (offset = 0, limit = 20) ->
     success:  (response) =>
       gallery.images []
       response.forEach (item) ->
-        img =
-          URI:    item.URI
-          path:   item.slikeKade
-          width:  0
-          height: 0
-          status: null
-          timestamp: item.dodana
+        if item.slikeKade? and item.slikeKade.length isnt 0
+          kada = item.slikeKade
+          img =
+            URI:    item.URI
+            width:  kada.thumbnail.width
+            height: kada.thumbnail.height
+            status: null
+            timestamp: item.dodana
+            imgPath:   imageBase+kada.URI+'/Thumbnail'
+            fullPath:  imageBase+kada.URI+'/Email'
 
-        gallery.images.push img
+          gallery.images.push img
         return
 
       return
@@ -159,26 +185,8 @@ $ ->
 
 
   gallery = new galleryModel()
-
   fetchKade()
-  ###
-  i = 0
-  __statuses = [null, null, null, true, false]
-  while i < 20
-    _w = 200 + Math.round(Math.random()*50)
-    _h = 100 + Math.round(Math.random()*100)
-    img =
-      URI:   'Image-'+(i+1)
-      path:   'http://placekitten.com/'+_w+'/'+_h
-      width:  _w
-      height: _h
-      status: __statuses[Math.round(Math.random()*5)]
-
-    gallery.images.push img
-    i++
-  ###
-
-  gallery.maxPages Math.round(2 + Math.random()*4)
+  gallery.maxPages 3
   ko.applyBindings gallery
 
   return
