@@ -213,6 +213,9 @@ h4 {
 }
 
 /* slider */
+#slider {
+  max-height: 600px;
+}
 .slider {
   margin: 30px 0 10px;
   position: relative;
@@ -239,10 +242,12 @@ h4 {
 .flexslider .slides > li {
   display: none;
   -webkit-backface-visibility: hidden;
+  background-color: #fff;
 }
 .flexslider .slides img {
-  width: 100%;
   display: block;
+  max-height: 590px;
+  margin: auto;
 }
 .slides:after {
   content: "\0020";
@@ -356,6 +361,10 @@ html[xmlns] .slides {
   text-indent: -9999em;
   background:  url(../img/slider-arrows.png) 0 -122px no-repeat;
 }
+#carousel .slides img {
+  max-height: 80px;
+  width: auto;
+}
 
 
 /* steps */
@@ -440,6 +449,7 @@ input[type="email"].slider-input:invalid {
   border: 6px solid #ddd;
   border-radius: 3px;
   position: relative;
+  height: 100px;
 }
 #carousel .slides .flex-active-slide {
   opacity: 1;
@@ -498,27 +508,6 @@ input[type="email"].slider-input:invalid {
   width: 80%;
 }
 
-/* admin hover */
-.admin-hover {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: 5px;
-}
-.admin-hover p {
-  padding-top: 30%;
-}
-.admin-hover {
-  background-color: rgba(67,141,187,0.3);
-}
-.admin-delete {
-  background-color: rgba(215,25,32,0.3);
-}
-.admin-approved {
-  background-color: rgba(65,143,1,0.3);
-}
 
 /* bootstrap overrides */
 .btn {
@@ -633,12 +622,24 @@ label, input, button, select, textarea {
   }
 }
 
+@media (max-width: 600px) {
+  input.slider-input, input.slider-input:focus {
+    width: 400px;
+  }
+}
+
 @media (max-width: 480px) {
   input.slider-input, input.slider-input:focus {
+    font-size: 14px;
     width: 280px;
+  }
+  .slider-input-btn, .slider-input-btn:focus {
+    width: 50px;
+  }
 }
 
 @media (max-width: 320px) {
   input.slider-input, input.slider-input:focus {
     width: 220px;
+  }
 }
