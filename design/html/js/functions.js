@@ -12,9 +12,9 @@ $(document).ready(function(){
   $('#slider').flexslider({
     animation: "slide",
     controlNav: false,
-    smoothHeight : true,
-    animationSpeed : 500,
-    slideshowSpeed : 2000,
+    animationSpeed : 700,
+    slideshowSpeed : 4000,
+    itemMargin: 15,
     sync: "#carousel"
   });
 
@@ -43,15 +43,6 @@ $(document).ready(function(){
       }
     }
   });
-
-  // admin gallery hover
-  $( ".thumbnail" ).hover(
-    function() {
-      $( this ).find('.js-admin-hover').stop( true, true ).fadeIn('fast');
-    }, function() {
-      $( this ).find('.js-admin-hover').stop( true, true ).fadeOut('fast');
-    }
-  );
 
   // tooltips
   $('.js-tooltip').tooltip();
