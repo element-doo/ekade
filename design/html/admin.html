@@ -45,7 +45,7 @@
 
         <ul class="thumbnails" data-bind="foreach: images">
           <li class="item span3">
-            <div class="thumbnail">
+            <div class="thumbnail-admin">
               <a href="" class="fancybox" data-bind="attr: { 'href': path, 'title': name }, style: { 'width': width, 'height': height }">
                 <img src="" alt="Slika kade" data-bind="attr: { 'src': path }, style: { 'width': width, 'height': height }"/>
               </a>
@@ -66,7 +66,7 @@
             <button type="button" class="btn btn-danger" data-bind="click: actionMarkAllRejected"><i class="icon-remove"></i> Označi sve obrisanim</button>
             <button type="button" class="btn btn-success" data-bind="click: actionMarkAllConfirmed"><i class="icon-ok"></i> Označi sve odobrenim</button>
           </form>
-          <button type="button" class="btn btn-large" data-bind="click: actionSaveChanges, attr: { 'disabled': isWorking }">
+          <button type="button" class="btn btn-large btn-inverse" data-bind="click: actionSaveChanges, attr: { 'disabled': isWorking }">
             <i class="icon-save" data-bind="css: { 'icon-save': !isWorking(), 'icon-spinner': isWorking, 'icon-spin': isWorking }"></i>&nbsp;
             <span data-bind="html: isWorking()? 'Spremanje&hellip;': 'Spremi promjene'">Spremi promjene</span>
           </button>
