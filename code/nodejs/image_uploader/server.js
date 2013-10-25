@@ -5,9 +5,9 @@ var server = http.createServer();
 
 var hostname = '127.0.0.1';
 
-var urls = [
-	//'/uploadScala',
-	'/'
+var ports = [
+	10040, // scala image uploader
+	10071  // php image uploader
 ];
 
 server.on('request', function(request, response) {
@@ -35,11 +35,11 @@ server.on('request', function(request, response) {
 			response.end();
 	};
 
-	for (var i in urls) {
+	for (var p in ports) {
 		var client = http.request({
 			hostname: hostname,
-			port: 11392,
-			path: urls[i],
+			port: ports[p],
+			path: '/',
 			method: 'POST',
 			headers: request.headers
 		}, function(cresponse) {
@@ -68,5 +68,5 @@ server.on('request', function(request, response) {
 	});
 });
 
-server.listen(65432, '10.5.6.1');
+server.listen(10050, '127.0.0.1');
 server.on('error', function(error) { console.log(error.message); });
