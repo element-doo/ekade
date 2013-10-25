@@ -8,6 +8,6 @@ module ImageSave
     Binary  web;
   }
 
-  value Odgovor {
-  }
+  // do not underestimate the power of a type-safe void!
+  value Odgovor;
 }

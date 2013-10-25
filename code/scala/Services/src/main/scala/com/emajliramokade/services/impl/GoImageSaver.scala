@@ -10,6 +10,9 @@ class GoImageSaver(
     val serialization: ISerialization[String])
     extends abstracts.RemoteImageSaver
     with    RemotingDispatch[Zahtjev] {
+
   val method = "PUT"
-  def serviceUrlFactory(t: Zahtjev) = s"http://emajliramokade.com:10080/Kada/${ t.getKadaID }/Slike"
+
+  def serviceUrlFactory(t: Zahtjev) =
+    s"http://emajliramokade.com:10080/Kada/${ t.getKadaID }/Slike"
 }

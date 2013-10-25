@@ -5,10 +5,15 @@ import org.zeromq.ZMQ
 import scala.concurrent.Future
 
 trait RemotingZeroMQ[T] extends Remoting[T] {
-  def send(serviceUrl: String, body: Array[Byte]): Future[Array[Byte]] =
+  def send(
+      serviceUrl: String
+    , request: Array[Byte]
+    , headers: Map[String, String] = Map.empty
+    ): Future[Array[Byte]] =
+
     Future {
       val socket = new ZeroSocket(serviceUrl)
-      socket.send(body)
+      socket.send(request)
       val response = socket.receive()
       socket.close()
       response

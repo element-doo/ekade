@@ -9,7 +9,6 @@ public class Korisnik implements java.io.Serializable, AggregateRoot {
         _serviceLocator = Bootstrap.getLocator();
         _domainProxy = _serviceLocator.resolve(DomainProxy.class);
         _crudProxy = _serviceLocator.resolve(CrudProxy.class);
-        this.ID = 0;
         this.username = "";
         this.salt = "";
         this.hashSifra = new byte[0];
@@ -66,7 +65,6 @@ public class Korisnik implements java.io.Serializable, AggregateRoot {
     private Korisnik(
             @JacksonInject("_serviceLocator") final ServiceLocator _serviceLocator,
             @JsonProperty("URI") final String URI,
-            @JsonProperty("ID") final int ID,
             @JsonProperty("username") final String username,
             @JsonProperty("salt") final String salt,
             @JsonProperty("hashSifra") final byte[] hashSifra) {
@@ -74,24 +72,9 @@ public class Korisnik implements java.io.Serializable, AggregateRoot {
         this._domainProxy = _serviceLocator.resolve(DomainProxy.class);
         this._crudProxy = _serviceLocator.resolve(CrudProxy.class);
         this.URI = URI;
-        this.ID = ID;
         this.username = username == null ? "" : username;
         this.salt = salt == null ? "" : salt;
         this.hashSifra = hashSifra == null ? new byte[0] : hashSifra;
-    }
-
-    private int ID;
-
-    @JsonProperty("ID")
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    public int getID() {
-        return ID;
-    }
-
-    private Korisnik setID(final int value) {
-        this.ID = value;
-
-        return this;
     }
 
     public static Korisnik find(final String uri) throws java.io.IOException {
@@ -237,7 +220,6 @@ public class Korisnik implements java.io.Serializable, AggregateRoot {
         this.username = result.username;
         this.salt = result.salt;
         this.hashSifra = result.hashSifra;
-        this.ID = result.ID;
     }
 
     public Korisnik persist() throws java.io.IOException {
