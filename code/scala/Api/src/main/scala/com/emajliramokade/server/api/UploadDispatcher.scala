@@ -44,14 +44,7 @@ class UploadDispatcher(
       // Perzistiraj meta podatke o slici.
       // Perzistiraj samu sliku.
     } yield {
-      stezateljOdgovor foreach {
-        case (opis, body) =>
-          val fos = new java.io.FileOutputStream(s"/home/huitz/work/dump/$opis.jpg")
-          fos.write(body)
-          fos.flush
-          fos.close
-      }
-      5
+      5 // Ne znamo još šta sa rezultatom
     }
   }
 
