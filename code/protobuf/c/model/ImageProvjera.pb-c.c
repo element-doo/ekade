@@ -224,7 +224,7 @@ const ProtobufCMessageDescriptor com__emajliramokade__image__proto__dimenzije_sl
   (ProtobufCMessageInit) com__emajliramokade__image__proto__dimenzije_slike__init,
   NULL,NULL,NULL    /* reserved[123] */
 };
-static const ProtobufCFieldDescriptor com__emajliramokade__image__proto__odgovor__field_descriptors[3] =
+static const ProtobufCFieldDescriptor com__emajliramokade__image__proto__odgovor__field_descriptors[5] =
 {
   {
     "status",
@@ -251,8 +251,20 @@ static const ProtobufCFieldDescriptor com__emajliramokade__image__proto__odgovor
     0,NULL,NULL    /* reserved1,reserved2, etc */
   },
   {
-    "dimenzijeSlike",
+    "sha1Bytes",
     3,
+    PROTOBUF_C_LABEL_REQUIRED,
+    PROTOBUF_C_TYPE_BYTES,
+    0,   /* quantifier_offset */
+    PROTOBUF_C_OFFSETOF(Com__Emajliramokade__Image__Proto__Odgovor, sha1bytes),
+    NULL,
+    NULL,
+    0,            /* packed */
+    0,NULL,NULL    /* reserved1,reserved2, etc */
+  },
+  {
+    "dimenzijeSlike",
+    4,
     PROTOBUF_C_LABEL_OPTIONAL,
     PROTOBUF_C_TYPE_MESSAGE,
     0,   /* quantifier_offset */
@@ -262,16 +274,30 @@ static const ProtobufCFieldDescriptor com__emajliramokade__image__proto__odgovor
     0,            /* packed */
     0,NULL,NULL    /* reserved1,reserved2, etc */
   },
+  {
+    "sha1Pixels",
+    5,
+    PROTOBUF_C_LABEL_OPTIONAL,
+    PROTOBUF_C_TYPE_BYTES,
+    PROTOBUF_C_OFFSETOF(Com__Emajliramokade__Image__Proto__Odgovor, has_sha1pixels),
+    PROTOBUF_C_OFFSETOF(Com__Emajliramokade__Image__Proto__Odgovor, sha1pixels),
+    NULL,
+    NULL,
+    0,            /* packed */
+    0,NULL,NULL    /* reserved1,reserved2, etc */
+  },
 };
 static const unsigned com__emajliramokade__image__proto__odgovor__field_indices_by_name[] = {
-  2,   /* field[2] = dimenzijeSlike */
+  3,   /* field[3] = dimenzijeSlike */
   1,   /* field[1] = poruka */
+  2,   /* field[2] = sha1Bytes */
+  4,   /* field[4] = sha1Pixels */
   0,   /* field[0] = status */
 };
 static const ProtobufCIntRange com__emajliramokade__image__proto__odgovor__number_ranges[1 + 1] =
 {
   { 1, 0 },
-  { 0, 3 }
+  { 0, 5 }
 };
 const ProtobufCMessageDescriptor com__emajliramokade__image__proto__odgovor__descriptor =
 {
@@ -281,7 +307,7 @@ const ProtobufCMessageDescriptor com__emajliramokade__image__proto__odgovor__des
   "Com__Emajliramokade__Image__Proto__Odgovor",
   "com.emajliramokade.image.proto",
   sizeof(Com__Emajliramokade__Image__Proto__Odgovor),
-  3,
+  5,
   com__emajliramokade__image__proto__odgovor__field_descriptors,
   com__emajliramokade__image__proto__odgovor__field_indices_by_name,
   1,  com__emajliramokade__image__proto__odgovor__number_ranges,
