@@ -23,6 +23,9 @@ public final class KadaIzvorPodataka implements Identifiable,
             throw new IllegalArgumentException(
                     "Property \"dodana\" cannot be null!");
         this.slikeKade = slikeKade;
+        if (slikeKade == null)
+            throw new IllegalArgumentException(
+                    "Property \"slikeKade\" cannot be null!");
     }
 
     private KadaIzvorPodataka() {

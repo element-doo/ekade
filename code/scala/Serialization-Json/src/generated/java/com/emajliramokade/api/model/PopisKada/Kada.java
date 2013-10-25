@@ -50,7 +50,6 @@ public class Kada implements java.io.Serializable, AggregateRoot {
     private static final long serialVersionUID = 0x0097000a;
 
     public Kada(
-            final java.util.UUID ID,
             final org.joda.time.DateTime odobrena,
             final org.joda.time.DateTime odbijena,
             final int brojacSlanja,
@@ -58,7 +57,6 @@ public class Kada implements java.io.Serializable, AggregateRoot {
         _serviceLocator = Bootstrap.getLocator();
         _domainProxy = _serviceLocator.resolve(DomainProxy.class);
         _crudProxy = _serviceLocator.resolve(CrudProxy.class);
-        setID(ID);
         setOdobrena(odobrena);
         setOdbijena(odbijena);
         setBrojacSlanja(brojacSlanja);
@@ -74,7 +72,6 @@ public class Kada implements java.io.Serializable, AggregateRoot {
             @JsonProperty("odobrena") final org.joda.time.DateTime odobrena,
             @JsonProperty("odbijena") final org.joda.time.DateTime odbijena,
             @JsonProperty("brojacSlanja") final int brojacSlanja,
-            @JsonProperty("slikeKadeID") final java.util.UUID slikeKadeID,
             @JsonProperty("slikeKadeURI") final String slikeKadeURI) {
         this._serviceLocator = _serviceLocator;
         this._domainProxy = _serviceLocator.resolve(DomainProxy.class);
@@ -85,8 +82,7 @@ public class Kada implements java.io.Serializable, AggregateRoot {
         this.odobrena = odobrena;
         this.odbijena = odbijena;
         this.brojacSlanja = brojacSlanja;
-        this.slikeKadeID = slikeKadeID;
-        this.slikeKadeURI = slikeKadeURI;
+        this.slikeKadeURI = slikeKadeURI == null ? null : slikeKadeURI;
     }
 
     public static Kada find(final String uri) throws java.io.IOException {
@@ -232,12 +228,15 @@ public class Kada implements java.io.Serializable, AggregateRoot {
         this.odobrena = result.odobrena;
         this.odbijena = result.odbijena;
         this.brojacSlanja = result.brojacSlanja;
-        this.slikeKadeID = result.slikeKadeID;
         this.slikeKade = result.slikeKade;
         this.slikeKadeURI = result.slikeKadeURI;
     }
 
     public Kada persist() throws java.io.IOException {
+        if (this.getSlikeKadeURI() == null) {
+            throw new IllegalArgumentException(
+                    "Cannot persist instance of 'com.emajliramokade.api.model.PopisKada.Kada' because reference 'slikeKade' was not assigned");
+        }
         final Kada result;
         try {
             result = this.URI == null
@@ -270,7 +269,7 @@ public class Kada implements java.io.Serializable, AggregateRoot {
         return ID;
     }
 
-    public Kada setID(final java.util.UUID value) {
+    private Kada setID(final java.util.UUID value) {
         if (value == null)
             throw new IllegalArgumentException(
                     "Property \"ID\" cannot be null!");
@@ -336,19 +335,6 @@ public class Kada implements java.io.Serializable, AggregateRoot {
         return this;
     }
 
-    private java.util.UUID slikeKadeID;
-
-    @JsonProperty("slikeKadeID")
-    public java.util.UUID getSlikeKadeID() {
-        return slikeKadeID;
-    }
-
-    private Kada setSlikeKadeID(final java.util.UUID value) {
-        this.slikeKadeID = value;
-
-        return this;
-    }
-
     private String slikeKadeURI;
 
     @JsonProperty("slikeKadeURI")
@@ -372,25 +358,23 @@ public class Kada implements java.io.Serializable, AggregateRoot {
             } catch (final java.util.concurrent.ExecutionException e) {
                 throw new java.io.IOException(e);
             }
-        if (this.slikeKadeURI == null && this.slikeKade != null)
-            this.slikeKade = null;
         return slikeKade;
     }
 
     public Kada setSlikeKade(
             final com.emajliramokade.api.model.Resursi.SlikeKade value) {
+        if (value == null)
+            throw new IllegalArgumentException(
+                    "Property \"slikeKade\" cannot be null!");
+
         if (value != null && value.getURI() == null)
             throw new IllegalArgumentException(
                     "Reference \"Resursi.SlikeKade\" for property \"slikeKade\" must be persisted before it's assigned");
         this.slikeKade = value;
 
-        this.slikeKadeURI = value != null ? value.getURI() : null;
+        this.slikeKadeURI = value.getURI();
 
-        if (value == null && this.slikeKadeID != null) {
-            this.slikeKadeID = null;
-        } else if (value != null) {
-            this.slikeKadeID = value.getID();
-        }
+        this.ID = value.getID();
         return this;
     }
 }
