@@ -10,6 +10,7 @@ import scala.reflect.runtime.universe.TypeTag
 import com.dslplatform.client.Bootstrap
 import com.dslplatform.client.DomainProxy
 import com.dslplatform.patterns.ServiceLocator
+import com.emajliramokade.server.api.zmq.ZMQListener
 
 object Locator extends IServiceLocator {
   private val container = {
@@ -28,11 +29,12 @@ object Locator extends IServiceLocator {
       .register[RustRemoteEmailValidator]
       .register[DjangoRemoteEmailValidator]
       .register[CLispRemoteImageResizer]
-      .register[CRemoteImageVerifier]
 
       .register[UploadDispatcher]
       .register[ServiceLocator](locator)
       .register[DomainProxy](domainProxy)
+
+      .register[ZMQListener]
   }
 
   def resolve[T: TypeTag] =
