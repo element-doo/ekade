@@ -31,7 +31,6 @@ module Resursi
 
   root SlikeKade(ID) {
     Guid                ID;
-    PopisKada.Kada(ID)  *kada;
 
     has mixin SlikeUseCases;
 

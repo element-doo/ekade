@@ -12,5 +12,7 @@ message DimenzijeSlike {
 message Odgovor {
   required bool status                   = 1;
   required string poruka                 = 2;
-  optional DimenzijeSlike dimenzijeSlike = 3;
+  required bytes sha1Bytes               = 3;
+  optional DimenzijeSlike dimenzijeSlike = 4;
+  optional bytes sha1Pixels              = 5;
 }

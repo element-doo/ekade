@@ -1,0 +1,10 @@
+array (
+  'slika' => 
+  array (
+    'name' => 'marin.png',
+    'type' => 'image/png',
+    'tmp_name' => '/tmp/phpgeH6ep',
+    'error' => 0,
+    'size' => 177,
+  ),
+)
