@@ -340,15 +340,6 @@ input[type="email"].slider-input:invalid {
   border-radius: 3px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
-.thumbnails-gallery-big a img {
-  max-width: 250px;
-  max-height: 150px;
-}
-.thumbnails-gallery-small a img {
-  max-width: 160px;
-  max-height: 100px;
-}
-
 
 /* bootstrap overrides */
 .btn {
