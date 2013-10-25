@@ -61,10 +61,10 @@ int main (int argc, const char * argv []) {
 		Dimenzije_Slike ds = dimenzija_slike_init;
 		Odgovor odgovor = odgovor_init;
 		odgovor.dimenzijeslike = &ds;
-		odgovor.sha1bytes.data = SHA1(zahtjev->originalnaslika.data, zahtjev->originalnaslika.len, NULL);
+		odgovor.sha1bytes.data = SHA1 (zahtjev->originalnaslika.data, zahtjev->originalnaslika.len, NULL);
 		odgovor.sha1bytes.len = SHA_DIGEST_LENGTH;
 
-		odgovor.sha1pixels.data = &digest;
+		odgovor.sha1pixels.data = (uint8_t *) &digest;
 		getImageMagickSize (zahtjev, &odgovor);
 
 		int message_size = odgovor_get_packed_size (&odgovor);
@@ -100,7 +100,7 @@ int getImageMagickSize (const Zahtjev * z, Odgovor * odgovor) {
 	odgovor->dimenzijeslike->height = MagickGetImageHeight (image_wand);
 	getSHA1Pixels(iterator, odgovor);
 	odgovor->status = 1;
-	odgovor->poruka = "Dimenzije slike nadjene. ";
+	odgovor->poruka = "Dimenzije slike najdene. ";
 
 	DestroyPixelIterator (iterator);
 	DestroyMagickWand (image_wand);
@@ -128,7 +128,7 @@ int getSHA1Pixels (PixelIterator * iterator, Odgovor * odgovor) {
 
 		if (pixels == NULL) {
 			odgovor->status =  0;
-			odgovor->poruka += "Greska u trazenju SHA1.";
+			odgovor->poruka = "Greska u trazenju SHA1.";
 			odgovor->dimenzijeslike = NULL;
 			return 0;
 			}
