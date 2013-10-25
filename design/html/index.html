@@ -7,7 +7,7 @@
   <link href="img/favicon.ico" rel="shortcut icon" type="image/vnd.microsoft.icon" />
   <!--[if lt IE 9]>
       <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
   <link rel="stylesheet" type="text/css" media="all" href="css/bootstrap.min.css" />
   <link rel="stylesheet" type="text/css" media="all" href="css/bootstrap-responsive.min.css" />
@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="css/font-awesome-ie7.min.css">
   <![endif]-->
   <link rel="stylesheet" type="text/css" media="all" href="css/style.css" />
-  <link href='http://fonts.googleapis.com/css?family=Dosis:400,700&amp;subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+  <link href='//fonts.googleapis.com/css?family=Dosis:400,700&amp;subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 </head>
 <body>
 <!--  HEADER START -->
@@ -53,63 +53,64 @@
   <div class="container">
     <!-- slider -->
     <div class="slider">
-      <div id="slider" class="flexslider">
+      <div id="carousel" class="flexslider hidden-phone">
         <ul class="slides">
           <li>
+            <span class="badge badge-info js-tooltip carousel-badge" data-placement="right" data-toggle="tooltip" title="Poslana 8 puta">8</span>
             <img src="img/pic-1.jpg" />
           </li>
           <li>
             <img src="img/pic-2.jpg" />
           </li>
           <li>
+            <span class="badge badge-info js-tooltip carousel-badge" data-placement="right" data-toggle="tooltip" title="Poslana 8 puta">8</span>
             <img src="img/pic-3.jpg" />
           </li>
           <li>
+            <span class="badge badge-info js-tooltip carousel-badge" data-placement="right" data-toggle="tooltip" title="Poslana 8 puta">8</span>
             <img src="img/pic-4.jpg" />
           </li>
           <li>
-            <img src="img/pic-1.jpg" />
+            <img src="img/pic-5.jpg" />
           </li>
           <li>
-            <img src="img/pic-2.jpg" />
+            <img src="img/pic-6.jpg" />
           </li>
           <li>
-            <img src="img/pic-3.jpg" />
+            <span class="badge badge-info js-tooltip carousel-badge" data-placement="right" data-toggle="tooltip" title="Poslana 111 puta">111</span>
+            <img src="img/pic-7.jpg" />
           </li>
           <li>
+            <span class="badge badge-info js-tooltip carousel-badge" data-placement="right" data-toggle="tooltip" title="Poslana 8 puta">8</span>
             <img src="img/pic-4.jpg" />
           </li>
         </ul>
       </div>
-      <div id="carousel" class="flexslider">
+      <div id="slider" class="flexslider">
         <ul class="slides">
           <li>
-            <span class="badge badge-info js-tooltip carousel-badge" data-placement="right" data-toggle="tooltip" title="Poslana 8 puta">8</span>
-            <img src="img/pic-1.jpg" />
+            <a href="img/pic-1.jpg" class="fancybox"><img src="img/pic-1.jpg" /></a>
           </li>
           <li>
-            <img src="img/pic-2.jpg" />
+            <a href="img/pic-2.jpg" class="fancybox"><img src="img/pic-2.jpg" /></a>
           </li>
           <li>
-            <span class="badge badge-info js-tooltip carousel-badge" data-placement="right" data-toggle="tooltip" title="Poslana 8 puta">8</span>
-            <img src="img/pic-3.jpg" />
+            <a href="img/pic-3.jpg" class="fancybox"><img src="img/pic-3.jpg" /></a>
           </li>
           <li>
-            <span class="badge badge-info js-tooltip carousel-badge" data-placement="right" data-toggle="tooltip" title="Poslana 8 puta">8</span>
-            <img src="img/pic-4.jpg" />
+            <a href="img/pic-4.jpg" class="fancybox"><img src="img/pic-4.jpg" /></a>
           </li>
           <li>
-            <img src="img/pic-1.jpg" />
+            <a href="img/pic-5.jpg" class="fancybox"><img src="img/pic-5.jpg" /></a>
           </li>
           <li>
-            <img src="img/pic-2.jpg" />
+            <a href="img/pic-6.jpg" class="fancybox"><img src="img/pic-6.jpg" /></a>
           </li>
           <li>
-            <span class="badge badge-info js-tooltip carousel-badge" data-placement="right" data-toggle="tooltip" title="Poslana 111 puta">111</span>
-            <img src="img/pic-3.jpg" />
+            <a href="img/pic-7.jpg" class="fancybox"><img src="img/pic-7.jpg" /></a>
           </li>
           <li>
-            <img src="img/pic-4.jpg" />
+            <a href="img/pic-4.jpg" class="fancybox"><img src="img/pic-4.jpg" /></a>
           </li>
         </ul>
       </div>
@@ -162,7 +163,7 @@
             <li class="append-bottom">
               <div class="row-fluid">
                 <div class="span3">
-                  <p class="text-center white"><i class="icon-location-arrow icon-4x"></i></p>
+                  <p class="text-center white"><i class="icon-envelope-alt icon-4x"></i></p>
                 </div>
                 <div class="span9">
                   <h1 class="bold white align-switch">3. korak</h1>
@@ -184,14 +185,8 @@
                   </div>
                 </div>
                 <div class="control-group">
-                  <label class="control-label">Kratki opis kade</label>
                   <div class="controls">
-                    <textarea rows="3"></textarea>
-                  </div>
-                </div>
-                <div class="control-group">
-                  <div class="controls">
-                    <button type="submit" class="btn btn-success">Postavi kadu</button>
+                    <button type="submit" class="btn btn-success btn-large">Postavi kadu</button>
                   </div>
                 </div>
               </fieldset>
@@ -203,7 +198,7 @@
   </div>
   <div class="footer-bottom">
     <div class="container">
-      <p class="text-center muted">© Element d.o.o. 2013.  Sva prava pridržana.</p>
+      <p class="text-center muted">&copy; Element d.o.o. 2013.  Sva prava pridržana.</p>
     </div>
   </div>
 </footer>
@@ -222,9 +217,9 @@
   </div>
 </div>
 <!-- end of modal send success -->
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
-<script src="js/jquery.flexslider-min.js"></script>
+<script type="text/javascript" src="js/jquery.flexslider-min.js"></script>
 <script type="text/javascript" src="js/bootstrap.file-input.js"></script>
 <script type="text/javascript" src="js/jquery.fancybox.pack.js"></script>
 <script type="text/javascript" src="js/functions.js"></script>
