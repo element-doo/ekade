@@ -143,13 +143,13 @@
         </div>
         <div class="span6">
           <div id="upload-wrapper">
-            <form id="upload-form" action="" class="upload-form form-horizontal">
+            <form id="upload-form" action="/upload" method="POST" class="upload-form form-horizontal" enctype="multipart/form-data">
               <fieldset>
                 <legend class="white upper">Upload kada</legend>
                 <div class="control-group">
                   <label class="control-label">Odaberi kadu</label>
                   <div class="controls">
-                    <input type="file" title="Odaberi sliku">
+                    <input type="file" title="Odaberi sliku" name="slika">
                   </div>
                 </div>
                 <div class="control-group">
