@@ -5,3 +5,4 @@ include
 *.sdf
 *.opensdf
 *.suo
+./image_size_service/services
