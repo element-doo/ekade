@@ -1,4 +1,12 @@
 module PopisKada
+
+
+
+
+
+
+
+
 {
   // Aggregate root koji reprezentira entitet kade, sa propertyjima potrebnim za obradu
   root Kada(ID) {

@@ -11,9 +11,7 @@ require_once __DIR__.'/PodaciSlike.php';
  * Generated from NGS DSL
  *
  * @property string $URI a unique object identifier (read-only)
- * @property \NGS\UUID $ID used by reference $kada (read-only)
- * @property string $kadaURI reference to an object of class "PopisKada\Kada" (read-only)
- * @property \PopisKada\Kada $kada an object of class "PopisKada\Kada"
+ * @property \NGS\UUID $ID a uuid
  * @property \Resursi\Fingerprint $digest an object of class "Resursi\Fingerprint"
  * @property \Resursi\PodaciSlike $original an object of class "Resursi\PodaciSlike"
  * @property \Resursi\PodaciSlike $web an object of class "Resursi\PodaciSlike"
@@ -27,8 +25,6 @@ class SlikeKade extends \NGS\Patterns\AggregateRoot implements \IteratorAggregat
 {
     protected $URI;
     protected $ID;
-    protected $kadaURI;
-    protected $kada;
     protected $digest;
     protected $original;
     protected $web;
@@ -93,12 +89,6 @@ class SlikeKade extends \NGS\Patterns\AggregateRoot implements \IteratorAggregat
         if (array_key_exists('ID', $data))
             $this->setID($data['ID']);
         unset($data['ID']);
-        if (array_key_exists('kada', $data))
-            $this->setKada($data['kada']);
-        unset($data['kada']);
-        if(array_key_exists('kadaURI', $data))
-            $this->kadaURI = \NGS\Converter\PrimitiveConverter::toString($data['kadaURI']);
-        unset($data['kadaURI']);
         if (array_key_exists('digest', $data))
             $this->setDigest($data['digest']);
         unset($data['digest']);
@@ -138,24 +128,6 @@ class SlikeKade extends \NGS\Patterns\AggregateRoot implements \IteratorAggregat
     public function getID()
     {
         return $this->ID;
-    }
-
-    /**
-     * @return a reference to an object of class "PopisKada\Kada"
-     */
-    public function getKadaURI()
-    {
-        return $this->kadaURI;
-    }
-
-    /**
-     * @return an object of class "PopisKada\Kada"
-     */
-    public function getKada()
-    {
-        if ($this->kadaURI !== null && $this->kada === null)
-            $this->kada = \NGS\Patterns\Repository::instance()->find('PopisKada\\Kada', $this->kadaURI);
-        return $this->kada;
     }
 
     /**
@@ -211,10 +183,6 @@ class SlikeKade extends \NGS\Patterns\AggregateRoot implements \IteratorAggregat
             return $this->getURI(); // a string representing a unique object identifier
         if ($name === 'ID')
             return $this->getID(); // a uuid
-        if ($name === 'kadaURI')
-            return $this->getKadaURI(); // a reference to an object of class "PopisKada\Kada"
-        if ($name === 'kada')
-            return $this->getKada(); // an object of class "PopisKada\Kada"
         if ($name === 'digest')
             return $this->getDigest(); // an object of class "Resursi\Fingerprint"
         if ($name === 'original')
@@ -242,8 +210,8 @@ class SlikeKade extends \NGS\Patterns\AggregateRoot implements \IteratorAggregat
     {
         if ($name === 'URI')
             return $this->URI !== null;
-        if ($name === 'kada')
-            return true; // an object of class "PopisKada\Kada" (always set)
+        if ($name === 'ID')
+            return true; // a uuid (always set)
         if ($name === 'digest')
             return true; // an object of class "Resursi\Fingerprint" (always set)
         if ($name === 'original')
@@ -258,37 +226,19 @@ class SlikeKade extends \NGS\Patterns\AggregateRoot implements \IteratorAggregat
         return false;
     }
 
-    private static $_read_only_properties = array('URI', 'ID', 'kadaURI');
+    private static $_read_only_properties = array('URI');
 
     /**
      * @param \NGS\UUID $value a uuid
      *
      * @return \NGS\UUID
      */
-    private function setID($value)
+    public function setID($value)
     {
         if ($value === null)
             throw new \InvalidArgumentException('Property "ID" cannot be set to null because it is non-nullable!');
         $value = new \NGS\UUID($value);
         $this->ID = $value;
-        return $value;
-    }
-
-    /**
-     * @param \PopisKada\Kada $value an object of class "PopisKada\Kada"
-     *
-     * @return \PopisKada\Kada
-     */
-    public function setKada($value)
-    {
-        if ($value === null)
-            throw new \InvalidArgumentException('Property "kada" cannot be set to null because it is non-nullable!');
-        $value = \PopisKada\KadaArrayConverter::fromArray($value);
-        if ($value->URI === null)
-            throw new \InvalidArgumentException('Value of property "kada" cannot have URI set to null because it\'s a reference! Reference values must have non-null URIs!');
-        $this->kada = $value;
-        $this->kadaURI = $value->URI;
-        $this->ID = $value->ID;
         return $value;
     }
 
@@ -372,8 +322,8 @@ class SlikeKade extends \NGS\Patterns\AggregateRoot implements \IteratorAggregat
     {
         if(in_array($name, self::$_read_only_properties, true))
             throw new \LogicException('Property "'.$name.'" in "Resursi\SlikeKade" cannot be set, because it is read-only!');
-        if ($name === 'kada')
-            return $this->setKada($value); // an object of class "PopisKada\Kada"
+        if ($name === 'ID')
+            return $this->setID($value); // a uuid
         if ($name === 'digest')
             return $this->setDigest($value); // an object of class "Resursi\Fingerprint"
         if ($name === 'original')
@@ -396,8 +346,8 @@ class SlikeKade extends \NGS\Patterns\AggregateRoot implements \IteratorAggregat
     {
         if(in_array($name, self::$_read_only_properties, true))
             throw new \LogicException('Property "'.$name.'" cannot be unset, because it is read-only!');
-        if ($name === 'kada')
-            throw new \LogicException('The property "kada" cannot be unset because it is non-nullable!'); // an object of class "PopisKada\Kada" (cannot be unset)
+        if ($name === 'ID')
+            throw new \LogicException('The property "ID" cannot be unset because it is non-nullable!'); // a uuid (cannot be unset)
         if ($name === 'digest')
             throw new \LogicException('The property "digest" cannot be unset because it is non-nullable!'); // an object of class "Resursi\Fingerprint" (cannot be unset)
         if ($name === 'original')
@@ -418,9 +368,6 @@ class SlikeKade extends \NGS\Patterns\AggregateRoot implements \IteratorAggregat
     public function persist()
     {
 
-        if ($this->kadaURI === null && $this->ID !== null) {
-            throw new \LogicException('Cannot persist instance of "Resursi\SlikeKade" because reference "kada" was not assigned');
-        }
         $newObject = parent::persist();
         $this->updateWithAnother($newObject);
 
@@ -432,8 +379,6 @@ class SlikeKade extends \NGS\Patterns\AggregateRoot implements \IteratorAggregat
         $this->URI = $result->URI;
 
         $this->ID = $result->ID;
-        $this->kada = $result->kada;
-        $this->kadaURI = $result->kadaURI;
         $this->digest = $result->digest;
         $this->original = $result->original;
         $this->web = $result->web;

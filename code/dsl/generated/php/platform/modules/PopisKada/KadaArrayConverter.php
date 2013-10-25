@@ -36,6 +36,7 @@ abstract class KadaArrayConverter
         $ret['odobrena'] = $item->odobrena === null ? null : $item->odobrena->__toString();
         $ret['odbijena'] = $item->odbijena === null ? null : $item->odbijena->__toString();
         $ret['brojacSlanja'] = $item->brojacSlanja;
+        $ret['slikeKadeID'] = $item->slikeKadeID === null ? null : $item->slikeKadeID->__toString();
         $ret['slikeKadeURI'] = $item->slikeKadeURI;
         return $ret;
     }

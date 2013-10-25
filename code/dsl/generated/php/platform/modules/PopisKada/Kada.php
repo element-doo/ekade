@@ -14,8 +14,9 @@ require_once __DIR__.'/../Resursi/SlikeKade.php';
  * @property \NGS\Timestamp $odobrena a timestamp with time zone, can be null
  * @property \NGS\Timestamp $odbijena a timestamp with time zone, can be null
  * @property int $brojacSlanja an integer number
- * @property string $slikeKadeURI reference to an array of objects of class "PopisKada\Kada" (read-only)
- * @property array $slikeKade an array of objects of class "Resursi\SlikeKade" (read-only)
+ * @property \NGS\UUID $slikeKadeID used by reference $slikeKade (read-only)
+ * @property string $slikeKadeURI reference to an object of class "Resursi\SlikeKade" (read-only)
+ * @property \Resursi\SlikeKade $slikeKade an object of class "Resursi\SlikeKade", can be null
  *
  * @package PopisKada
  * @version 0.9.9 beta
@@ -28,6 +29,7 @@ class Kada extends \NGS\Patterns\AggregateRoot implements \IteratorAggregate
     protected $odobrena;
     protected $odbijena;
     protected $brojacSlanja;
+    protected $slikeKadeID;
     protected $slikeKadeURI;
     protected $slikeKade;
 
@@ -66,8 +68,6 @@ class Kada extends \NGS\Patterns\AggregateRoot implements \IteratorAggregate
             $data['dodana'] = new \NGS\Timestamp(); // a timestamp with time zone
         if(!array_key_exists('brojacSlanja', $data))
             $data['brojacSlanja'] = 0; // an integer number
-        if(!array_key_exists('slikeKadeURI', $data))
-            $data['slikeKadeURI'] = array(); // references to an array of objects of class "Resursi\SlikeKade"
     }
 
     /**
@@ -97,11 +97,14 @@ class Kada extends \NGS\Patterns\AggregateRoot implements \IteratorAggregate
         if (array_key_exists('brojacSlanja', $data))
             $this->setBrojacSlanja($data['brojacSlanja']);
         unset($data['brojacSlanja']);
+        if (array_key_exists('slikeKadeID', $data))
+            $this->setSlikeKadeID($data['slikeKadeID']);
+        unset($data['slikeKadeID']);
         if (array_key_exists('slikeKade', $data))
             $this->setSlikeKade($data['slikeKade']);
         unset($data['slikeKade']);
         if(array_key_exists('slikeKadeURI', $data))
-            $this->slikeKadeURI = \NGS\Converter\PrimitiveConverter::toStringArray($data['slikeKadeURI']);
+            $this->slikeKadeURI = $data['slikeKadeURI'] === null ? null : \NGS\Converter\PrimitiveConverter::toString($data['slikeKadeURI']);
         unset($data['slikeKadeURI']);
 
         if (count($data) !== 0 && \NGS\Utils::WarningsAsErrors())
@@ -162,7 +165,15 @@ class Kada extends \NGS\Patterns\AggregateRoot implements \IteratorAggregate
     }
 
     /**
-     * @return references to an array of objects of class "Resursi\SlikeKade"
+     * @return a uuid, can be null
+     */
+    public function getSlikeKadeID()
+    {
+        return $this->slikeKadeID;
+    }
+
+    /**
+     * @return a reference to an object of class "Resursi\SlikeKade"
      */
     public function getSlikeKadeURI()
     {
@@ -170,11 +181,11 @@ class Kada extends \NGS\Patterns\AggregateRoot implements \IteratorAggregate
     }
 
     /**
-     * @return an array of objects of class "Resursi\SlikeKade"
+     * @return an object of class "Resursi\SlikeKade", can be null
      */
     public function getSlikeKade()
     {
-        if ($this->slikeKadeURI && $this->slikeKade === null)
+        if ($this->slikeKadeURI !== null && $this->slikeKade === null)
             $this->slikeKade = \NGS\Patterns\Repository::instance()->find('Resursi\\SlikeKade', $this->slikeKadeURI);
         return $this->slikeKade;
     }
@@ -200,10 +211,12 @@ class Kada extends \NGS\Patterns\AggregateRoot implements \IteratorAggregate
             return $this->getOdbijena(); // a timestamp with time zone, can be null
         if ($name === 'brojacSlanja')
             return $this->getBrojacSlanja(); // an integer number
+        if ($name === 'slikeKadeID')
+            return $this->getSlikeKadeID(); // a uuid, can be null
         if ($name === 'slikeKadeURI')
-            return $this->getSlikeKadeURI(); // references to an array of objects of class "Resursi\SlikeKade"
+            return $this->getSlikeKadeURI(); // a reference to an object of class "Resursi\SlikeKade"
         if ($name === 'slikeKade')
-            return $this->getSlikeKade(); // an array of objects of class "Resursi\SlikeKade"
+            return $this->getSlikeKade(); // an object of class "Resursi\SlikeKade", can be null
 
         throw new \InvalidArgumentException('Property "'.$name.'" in class "PopisKada\Kada" does not exist and could not be retrieved!');
     }
@@ -230,14 +243,12 @@ class Kada extends \NGS\Patterns\AggregateRoot implements \IteratorAggregate
         if ($name === 'brojacSlanja')
             return true; // an integer number (always set)
         if ($name === 'slikeKade')
-            return true; // an array of objects of class "Resursi\SlikeKade" (always set)
-        if ($name === 'slikeKadeURI')
-            return true; // an array of objects of class "Resursi\SlikeKade" (always set)
+            return $this->getSlikeKade() !== null; // an object of class "Resursi\SlikeKade", can be null
 
         return false;
     }
 
-    private static $_read_only_properties = array('URI', 'dodana', 'slikeKadeURI');
+    private static $_read_only_properties = array('URI', 'dodana', 'slikeKadeID', 'slikeKadeURI');
 
     /**
      * @param \NGS\UUID $value a uuid
@@ -306,24 +317,34 @@ class Kada extends \NGS\Patterns\AggregateRoot implements \IteratorAggregate
     }
 
     /**
-     * @param array $value an array of objects of class "Resursi\SlikeKade"
+     * @param \NGS\UUID $value a uuid, can be null
      *
-     * @return array
+     * @return \NGS\UUID
+     */
+    private function setSlikeKadeID($value)
+    {
+        $value = $value !== null ? new \NGS\UUID($value) : null;
+        $this->slikeKadeID = $value;
+        return $value;
+    }
+
+    /**
+     * @param \Resursi\SlikeKade $value an object of class "Resursi\SlikeKade", can be null
+     *
+     * @return \Resursi\SlikeKade
      */
     public function setSlikeKade($value)
     {
-        if ($value === null)
-            throw new \InvalidArgumentException('Property "slikeKade" cannot be set to null because it is non-nullable!');
-        $value = \Resursi\SlikeKadeArrayConverter::fromArrayList($value, false);
-        if($value !== null)
-            foreach($value as $index => $val)
-                if ($val->URI === null)
-                    throw new \InvalidArgumentException('URI property of element at index "'.$index.'" was null! Root elements must have non-null URIs.');
+        $value = $value !== null ? \Resursi\SlikeKadeArrayConverter::fromArray($value) : null;
+        if ($value !== null && $value->URI === null)
+            throw new \InvalidArgumentException('Value of property "slikeKade" cannot have URI set to null because it\'s a reference! Reference values must have non-null URIs!');
         $this->slikeKade = $value;
-            $this->slikeKadeURI = array();
-            foreach($value as $val)
-                $this->slikeKadeURI[] = $val->URI;
-
+        $this->slikeKadeURI = $value === null ? null : $value->URI;
+        if ($value === null && $this->slikeKadeID !== null) {
+            $this->slikeKadeID = null;
+        } elseif ($value !== null) {
+            $this->slikeKadeID = $value->ID;
+        }
         return $value;
     }
 
@@ -346,7 +367,7 @@ class Kada extends \NGS\Patterns\AggregateRoot implements \IteratorAggregate
         if ($name === 'brojacSlanja')
             return $this->setBrojacSlanja($value); // an integer number
         if ($name === 'slikeKade')
-            return $this->setSlikeKade($value); // an array of objects of class "Resursi\SlikeKade"
+            return $this->setSlikeKade($value); // an object of class "Resursi\SlikeKade", can be null
         throw new \InvalidArgumentException('Property "'.$name.'" in class "PopisKada\Kada" does not exist and could not be set!');
     }
 
@@ -368,7 +389,7 @@ class Kada extends \NGS\Patterns\AggregateRoot implements \IteratorAggregate
         if ($name === 'brojacSlanja')
             throw new \LogicException('The property "brojacSlanja" cannot be unset because it is non-nullable!'); // an integer number (cannot be unset)
         if ($name === 'slikeKade')
-            throw new \LogicException('The property "slikeKade" cannot be unset because it is non-nullable!'); // references to an array of objects of class "Resursi\SlikeKade" (cannot be unset)
+            $this->setSlikeKade(null);; // an object of class "Resursi\SlikeKade", can be null
     }
 
     /**
@@ -394,68 +415,9 @@ class Kada extends \NGS\Patterns\AggregateRoot implements \IteratorAggregate
         $this->odobrena = $result->odobrena;
         $this->odbijena = $result->odbijena;
         $this->brojacSlanja = $result->brojacSlanja;
+        $this->slikeKadeID = $result->slikeKadeID;
         $this->slikeKade = $result->slikeKade;
         $this->slikeKadeURI = $result->slikeKadeURI;
-    }
-
-    /**
-     * Add an instance of \Resursi\SlikeKade to 'slikeKade' array
-     *
-     * Workaround for lack of ability to add elements to array property using native array assignments (e.g. $object->slikeKade[] = $item;)
-     *
-     * @param $item \Resursi\SlikeKade|array Instance or property=>value array
-     * @throws \InvalidArgumentException
-     */
-    public function addslikeKade($item)
-    {
-        if(is_array($item)) {
-            $item = new \Resursi\SlikeKade($item);
-        } elseif(!$item instanceof \Resursi\SlikeKade) {
-            throw new \InvalidArgumentException('Can\'t add $item. It must be an instance or array of "Resursi\SlikeKade"');
-        } elseif($this->slikeKadeURI !== null && in_array($item->URI, $this->slikeKadeURI, true)) {
-            throw new \InvalidArgumentException('Can\'t add $item. Root with same URI is already in \'slikeKade\' array');
-        }
-        if(!isset($item->URI)) {
-            throw new \InvalidArgumentException('Element in collection property "slikeKade" cannot have URI set to null, because it\'s a reference! Reference values must have non-null URIs!');
-        }
-        if($this->slikeKade === null) {
-            $this->slikeKade = array();
-        }
-        if($this->slikeKadeURI === null) {
-            $this->slikeKadeURI = array();
-        }
-        $this->slikeKade[] = $item;
-        $this->slikeKadeURI[] = $item->URI;
-    }
-
-    /**
-     * Remove item from 'slikeKade' array
-     *
-     * @param \Resursi\SlikeKade|string|array Instance, item URI, or property=>value array (?remove?)
-     * @throws \InvalidArgumentException
-     */
-    public function removeslikeKade($item)
-    {
-        if(is_array($item)) {
-            if (!isset($item['URI']) || !is_string($item['URI'])) {
-                throw new \InvalidArgumentException('Can\'t remove item with invalid URI');
-            }
-            $itemURI = $item['URI'];
-        } elseif(is_string($item)) {
-            $itemURI = $item;
-        } elseif(!$item instanceof \Resursi\SlikeKade) {
-            throw new \InvalidArgumentException('Can\'t remove $item. It must be an instance or array of "Resursi\SlikeKade"');
-        } else {
-            $itemURI = $item->URI;
-        }
-        if ($this->slikeKade === null) {
-            return ;
-        }
-        $itemIndex = array_search($itemURI, $this->slikeKadeURI);
-        if($itemIndex !== false) {
-            array_splice($this->slikeKade, $itemIndex, 1);
-            array_splice($this->slikeKadeURI, $itemIndex, 1);
-        }
     }
 
     public function toJson()

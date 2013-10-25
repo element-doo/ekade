@@ -3,6 +3,7 @@ namespace PopisKada;
 
 require_once __DIR__.'/KadaIzvorPodatakaJsonConverter.php';
 require_once __DIR__.'/KadaIzvorPodatakaArrayConverter.php';
+require_once __DIR__.'/../Resursi/SlikeKade.php';
 
 /**
  * Generated from NGS DSL
@@ -12,7 +13,7 @@ require_once __DIR__.'/KadaIzvorPodatakaArrayConverter.php';
  * @property \NGS\Timestamp $odbijena a timestamp with time zone, can be null (read-only)
  * @property int $brojacSlanja an integer number (read-only)
  * @property \NGS\Timestamp $dodana a timestamp with time zone (read-only)
- * @property Resursi\SlikeKade $slikeKade an array of objects of class "Resursi\SlikeKade" (read-only)
+ * @property \Resursi\SlikeKade $slikeKade an object of class "Resursi\SlikeKade", can be null (read-only)
  *
  * @package PopisKada
  * @version 0.9.9 beta
@@ -51,8 +52,6 @@ class KadaIzvorPodataka extends \NGS\Patterns\Identifiable implements \IteratorA
             $data['brojacSlanja'] = 0; // an integer number
         if(!array_key_exists('dodana', $data))
             $data['dodana'] = new \NGS\Timestamp(); // a timestamp with time zone
-        if(!array_key_exists('slikeKade', $data))
-            $data['slikeKade'] = array(); // an array of objects of class "Resursi\SlikeKade"
     }
 
     /**
@@ -81,7 +80,7 @@ class KadaIzvorPodataka extends \NGS\Patterns\Identifiable implements \IteratorA
             $this->dodana = new \NGS\Timestamp($data['dodana']);
         unset($data['dodana']);
         if (isset($data['slikeKade']))
-            $this->slikeKade = \Resursi\SlikeKadeArrayConverter::fromArrayList($data['slikeKade'], false);
+            $this->slikeKade = \Resursi\SlikeKadeArrayConverter::fromArray($data['slikeKade']);
         unset($data['slikeKade']);
 
         if (count($data) !== 0 && \NGS\Utils::WarningsAsErrors())
@@ -134,7 +133,7 @@ class KadaIzvorPodataka extends \NGS\Patterns\Identifiable implements \IteratorA
     }
 
     /**
-     * @return an array of objects of class "Resursi\SlikeKade"
+     * @return an object of class "Resursi\SlikeKade", can be null
      */
     public function getSlikeKade()
     {
@@ -161,7 +160,7 @@ class KadaIzvorPodataka extends \NGS\Patterns\Identifiable implements \IteratorA
         if ($name === 'dodana')
             return $this->getDodana(); // a timestamp with time zone
         if ($name === 'slikeKade')
-            return $this->getSlikeKade(); // an array of objects of class "Resursi\SlikeKade"
+            return $this->getSlikeKade(); // an object of class "Resursi\SlikeKade", can be null
 
         throw new \InvalidArgumentException('Property "'.$name.'" in class "PopisKada\KadaIzvorPodataka" does not exist and could not be retrieved!');
     }
@@ -188,7 +187,7 @@ class KadaIzvorPodataka extends \NGS\Patterns\Identifiable implements \IteratorA
         if ($name === 'dodana')
             return true; // a timestamp with time zone (always set)
         if ($name === 'slikeKade')
-            return true; // an array of objects of class "Resursi\SlikeKade" (always set)
+            return $this->getSlikeKade() !== null; // an object of class "Resursi\SlikeKade", can be null
 
         return false;
     }
