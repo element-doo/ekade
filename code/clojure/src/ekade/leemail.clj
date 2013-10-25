@@ -30,15 +30,14 @@
 
 (defn get-attachments
   [attachments]
-  (doseq [att attachments]
-    (let [filename (str "/tmp/emajliramo/")]))
+  (def attfolder (format "/tmp/emajliramo/%s-%s/" (System/currentTimeMillis) (rand-int 100000)))
   (for [att attachments
         :let [zipped (zip/xml-zip att)
               content-type (first (xml-> zipped :mimeType text))
               filename (first (xml-> zipped :fileName text))
-              filepath (str "/tmp/emajliramo/" filename)
+              filepath (str attfolder filename)
               file-content (first (xml-> zipped :content text))]]
-    (prepare-attachment content-type filename filepath file-content))) 
+    (prepare-attachment content-type filename filepath file-content)))
 
 (defn pripremi-emajl
   [le-xml]
