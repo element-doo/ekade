@@ -1,0 +1,4 @@
+FemtoPass is small binary to hide password input from console in Windows operating systems.
+Source is available at https://github.com/melezov/FemtoPass
+
+For more details read https://blog.dsl-platform.com/hiding-input-from-console-in-php/

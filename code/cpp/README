@@ -1,0 +1,21 @@
+Program se compile sa idućom naredbom:
+
+g++ IMGresize.cpp base64.cpp -ljsonrpc -lpthread -ldl
+
+Zahtjevi su da je instaliran ImageMagic i da je instaliran libjson-rpc-cpp.
+
+Primjer naredbe se može naći u cmd fileu, koji se može i pokrenuti odmah.
+
+Generalno:
+
+curl -i -X POST -d '{"jsonrpc":"2.0", "method":"resize", "params":{ "format":<format slike>, "width":<resize sirina>, "height":<resize visina>, "maxWidth":<zeljena sirina>, "maxHeight":<maksimalna visina>, "body":<base64 enkodirana slika>}, "id":<bilo koji id>}' emajliramokade.com:10020
+
+Ako je slika prevelika, odgovor ce biti u obliku:
+
+{"id":<zadani id>,"jsonrpc":"2.0","result":{"error":"400","errorMsg":"Slika je veličine: XX x YY, a maksimalno podržano je: MAXXX x MAXYY."}}
+
+Ako sve prođe ok, odgovor ce biti u obliku:
+
+{"id":<odabrani id>,"jsonrpc":"2.0","result":{"resizedBody":<resizeana slika>}}
+
+GGWP

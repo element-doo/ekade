@@ -55,7 +55,8 @@ namespace EmajliramoKade
 					original = domainEvent.original,
 					web = domainEvent.web,
 					email = domainEvent.email,
-					thumbnail = domainEvent.thumbnail
+					thumbnail = domainEvent.thumbnail,
+					digest = domainEvent.digest
 				});
 			});
 		}
