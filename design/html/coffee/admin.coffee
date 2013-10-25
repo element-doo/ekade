@@ -55,16 +55,19 @@ galleryModel = ->
 
   @pagePrev = =>
     @currPage (if @currPage() is 1 then 1 else @currPage() - 1)
+    fetchKade @currPage-1, 20
     return
 
   @pageNext = =>
     max = @pages().length
     gallery.currPage (if gallery.currPage() >= max then max else gallery.currPage() + 1)
+    fetchKade @currPage-1, 20
     return
 
   @pageNum = ->
     max = gallery.pages().length
     gallery.currPage (if @.page <= max or @.page >= 1 then @.page else 1 )
+    fetchKade gallery.currPage-1, 20
     return
 
   @actionAddRandom = ->
@@ -115,11 +118,8 @@ galleryModel = ->
 
 gallery = null
 
-###
-fetchData = (offset = 0, limit = 20) ->
+fetchKade = (offset = 0, limit = 20) ->
   url = 'https://emajliramokade.com/platform/Moderiraj.svc/KadaIzvorPodataka/NemoderiraneKade'
-  console.log url
-
   jQuery.ajax
     type: 'GET'
     url:  url
@@ -128,16 +128,28 @@ fetchData = (offset = 0, limit = 20) ->
       limit:  limit
     dataType: 'json'
     headers:
-      Authorization: 'Basic cm9iaTppYm9y'
-      Host: 'emajliramokade.com'
+      'Content-Type': 'application/json'
+      Authorization:  'Basic cm9iaTppYm9y'
     success:  (response) =>
-      console.log response
+      gallery.images []
+      response.forEach (item) ->
+        img =
+          URI:    item.URI
+          path:   item.slikeKade
+          width:  0
+          height: 0
+          status: null
+          timestamp: item.dodana
+
+        gallery.images.push img
+        return
+
       return
     error:    (response) ->
-      console.log response
+      console.warn 'Got error. ', response
       return
   return
-###
+
 
 $ ->
   $(window).on 'beforeunload', ->
@@ -148,14 +160,15 @@ $ ->
 
   gallery = new galleryModel()
 
-  #fetchData()
+  fetchKade()
+  ###
   i = 0
   __statuses = [null, null, null, true, false]
   while i < 20
     _w = 200 + Math.round(Math.random()*50)
     _h = 100 + Math.round(Math.random()*100)
     img =
-      name:   'Image '+(i+1)
+      URI:   'Image-'+(i+1)
       path:   'http://placekitten.com/'+_w+'/'+_h
       width:  _w
       height: _h
@@ -163,6 +176,7 @@ $ ->
 
     gallery.images.push img
     i++
+  ###
 
   gallery.maxPages Math.round(2 + Math.random()*4)
   ko.applyBindings gallery
