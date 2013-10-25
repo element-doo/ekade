@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
+#include <signal.h>
 
 #include "model/ImageProvjera.pb-c.h"
 
@@ -25,7 +26,14 @@ int getImageMagickSize (const Zahtjev * z, Odgovor * o);
 int getSHA1 (const Zahtjev * z, Odgovor * odgovor);
 int getSHA1Pixels (PixelIterator *iterator, Odgovor * odgovor);
 
+void onSignal () {
+	printf ("Application Terminated.\n");
+	MagickWandTerminus ();
+}
+
 int main (int argc, const char * argv []) {
+	MagickWandGenesis ();
+	signal (SIGINT, onSignal);
 
 	// Setup 0MQ 
 	// º¤ø,¸¸,ø¤º°`°º¤
@@ -76,12 +84,12 @@ int main (int argc, const char * argv []) {
 		printf ("Sent message size: %d\n", message_size);
 		printf ("Sent poruka: %s\n", odgovor.poruka);
 	}
+	return 0;
 }
 
 int getImageMagickSize (const Zahtjev * z, Odgovor * odgovor) {
 	MagickWand *image_wand;	
 
-	MagickWandGenesis();
 	image_wand = NewMagickWand();
 
 	MagickBooleanType status = MagickReadImageBlob (image_wand, z->originalnaslika.data, z->originalnaslika.len);
@@ -104,7 +112,6 @@ int getImageMagickSize (const Zahtjev * z, Odgovor * odgovor) {
 
 	DestroyPixelIterator (iterator);
 	DestroyMagickWand (image_wand);
-	MagickWandTerminus ();
 
 	return 1;
 }
