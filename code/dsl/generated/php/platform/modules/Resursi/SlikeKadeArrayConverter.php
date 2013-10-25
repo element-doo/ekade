@@ -32,8 +32,6 @@ abstract class SlikeKadeArrayConverter
         $ret = array();
         $ret['URI'] = $item->URI;
         $ret['ID'] = $item->ID->__toString();
-        if($item->kadaURI !== null)
-            $ret['kadaURI'] = $item->kadaURI;
         if($item->digest !== null)
             $ret['digest'] = \Resursi\FingerprintArrayConverter::toArray($item->digest);
         if($item->original !== null)

@@ -43,22 +43,30 @@ namespace EmajliramoKade
 					Thread.Sleep(25);
 					Execute(guid, callback, counter + 1);
 				}
+				else throw;
 			}
 		}
 
 		public void Handle(KadaDodana domainEvent)
 		{
-			Execute(domainEvent.kadaID, kada => {
-				SlikeKade.Insert(new SlikeKade
-				{
-					kada = kada,
-					original = domainEvent.original,
-					web = domainEvent.web,
-					email = domainEvent.email,
-					thumbnail = domainEvent.thumbnail,
-					digest = domainEvent.digest
-				});
-			});
+			var slike = new SlikeKade
+			{
+				ID = domainEvent.kadaID,
+				original = domainEvent.original,
+				web = domainEvent.web,
+				email = domainEvent.email,
+				thumbnail = domainEvent.thumbnail,
+				digest = domainEvent.digest
+			};
+
+			SlikeKade.Insert(slike);
+
+			var kada = new Kada
+			{
+				slikeKade = slike
+			};
+
+			Kade.Insert(kada);
 		}
 
 		public void Handle(KadaOdobrena domainEvent)

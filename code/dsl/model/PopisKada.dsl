@@ -8,7 +8,7 @@ module PopisKada
     Timestamp? odbijena;
     Int        brojacSlanja;
 
-    detail slikeKade Resursi.SlikeKade.kada;
+    Resursi.SlikeKade(ID) *slikeKade;
     persistence { optimistic concurrency; }
   }
 

@@ -1,8 +1,43 @@
 server {
+  listen static.emajliramokade.com:80;
+  server_name static.emajliramokade.com;
+  
+  access_log /var/www/ekade/logs/nginx/plain-access.log combined buffer=32k;
+  error_log  /var/www/ekade/logs/nginx/plain-error.log;
+  
+  location ~ ^/email/[^/]+/.*\.jpe?g$ {
+    rewrite ^/email/([^/]+)/.* /public/Slike/$1/Email break;
+    proxy_pass http://127.0.0.1:6081;
+    proxy_set_header REMOTE_ADDR $remote_addr;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header HOST $host;
+  }
+  
+  location ~ ^/thumbnail/[^/]+/.*\.jpe?g$ {
+    rewrite ^/thumbnail/([^/]+)/.* /public/Slike/$1/Thumbnail break;
+    proxy_pass http://127.0.0.1:6081;
+    proxy_set_header REMOTE_ADDR $remote_addr;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header HOST $host;
+  }
+  
+  location ~ ^/web/[^/]+/.*\.jpe?g$ {
+    rewrite ^/web/([^/]+)/.* /public/Slike/$1/Web break;
+    proxy_pass http://127.0.0.1:6081;
+    proxy_set_header REMOTE_ADDR $remote_addr;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header HOST $host;
+  }
+}
+
+server {
   listen emajliramokade.com:80;
   server_name .emajliramokade.com;
   
-  access_log /var/www/ekade/logs/nginx/plain-access.log;
+  access_log /var/www/ekade/logs/nginx/plain-access.log combined buffer=32k;
   error_log  /var/www/ekade/logs/nginx/plain-error.log;
 
   location / {
@@ -33,6 +68,33 @@ server {
 
   access_log /var/www/ekade/logs/nginx/static-access.log combined buffer=32k;
   error_log  /var/www/ekade/logs/nginx/static-error.log;
+  
+  location ~ ^/email/[^/]+/.*\.jpe?g$ {
+    rewrite ^/email/([^/]+)/.* /public/Slike/$1/Email break;
+    proxy_pass http://127.0.0.1:6081;
+    proxy_set_header REMOTE_ADDR $remote_addr;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header HOST $host;
+  }
+  
+  location ~ ^/thumbnail/[^/]+/.*\.jpe?g$ {
+    rewrite ^/thumbnail/([^/]+)/.* /public/Slike/$1/Thumbnail break;
+    proxy_pass http://127.0.0.1:6081;
+    proxy_set_header REMOTE_ADDR $remote_addr;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header HOST $host;
+  }
+  
+  location ~ ^/web/[^/]+/.*\.jpe?g$ {
+    rewrite ^/web/([^/]+)/.* /public/Slike/$1/Web break;
+    proxy_pass http://127.0.0.1:6081;
+    proxy_set_header REMOTE_ADDR $remote_addr;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header HOST $host;
+  }
   
   location ~ ^/kade/.* {
     root /var/www/ekade;
@@ -86,7 +148,32 @@ server {
     proxy_set_header X-Forwarded-Proto $scheme;
   }
 
-  location /dev {
+  location ~ ^/upload {
+    proxy_pass http://10.5.6.1:65432;
+    proxy_set_header REMOTE_ADDR $remote_addr;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header HOST $host;
+  }
+
+  location ~ ^/uploadPHP {
+    proxy_pass http://10.5.6.1:12345;
+    proxy_set_header REMOTE_ADDR $remote_addr;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header HOST $host;
+  }
+
+  location ~ ^/neven/(.*) {
+    rewrite ^/neven/(.*) /$1 break;
+    proxy_pass http://10.5.3.1:12000;
+    proxy_set_header REMOTE_ADDR $remote_addr;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header HOST $host;
+  }
+
+  location ~ ^/dev {
     rewrite ^/dev/(.*) /$1 break;
     proxy_pass http://10.5.6.7;
     proxy_set_header REMOTE_ADDR $remote_addr;
