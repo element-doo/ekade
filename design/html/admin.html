@@ -47,13 +47,15 @@
         <ul class="thumbnails" data-bind="foreach: images, css: { 'hide': images().length < 1 }">
           <li class="item span3">
             <div class="thumbnail-admin">
-              <a href="" class="fancybox" data-bind="attr: { 'href': fullPath, 'title': timestamp }, style: { 'width': width, 'height': height }">
+              <a href="" data-bind="attr: { 'href': fullPath, 'title': timestamp }, style: { 'width': width, 'height': height }">
                 <img src="" alt="Slika kade" data-bind="attr: { 'src': imgPath }, style: { 'width': width, 'height': height }"/>
               </a>
               <div class="admin-hover js-admin-hover" data-bind="css: { 'admin-approved': (status === true), 'admin-delete': (status === false) }">
                 <p class="controls text-center">
                   <a href="#" class="btn btn-success approve js-action-approve" data-bind="click: $parent.actionApprove, attr: { 'disabled': $parent.isWorking }"><i class="icon-ok"></i> Odobri</a>
                   <a href="#" class="btn btn-danger decline js-action-decline" data-bind="click: $parent.actionReject, attr: { 'disabled': $parent.isWorking }"><i class="icon-remove"></i> Obriši</a>
+                  <br/>
+                  <a href="#" class="fancybox btn btn-inverse js-action-view" data-bind="attr: { 'href': fullPath }"><i class="icon-search icon-white"></i></a>
                 </p>
               </div>
             </div>
