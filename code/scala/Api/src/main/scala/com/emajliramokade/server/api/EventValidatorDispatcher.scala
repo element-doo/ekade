@@ -20,7 +20,7 @@ class Dispatcher(
     val emailOdgovors =
       emailOdgovorRawFutures map { f =>
         Try {
-          Await.result(f, 5 seconds)  
+          Await.result(f, 5 seconds)
         } getOrElse(
           new Odgovor()
             .setStatus(true)  // želimo slati mailove čak i ako nemamo provjeru

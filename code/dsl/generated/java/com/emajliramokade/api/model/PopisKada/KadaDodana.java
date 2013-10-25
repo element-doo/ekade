@@ -11,11 +11,13 @@ public final class KadaDodana
         com.emajliramokade.api.model.Resursi.SlikeUseCases<com.emajliramokade.api.model.PopisKada.KadaDodana> {
     public KadaDodana(
             final java.util.UUID kadaID,
+            final com.emajliramokade.api.model.Resursi.Fingerprint digest,
             final com.emajliramokade.api.model.Resursi.PodaciSlike original,
             final com.emajliramokade.api.model.Resursi.PodaciSlike web,
             final com.emajliramokade.api.model.Resursi.PodaciSlike email,
             final com.emajliramokade.api.model.Resursi.PodaciSlike thumbnail) {
         setKadaID(kadaID);
+        setDigest(digest);
         setOriginal(original);
         setWeb(web);
         setEmail(email);
@@ -24,6 +26,7 @@ public final class KadaDodana
 
     public KadaDodana() {
         this.kadaID = java.util.UUID.randomUUID();
+        this.digest = new com.emajliramokade.api.model.Resursi.Fingerprint();
         this.original = new com.emajliramokade.api.model.Resursi.PodaciSlike();
         this.web = new com.emajliramokade.api.model.Resursi.PodaciSlike();
         this.email = new com.emajliramokade.api.model.Resursi.PodaciSlike();
@@ -71,6 +74,22 @@ public final class KadaDodana
             throw new IllegalArgumentException(
                     "Property \"kadaID\" cannot be null!");
         this.kadaID = value;
+
+        return this;
+    }
+
+    private com.emajliramokade.api.model.Resursi.Fingerprint digest;
+
+    public com.emajliramokade.api.model.Resursi.Fingerprint getDigest() {
+        return digest;
+    }
+
+    public KadaDodana setDigest(
+            final com.emajliramokade.api.model.Resursi.Fingerprint value) {
+        if (value == null)
+            throw new IllegalArgumentException(
+                    "Property \"digest\" cannot be null!");
+        this.digest = value;
 
         return this;
     }
