@@ -1,0 +1,13 @@
+/*
+Install APEX 4.2
+Install and configure apex_listener
+Configure new workspace and admin user
+Create network ACL
+*/
+begin
+  DBMS_NETWORK_ACL_ADMIN.CREATE_ACL('power_users.xml',
+    'ACL that lets power users to connect to everywhere',
+    'APEX_040200', TRUE, 'connect');
+  DBMS_NETWORK_ACL_ADMIN.ASSIGN_ACL('power_users.xml','*');
+END;
+/
