@@ -14,12 +14,12 @@
 
   &.admin-delete {
     background-color: rgba(215,25,32,0.3);
-    
+
     .controls .decline { display: none; }
   }
   &.admin-approved {
     background-color: rgba(65,143,1,0.3);
-    
+
     .controls .approve { display: none; }
   }
 
@@ -36,11 +36,29 @@
     &:nth-child(4n+1) {
       margin-left: 0;
     }
-    
-    .thumbnail {
+
+    .thumbnail-admin {
       width: 260px;
       height: 160px;
       overflow: hidden;
+      position: relative;
+      border: none;
+      box-shadow: none;
+      text-align: center;
+      padding: 5px;
+
+      a {
+        display: inline-block;
+
+        img {
+          border: 5px solid #fff;
+          border-radius: 3px;
+          box-shadow: 0 0 5px rgba(0,0,0,0.3);
+          max-width: 250px;
+          max-height: 150px;
+        }
+
+      }
     }
   }
 }
