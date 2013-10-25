@@ -12,7 +12,7 @@ java ^
   -Xss2m -Xms4g -Xmx4g ^
   -XX:+TieredCompilation -XX:ReservedCodeCacheSize=256m -XX:MaxPermSize=512m -XX:+CMSClassUnloadingEnabled -XX:+UseNUMA -XX:+UseParallelGC ^
   -Dfile.encoding=iso-8859-1 ^
-  -Dscalac.patmat.analysisBudget=off -Drun.mode=production ^
+  -Dscalac.patmat.analysisBudget=off -Drun.mode=production -Djava.library.path=/usr/local/lib ^
   -jar project/strap/gruj_vs_sbt-launch-0.13.0.jar ^
   %*
 
