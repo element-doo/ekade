@@ -47,13 +47,15 @@
         <ul class="thumbnails" data-bind="foreach: images, css: { 'hide': images().length < 1 }">
           <li class="item span3">
             <div class="thumbnail-admin">
-              <a href="" class="fancybox" data-bind="attr: { 'href': fullPath, 'title': timestamp }, style: { 'width': width, 'height': height }">
+              <a href="" data-bind="attr: { 'href': fullPath, 'title': timestamp }, style: { 'width': width, 'height': height }">
                 <img src="" alt="Slika kade" data-bind="attr: { 'src': imgPath }, style: { 'width': width, 'height': height }"/>
               </a>
               <div class="admin-hover js-admin-hover" data-bind="css: { 'admin-approved': (status === true), 'admin-delete': (status === false) }">
                 <p class="controls text-center">
                   <a href="#" class="btn btn-success approve js-action-approve" data-bind="click: $parent.actionApprove, attr: { 'disabled': $parent.isWorking }"><i class="icon-ok"></i> Odobri</a>
                   <a href="#" class="btn btn-danger decline js-action-decline" data-bind="click: $parent.actionReject, attr: { 'disabled': $parent.isWorking }"><i class="icon-remove"></i> Obriši</a>
+                  <br/>
+                  <a href="#" class="fancybox btn btn-inverse js-action-view" data-bind="attr: { 'href': fullPath }"><i class="icon-search icon-white"></i></a>
                 </p>
               </div>
             </div>
@@ -67,9 +69,9 @@
             <button type="button" class="btn btn-danger" data-bind="click: actionMarkAllRejected, attr: { 'disabled': isWorking }"><i class="icon-remove"></i> Označi sve obrisanim</button>
             <button type="button" class="btn btn-success" data-bind="click: actionMarkAllConfirmed, attr: { 'disabled': isWorking }"><i class="icon-ok"></i> Označi sve odobrenim</button>
           </form>
-          <button type="button" class="btn btn-large btn-inverse" data-bind="click: actionSaveChanges, attr: { 'disabled': isWorking }">
-            <i class="icon-save" data-bind="css: { 'icon-save': !isWorking(), 'icon-spinner': isWorking, 'icon-spin': isWorking }"></i>&nbsp;
-            <span data-bind="html: isWorking()? 'Spremanje&hellip;': 'Spremi promjene'">Spremi promjene</span>
+          <button type="button" class="btn btn-large btn-inverse" data-bind="click: actionSaveChanges, attr: { 'disabled': isWorking() || changes() < 1 }">
+            <i class="icon-save" data-bind="css: { 'icon-save': !isWorking() &amp;&amp; changes() > 0, 'icon-puzzle-piece': !isWorking() &amp;&amp; changes() < 1, 'icon-spinner': isWorking, 'icon-spin': isWorking }"></i>&nbsp;
+            <span data-bind="html: isWorking()? 'Spremanje&hellip;': (changes() < 1)? 'Nema promjena': 'Spremi promjene'">Spremi promjene</span>
           </button>
         </div>
         <div class="span4 pull-right" data-bind="css: { 'hide': images().length < 1 }">
