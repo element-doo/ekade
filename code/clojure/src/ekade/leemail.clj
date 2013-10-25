@@ -18,11 +18,11 @@
 (defn prepare-attachment
   [content-type filename filepath file-content]
   (make-parents filepath)
-  (let [in (b64/decode (.getBytes file-content))
-        out (output-stream filepath)]
-    (if (textish? content-type)
-      (spit filepath (apply str (map char (byte-array in)))))
-      (.write out (byte-array in)))
+  (let [in (b64/decode (.getBytes file-content))]
+    (with-open [out (output-stream filepath)]
+      (if (textish? content-type)
+        (spit filepath (apply str (map char (byte-array in))))
+        (.write out (byte-array in)))))
   {:type :inline
    :content-type content-type
    :content-id filename
@@ -30,15 +30,14 @@
 
 (defn get-attachments
   [attachments]
-  (doseq [att attachments]
-    (let [filename (str "/tmp/emajliramo/")]))
+  (def attfolder (format "/tmp/emajliramo/%s-%s/" (System/currentTimeMillis) (rand-int 100000)))
   (for [att attachments
         :let [zipped (zip/xml-zip att)
               content-type (first (xml-> zipped :mimeType text))
               filename (first (xml-> zipped :fileName text))
-              filepath (str "/tmp/emajliramo/" filename)
+              filepath (str attfolder filename)
               file-content (first (xml-> zipped :content text))]]
-    (prepare-attachment content-type filename filepath file-content))) 
+    (prepare-attachment content-type filename filepath file-content)))
 
 (defn pripremi-emajl
   [le-xml]
