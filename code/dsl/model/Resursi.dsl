@@ -31,7 +31,6 @@ module Resursi
 
   root SlikeKade(ID) {
     Guid                ID;
-    Relationship kadaID (ID) PopisKada.Kada;
 
     has mixin SlikeUseCases;
 

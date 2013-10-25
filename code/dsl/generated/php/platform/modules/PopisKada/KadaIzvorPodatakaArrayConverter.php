@@ -35,7 +35,7 @@ abstract class KadaIzvorPodatakaArrayConverter
         $ret['odbijena'] = $item->odbijena === null ? null : $item->odbijena->__toString();
         $ret['brojacSlanja'] = $item->brojacSlanja;
         $ret['dodana'] = $item->dodana->__toString();
-        $ret['slikeKade'] = $item->slikeKade === null ? null : \Resursi\SlikeKadeArrayConverter::toArray($item->slikeKade);
+        $ret['slikeKade'] = \Resursi\SlikeKadeArrayConverter::toArray($item->slikeKade);
         return $ret;
     }
 

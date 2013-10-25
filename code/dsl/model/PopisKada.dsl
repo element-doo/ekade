@@ -1,12 +1,4 @@
 module PopisKada
-
-
-
-
-
-
-
-
 {
   // Aggregate root koji reprezentira entitet kade, sa propertyjima potrebnim za obradu
   root Kada(ID) {
@@ -16,7 +8,7 @@ module PopisKada
     Timestamp? odbijena;
     Int        brojacSlanja;
 
-    Resursi.SlikeKade? *slikeKade;
+    Resursi.SlikeKade(ID) *slikeKade;
     persistence { optimistic concurrency; }
   }
 

@@ -3,7 +3,6 @@ namespace Resursi;
 
 require_once __DIR__.'/SlikeKadeJsonConverter.php';
 require_once __DIR__.'/SlikeKadeArrayConverter.php';
-require_once __DIR__.'/../PopisKada/Kada.php';
 require_once __DIR__.'/Fingerprint.php';
 require_once __DIR__.'/PodaciSlike.php';
 

@@ -49,14 +49,9 @@ namespace EmajliramoKade
 
 		public void Handle(KadaDodana domainEvent)
 		{
-			var kada = new Kada
-			{
-				ID = domainEvent.kadaID
-			};
-
 			var slike = new SlikeKade
 			{
-				ID = kada.ID,
+				ID = domainEvent.kadaID,
 				original = domainEvent.original,
 				web = domainEvent.web,
 				email = domainEvent.email,
@@ -64,11 +59,14 @@ namespace EmajliramoKade
 				digest = domainEvent.digest
 			};
 
-			Kade.Insert(kada);
 			SlikeKade.Insert(slike);
 
-			kada.slikeKade = slike;
-			Kade.Update(kada);
+			var kada = new Kada
+			{
+				slikeKade = slike
+			};
+
+			Kade.Insert(kada);
 		}
 
 		public void Handle(KadaOdobrena domainEvent)
