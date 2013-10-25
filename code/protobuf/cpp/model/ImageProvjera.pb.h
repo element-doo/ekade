@@ -294,14 +294,38 @@ class Odgovor : public ::google::protobuf::Message {
   inline ::std::string* release_poruka();
   inline void set_allocated_poruka(::std::string* poruka);
 
-  // optional .com.emajliramokade.image.proto.DimenzijeSlike dimenzijeSlike = 3;
+  // required bytes sha1Bytes = 3;
+  inline bool has_sha1bytes() const;
+  inline void clear_sha1bytes();
+  static const int kSha1BytesFieldNumber = 3;
+  inline const ::std::string& sha1bytes() const;
+  inline void set_sha1bytes(const ::std::string& value);
+  inline void set_sha1bytes(const char* value);
+  inline void set_sha1bytes(const void* value, size_t size);
+  inline ::std::string* mutable_sha1bytes();
+  inline ::std::string* release_sha1bytes();
+  inline void set_allocated_sha1bytes(::std::string* sha1bytes);
+
+  // optional .com.emajliramokade.image.proto.DimenzijeSlike dimenzijeSlike = 4;
   inline bool has_dimenzijeslike() const;
   inline void clear_dimenzijeslike();
-  static const int kDimenzijeSlikeFieldNumber = 3;
+  static const int kDimenzijeSlikeFieldNumber = 4;
   inline const ::com::emajliramokade::image::proto::DimenzijeSlike& dimenzijeslike() const;
   inline ::com::emajliramokade::image::proto::DimenzijeSlike* mutable_dimenzijeslike();
   inline ::com::emajliramokade::image::proto::DimenzijeSlike* release_dimenzijeslike();
   inline void set_allocated_dimenzijeslike(::com::emajliramokade::image::proto::DimenzijeSlike* dimenzijeslike);
+
+  // optional bytes sha1Pixels = 5;
+  inline bool has_sha1pixels() const;
+  inline void clear_sha1pixels();
+  static const int kSha1PixelsFieldNumber = 5;
+  inline const ::std::string& sha1pixels() const;
+  inline void set_sha1pixels(const ::std::string& value);
+  inline void set_sha1pixels(const char* value);
+  inline void set_sha1pixels(const void* value, size_t size);
+  inline ::std::string* mutable_sha1pixels();
+  inline ::std::string* release_sha1pixels();
+  inline void set_allocated_sha1pixels(::std::string* sha1pixels);
 
   // @@protoc_insertion_point(class_scope:com.emajliramokade.image.proto.Odgovor)
  private:
@@ -309,17 +333,23 @@ class Odgovor : public ::google::protobuf::Message {
   inline void clear_has_status();
   inline void set_has_poruka();
   inline void clear_has_poruka();
+  inline void set_has_sha1bytes();
+  inline void clear_has_sha1bytes();
   inline void set_has_dimenzijeslike();
   inline void clear_has_dimenzijeslike();
+  inline void set_has_sha1pixels();
+  inline void clear_has_sha1pixels();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
   ::std::string* poruka_;
+  ::std::string* sha1bytes_;
   ::com::emajliramokade::image::proto::DimenzijeSlike* dimenzijeslike_;
+  ::std::string* sha1pixels_;
   bool status_;
 
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(3 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(5 + 31) / 32];
 
   friend void  protobuf_AddDesc_model_2fImageProvjera_2eproto();
   friend void protobuf_AssignDesc_model_2fImageProvjera_2eproto();
@@ -549,15 +579,85 @@ inline void Odgovor::set_allocated_poruka(::std::string* poruka) {
   }
 }
 
-// optional .com.emajliramokade.image.proto.DimenzijeSlike dimenzijeSlike = 3;
-inline bool Odgovor::has_dimenzijeslike() const {
+// required bytes sha1Bytes = 3;
+inline bool Odgovor::has_sha1bytes() const {
   return (_has_bits_[0] & 0x00000004u) != 0;
 }
-inline void Odgovor::set_has_dimenzijeslike() {
+inline void Odgovor::set_has_sha1bytes() {
   _has_bits_[0] |= 0x00000004u;
 }
-inline void Odgovor::clear_has_dimenzijeslike() {
+inline void Odgovor::clear_has_sha1bytes() {
   _has_bits_[0] &= ~0x00000004u;
+}
+inline void Odgovor::clear_sha1bytes() {
+  if (sha1bytes_ != &::google::protobuf::internal::kEmptyString) {
+    sha1bytes_->clear();
+  }
+  clear_has_sha1bytes();
+}
+inline const ::std::string& Odgovor::sha1bytes() const {
+  return *sha1bytes_;
+}
+inline void Odgovor::set_sha1bytes(const ::std::string& value) {
+  set_has_sha1bytes();
+  if (sha1bytes_ == &::google::protobuf::internal::kEmptyString) {
+    sha1bytes_ = new ::std::string;
+  }
+  sha1bytes_->assign(value);
+}
+inline void Odgovor::set_sha1bytes(const char* value) {
+  set_has_sha1bytes();
+  if (sha1bytes_ == &::google::protobuf::internal::kEmptyString) {
+    sha1bytes_ = new ::std::string;
+  }
+  sha1bytes_->assign(value);
+}
+inline void Odgovor::set_sha1bytes(const void* value, size_t size) {
+  set_has_sha1bytes();
+  if (sha1bytes_ == &::google::protobuf::internal::kEmptyString) {
+    sha1bytes_ = new ::std::string;
+  }
+  sha1bytes_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* Odgovor::mutable_sha1bytes() {
+  set_has_sha1bytes();
+  if (sha1bytes_ == &::google::protobuf::internal::kEmptyString) {
+    sha1bytes_ = new ::std::string;
+  }
+  return sha1bytes_;
+}
+inline ::std::string* Odgovor::release_sha1bytes() {
+  clear_has_sha1bytes();
+  if (sha1bytes_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = sha1bytes_;
+    sha1bytes_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+inline void Odgovor::set_allocated_sha1bytes(::std::string* sha1bytes) {
+  if (sha1bytes_ != &::google::protobuf::internal::kEmptyString) {
+    delete sha1bytes_;
+  }
+  if (sha1bytes) {
+    set_has_sha1bytes();
+    sha1bytes_ = sha1bytes;
+  } else {
+    clear_has_sha1bytes();
+    sha1bytes_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  }
+}
+
+// optional .com.emajliramokade.image.proto.DimenzijeSlike dimenzijeSlike = 4;
+inline bool Odgovor::has_dimenzijeslike() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+inline void Odgovor::set_has_dimenzijeslike() {
+  _has_bits_[0] |= 0x00000008u;
+}
+inline void Odgovor::clear_has_dimenzijeslike() {
+  _has_bits_[0] &= ~0x00000008u;
 }
 inline void Odgovor::clear_dimenzijeslike() {
   if (dimenzijeslike_ != NULL) dimenzijeslike_->::com::emajliramokade::image::proto::DimenzijeSlike::Clear();
@@ -584,6 +684,76 @@ inline void Odgovor::set_allocated_dimenzijeslike(::com::emajliramokade::image::
     set_has_dimenzijeslike();
   } else {
     clear_has_dimenzijeslike();
+  }
+}
+
+// optional bytes sha1Pixels = 5;
+inline bool Odgovor::has_sha1pixels() const {
+  return (_has_bits_[0] & 0x00000010u) != 0;
+}
+inline void Odgovor::set_has_sha1pixels() {
+  _has_bits_[0] |= 0x00000010u;
+}
+inline void Odgovor::clear_has_sha1pixels() {
+  _has_bits_[0] &= ~0x00000010u;
+}
+inline void Odgovor::clear_sha1pixels() {
+  if (sha1pixels_ != &::google::protobuf::internal::kEmptyString) {
+    sha1pixels_->clear();
+  }
+  clear_has_sha1pixels();
+}
+inline const ::std::string& Odgovor::sha1pixels() const {
+  return *sha1pixels_;
+}
+inline void Odgovor::set_sha1pixels(const ::std::string& value) {
+  set_has_sha1pixels();
+  if (sha1pixels_ == &::google::protobuf::internal::kEmptyString) {
+    sha1pixels_ = new ::std::string;
+  }
+  sha1pixels_->assign(value);
+}
+inline void Odgovor::set_sha1pixels(const char* value) {
+  set_has_sha1pixels();
+  if (sha1pixels_ == &::google::protobuf::internal::kEmptyString) {
+    sha1pixels_ = new ::std::string;
+  }
+  sha1pixels_->assign(value);
+}
+inline void Odgovor::set_sha1pixels(const void* value, size_t size) {
+  set_has_sha1pixels();
+  if (sha1pixels_ == &::google::protobuf::internal::kEmptyString) {
+    sha1pixels_ = new ::std::string;
+  }
+  sha1pixels_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* Odgovor::mutable_sha1pixels() {
+  set_has_sha1pixels();
+  if (sha1pixels_ == &::google::protobuf::internal::kEmptyString) {
+    sha1pixels_ = new ::std::string;
+  }
+  return sha1pixels_;
+}
+inline ::std::string* Odgovor::release_sha1pixels() {
+  clear_has_sha1pixels();
+  if (sha1pixels_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = sha1pixels_;
+    sha1pixels_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+inline void Odgovor::set_allocated_sha1pixels(::std::string* sha1pixels) {
+  if (sha1pixels_ != &::google::protobuf::internal::kEmptyString) {
+    delete sha1pixels_;
+  }
+  if (sha1pixels) {
+    set_has_sha1pixels();
+    sha1pixels_ = sha1pixels;
+  } else {
+    clear_has_sha1pixels();
+    sha1pixels_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   }
 }
 

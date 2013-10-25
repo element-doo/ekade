@@ -44,11 +44,14 @@ struct  _Com__Emajliramokade__Image__Proto__Odgovor
   ProtobufCMessage base;
   protobuf_c_boolean status;
   char *poruka;
+  ProtobufCBinaryData sha1bytes;
   Com__Emajliramokade__Image__Proto__DimenzijeSlike *dimenzijeslike;
+  protobuf_c_boolean has_sha1pixels;
+  ProtobufCBinaryData sha1pixels;
 };
 #define COM__EMAJLIRAMOKADE__IMAGE__PROTO__ODGOVOR__INIT \
  { PROTOBUF_C_MESSAGE_INIT (&com__emajliramokade__image__proto__odgovor__descriptor) \
-    , 0, NULL, NULL }
+    , 0, NULL, {0,NULL}, NULL, 0,{0,NULL} }
 
 
 /* Com__Emajliramokade__Image__Proto__Zahtjev methods */
