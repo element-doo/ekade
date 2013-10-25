@@ -5,12 +5,12 @@ module Resursi
     Int     width;
     Int     height;
 
-    /*
+/*
     static original  'Original'  { create 'width = 4000, height = 4000'; }
     static web       'Web'       { create 'width = 1280, height =  960'; }
     static email     'Email'     { create 'width =  640, height =  640'; }
     static thumbnail 'Thumbnail' { create 'width =  200, height =  200'; }
-    */
+*/
   }
 
   // Rucno popisane razlicite sve velicine kada potrebne za sustav
