@@ -31,8 +31,11 @@ abstract class KadaDodanaArrayConverter
     {
         $ret = array();
         $ret['URI'] = $item->URI;
-        $ret['komentar'] = $item->komentar;
         $ret['kadaID'] = $item->kadaID->__toString();
+        $ret['original'] = \Resursi\PodaciSlikeArrayConverter::toArray($item->original);
+        $ret['web'] = \Resursi\PodaciSlikeArrayConverter::toArray($item->web);
+        $ret['email'] = \Resursi\PodaciSlikeArrayConverter::toArray($item->email);
+        $ret['thumbnail'] = \Resursi\PodaciSlikeArrayConverter::toArray($item->thumbnail);
         return $ret;
     }
 

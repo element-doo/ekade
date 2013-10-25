@@ -1,3 +1,4 @@
+/*
 package com.emajliramokade
 package services
 package impl
@@ -8,7 +9,9 @@ import hr.ngs.patterns.ISerialization
 import scala.concurrent.Future
 
 class FakeEmailValidator(
-    serialization: ISerialization[String]) extends interfaces.EmailValidator {
+    serialization: ISerialization[String]
+  ) extends interfaces.EmailValidator {
+
   def validate(zahtjev: Zahtjev): Future[Odgovor] = {
     Future {
       val email = zahtjev.getEmail
@@ -21,3 +24,4 @@ class FakeEmailValidator(
     }
   }
 }
+*/

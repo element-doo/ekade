@@ -31,7 +31,6 @@ abstract class KorisnikArrayConverter
     {
         $ret = array();
         $ret['URI'] = $item->URI;
-        $ret['ID'] = $item->ID;
         $ret['username'] = $item->username;
         $ret['salt'] = $item->salt;
         $ret['hashSifra'] = $item->hashSifra->__toString();

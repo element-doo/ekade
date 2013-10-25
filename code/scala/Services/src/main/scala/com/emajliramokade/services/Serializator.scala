@@ -4,5 +4,5 @@ package services
 import hr.ngs.patterns.ISerialization
 
 trait Serializator {
-  def serialization: ISerialization[String]
+  protected def serialization: ISerialization[String]
 }

@@ -5,7 +5,7 @@ Sanity check reference to avoid clashes:
       clojure
       csharp
 10080 go
-      haskell
+10010 haskell
       java
       nodejs
 10070 php
