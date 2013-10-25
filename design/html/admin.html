@@ -69,9 +69,9 @@
             <button type="button" class="btn btn-danger" data-bind="click: actionMarkAllRejected, attr: { 'disabled': isWorking }"><i class="icon-remove"></i> Označi sve obrisanim</button>
             <button type="button" class="btn btn-success" data-bind="click: actionMarkAllConfirmed, attr: { 'disabled': isWorking }"><i class="icon-ok"></i> Označi sve odobrenim</button>
           </form>
-          <button type="button" class="btn btn-large btn-inverse" data-bind="click: actionSaveChanges, attr: { 'disabled': isWorking }">
-            <i class="icon-save" data-bind="css: { 'icon-save': !isWorking(), 'icon-spinner': isWorking, 'icon-spin': isWorking }"></i>&nbsp;
-            <span data-bind="html: isWorking()? 'Spremanje&hellip;': 'Spremi promjene'">Spremi promjene</span>
+          <button type="button" class="btn btn-large btn-inverse" data-bind="click: actionSaveChanges, attr: { 'disabled': isWorking() || changes() < 1 }">
+            <i class="icon-save" data-bind="css: { 'icon-save': !isWorking() &amp;&amp; changes() > 0, 'icon-puzzle-piece': !isWorking() &amp;&amp; changes() < 1, 'icon-spinner': isWorking, 'icon-spin': isWorking }"></i>&nbsp;
+            <span data-bind="html: isWorking()? 'Spremanje&hellip;': (changes() < 1)? 'Nema promjena': 'Spremi promjene'">Spremi promjene</span>
           </button>
         </div>
         <div class="span4 pull-right" data-bind="css: { 'hide': images().length < 1 }">
