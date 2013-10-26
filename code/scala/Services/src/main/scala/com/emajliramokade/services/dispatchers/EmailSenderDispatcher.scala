@@ -18,10 +18,13 @@ import abstracts.RemoteEmailSubscriber
 import org.apache.commons.io.FileUtils
 import scala.concurrent.Promise
 import com.emajliramokade.services.impl.PlatformRemoteEmailSender
+import com.emajliramokade.api.model.PopisKada.KadaPoslana
+
+private object EmailSenderDispatcher
 
 class EmailSenderDispatcher(
     logger: org.slf4j.Logger
-  , emailSender: EmailSender
+  , clojureEmailSender: EmailSender
   , validator: EmailValidatorDispatcher
   , imageLoader: RemoteImageLoader
   , emailSubscriber: RemoteEmailSubscriber
@@ -105,6 +108,9 @@ class EmailSenderDispatcher(
       , "${odjavaID}" -> odjavaID
       )
 
+    val filename =
+      logo.filename
+
     val email = (
       Email(
         From("majstor@emajliramokade.com")
@@ -117,8 +123,22 @@ class EmailSenderDispatcher(
       addAttachment(slika.getPodaciSlike.getFilename, slika.getBody)
     )
 
-    // emailSender send email
-    platformEmailSender send email
+    if (false) { // Random.nextBoolean) {
+      clojureEmailSender send email
+    }
+    else {
+      platformEmailSender send email
+    }
+
+     EmailSenderDispatcher.synchronized {
+
+       FileUtils.writeByteArrayToFile(new java.io.File("a.xml"),
+        email.toXml.toString.toUTF8)
+     }
+
+    new KadaPoslana()
+      .setKadaID(zahtjev.getKadaID)
+      .submit()
 
     new Odgovor()
       .setStatus(true)
