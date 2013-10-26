@@ -35,6 +35,7 @@ object Locator extends IServiceLocator {
       .register[DomainProxy](domainProxy)
 
       .register[ZMQListener]
+      .register[Dispatcher]
   }
 
   def resolve[T: TypeTag] =
