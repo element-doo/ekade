@@ -12,6 +12,6 @@ trait AttachmentXMLConverter extends XMLConverter { this: Attachment =>
 <Attachment>
   <fileName>{ filename }</fileName>
   <mimeType>{ mimeType }</mimeType>
-  <content>{ new String(Base64.encodeBase64Chunked(bytes), Encoding).trim }</content>
-</Attachment>.prettyPrint
+  <content>{ Base64.encodeBase64String(bytes).trim }</content>
+</Attachment>
 }

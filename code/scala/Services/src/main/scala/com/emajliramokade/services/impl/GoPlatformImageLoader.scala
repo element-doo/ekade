@@ -20,10 +20,8 @@ class GoPlatformImageLoader(
 
   def serviceUrlFactory(t: Zahtjev) = {
     val kadaID = t.getKadaID
-    val ch0 = Character.toUpperCase(t.getTipSlike.head)
-    val tip = ch0 + t.getTipSlike.tail
-
-    s"http://emajliramokade.com:10080/public/Slike/$kadaID/$tip"
+    val tip = t.getTipSlike
+    s"http://static.emajliramokade.com/$tip/$kadaID/kada.jpg"
   }
 
   protected def getPodaciSlike(zahtjev: Zahtjev) = Future {

@@ -12,6 +12,7 @@ import com.dslplatform.client.DomainProxy
 import com.dslplatform.patterns.ServiceLocator
 import com.emajliramokade.server.api.zmq.ZMQListener
 import services.dispatchers._
+import api.model.Resursi.repositories.SlikeKadeRepository
 
 object Locator extends IServiceLocator {
   private val container = {
@@ -19,6 +20,7 @@ object Locator extends IServiceLocator {
 
     val locator = Bootstrap.init(sys.props("user.home") + "/.config/ekade/project.ini")
     val domainProxy = locator.resolve(classOf[DomainProxy])
+    val slikeKadeRepo = locator.resolve(classOf[SlikeKadeRepository])
 
     new DependencyContainer()
       .register[org.slf4j.Logger](logger)
@@ -39,6 +41,13 @@ object Locator extends IServiceLocator {
       // Platform
       .register[ServiceLocator](locator)
       .register[DomainProxy](domainProxy)
+      .register[SlikeKadeRepository](slikeKadeRepo)
+
+      .register[OracleRemoteEmailSubscriber]
+
+      // ImageCRUD
+      .register[GoPlatformImageLoader]
+      .register[GoImageSaver]
 
 //      .register[ZMQListener]
       .register[EmailValidatorDispatcher]

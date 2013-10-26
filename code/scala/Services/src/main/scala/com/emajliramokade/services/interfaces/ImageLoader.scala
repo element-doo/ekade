@@ -8,7 +8,9 @@ import scala.concurrent.Future
 
 sealed trait TipSlike {
   override val toString =
-    super.toString.toLowerCase
+    getClass.getSimpleName
+      .replaceFirst("\\$$", "")
+      .toLowerCase
 }
 
 object TipSlike {

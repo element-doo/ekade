@@ -1,0 +1,9 @@
+- EmajliramoKade.com -
+
+Netko Vam je emajlirao kadu, možete je vidjeti ovdje:
+https://static.emajliramokade.com/web/${kadaID}/${filename}
+ 
+Ukoliko ne želite više primati kade, odite na ovaj link (UNSUBSCRIBE):
+https://secure.emajliramokade.com/odjava/${odjavaID}
+
+(c) Element i prijatelji
