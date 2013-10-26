@@ -43,7 +43,6 @@ server.on('request', function(request, response) {
 			method: 'POST',
 			headers: request.headers
 		}, function(cresponse) {
-			cresponse.on('data', function(c) {console.log(c.toString()); })
 			if (cresponse.statusCode !== 200)
 				return onerror(cresponse.statuScode);
 
