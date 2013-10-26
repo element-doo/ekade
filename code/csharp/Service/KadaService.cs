@@ -29,8 +29,7 @@ namespace EmajliramoKade
 		public Stream SendMail(Stream body)
 		{
 			var email = Deserialize<SendEmail>(Locator, body);
-			var @event = new SendEmail();
-			@event.Process(Locator);
+			email.Process(Locator);
 			return new MemoryStream(0);
 		}
 	}

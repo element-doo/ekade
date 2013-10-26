@@ -1,11 +1,11 @@
 ﻿
+using System.IO;
+using System.Net.Mail;
+using System.Net.Mime;
+using System.Text;
 using Mailer;
 using NGS.DomainPatterns;
 using NGS.Features.Mailer;
-using System.Net.Mail;
-using System.Text;
-using System.Net.Mime;
-using System.IO;
 
 namespace EmajliramoKade
 {
@@ -13,14 +13,14 @@ namespace EmajliramoKade
 	{
 		private readonly IMailService MailService;
 
-		public MailerEvents(IMailService mailService)
+		public MailerEvents(IServiceLocator locator)
 		{
-			this.MailService = mailService;
+			this.MailService = locator.Resolve<IMailService>();
 		}
 
 		public void Handle(SendEmail domainEvent)
 		{
-			var mail = new MailMessage();
+			var mail = new System.Net.Mail.MailMessage();
 			mail.From = new MailAddress(domainEvent.from);
 
 			foreach (var email in domainEvent.to)
