@@ -5,7 +5,7 @@ module EmailRegistracija
   }
 
   value Odgovor {
-    Boolean odjavljen;
-    String unsubscribeID;
+    Boolean  odjavljen;
+    String   unsubscribeID;
   }
 }
