@@ -1,7 +1,6 @@
 ﻿module Mailer 
 {
-  event SendEmail
-  {
+  event SendEmail {
     String    from;
     String[]  to;
     String[]  replyTo;
@@ -14,14 +13,13 @@
     Attachment[] attachments;
   }
 
-  value Attachment{
+  value Attachment {
     String fileName;
     String mimeType;
     Binary bytes;
   }
 
-  guid root MailMessage
-    {
+  guid root MailMessage {
       native<'NGS.Features.Mailer.Serialization.SerializableMailMessage, NGS.Features.Mailer'> Message;
 
       timestamp? SentAt;
@@ -57,3 +55,4 @@
     }
   }
   #>;
+}
