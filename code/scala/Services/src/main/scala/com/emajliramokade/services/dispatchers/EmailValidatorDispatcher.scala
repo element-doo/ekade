@@ -1,16 +1,18 @@
 package com.emajliramokade
-package server.api
+package services
+package dispatchers
 
 import api.model.EmailProvjera.{ Odgovor, Zahtjev }
-import services.interfaces.EmailValidator
+import interfaces.EmailValidator
 
 import scala.util._
 import scala.concurrent.Future
 import scala.concurrent.Await
 import scala.concurrent.duration._
 
-class Dispatcher(
-    evList: Array[EmailValidator]) {
+class EmailValidatorDispatcher(
+    logger: org.slf4j.Logger
+  , evList: Array[EmailValidator]) {
 
   def dispatch(zahtjev: Zahtjev) = Future {
     val emailOdgovorRawFutures = evList map { ev =>
@@ -27,6 +29,10 @@ class Dispatcher(
             .setPoruka("Skršio sam se / timeoutao")
         )
       }
+
+    emailOdgovors foreach { eo =>
+      logger.debug("EmailValidator: {}", eo)
+    }
 
     val successes = emailOdgovors.filter(_.getStatus).size
     val total = emailOdgovors.size

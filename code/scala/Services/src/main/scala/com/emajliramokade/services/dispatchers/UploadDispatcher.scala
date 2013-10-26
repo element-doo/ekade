@@ -1,5 +1,6 @@
 package com.emajliramokade
-package server.api
+package services
+package dispatchers
 
 import api.{ model => m}
 import image.{ proto => p}

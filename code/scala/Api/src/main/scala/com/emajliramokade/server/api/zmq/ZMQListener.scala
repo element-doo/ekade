@@ -5,10 +5,11 @@ package zmq
 import org.jeromq.{ ZContext, ZMQ, ZMQException }
 import org.slf4j.Logger
 import io.jvm.uuid._
+import services.dispatchers.EmailSenderDispatcher
 
 class ZMQListener(
     logger: Logger
-  , dispatcher: Dispatcher
+  , dispatcher: EmailSenderDispatcher
   ) extends Combinators {
 
   import scala.concurrent.Await

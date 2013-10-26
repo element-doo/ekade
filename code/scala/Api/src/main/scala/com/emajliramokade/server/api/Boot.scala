@@ -9,8 +9,8 @@ class Boot extends Bootable {
   def boot {
     LiftRules.addToPackages("com.emajliramokade.server.api")
 
-//    LiftRules.statelessDispatch.append(Locator[RestHelper])
+    LiftRules.statelessDispatch.append(Locator[RestHelper])
 
-    val runEntryPoint = Locator[ZMQListener]
+//    val runEntryPoint = Locator[ZMQListener]
   }
 }

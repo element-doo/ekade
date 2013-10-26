@@ -12,11 +12,12 @@ import scala.concurrent.Await
 import scala.concurrent.duration._
 import scala.util.{ Failure, Success, Try }
 import io.jvm.uuid._
+import services.dispatchers.EmailSenderDispatcher
 
 class RestListener(
     logger: Logger
   , serialization: ISerialization[String]
-  , dispatcher: Dispatcher
+  , dispatcher: EmailSenderDispatcher
   ) extends RestHelper {
 
   serve {
@@ -45,7 +46,11 @@ class RestListener(
   def parseBody(req: Req): Try[Zahtjev] =
     Try {
       val body = req.body.openOrThrowException("Tried to open an empty body box")
+
+      // ugly hax for haskell entrypoint compatibility
       val strBody = body.fromUTF8
+        .replace("\"kada\"", "\"kadaID\"")
+
       serialization.deserialize[Zahtjev](strBody, null)
     }
 

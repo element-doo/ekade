@@ -5,10 +5,10 @@ package impl
 import hr.ngs.patterns.ISerialization
 import email._
 
-object ClojureRemoteEmailSender
+class ClojureRemoteEmailSender
     extends abstracts.RemoteEmailSender
     with    RemotingRabbitMQ[Email] {
 
   def serviceUrlFactory(t: Email) =
-    "email.request"
+    "ekade.request"
 }

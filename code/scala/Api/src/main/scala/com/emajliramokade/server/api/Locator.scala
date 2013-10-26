@@ -11,6 +11,7 @@ import com.dslplatform.client.Bootstrap
 import com.dslplatform.client.DomainProxy
 import com.dslplatform.patterns.ServiceLocator
 import com.emajliramokade.server.api.zmq.ZMQListener
+import services.dispatchers._
 
 object Locator extends IServiceLocator {
   private val container = {
@@ -26,16 +27,23 @@ object Locator extends IServiceLocator {
 
       // EmailValidators
       .register[LaravelRemoteEmailValidator]
-      .register[RustRemoteEmailValidator]
+//      .register[RustRemoteEmailValidator]
       .register[DjangoRemoteEmailValidator]
+
+      // EmailSenders
+      .register[ClojureRemoteEmailSender]
+
+      // ImageResizers
       .register[CLispRemoteImageResizer]
 
-      .register[UploadDispatcher]
+      // Platform
       .register[ServiceLocator](locator)
       .register[DomainProxy](domainProxy)
 
-      .register[ZMQListener]
-      .register[Dispatcher]
+//      .register[ZMQListener]
+      .register[EmailValidatorDispatcher]
+      .register[EmailSenderDispatcher]
+      .register[UploadDispatcher]
   }
 
   def resolve[T: TypeTag] =
