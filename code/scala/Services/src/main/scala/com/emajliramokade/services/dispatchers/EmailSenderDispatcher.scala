@@ -17,13 +17,15 @@ import scala.concurrent.duration._
 import abstracts.RemoteEmailSubscriber
 import org.apache.commons.io.FileUtils
 import scala.concurrent.Promise
+import com.emajliramokade.services.impl.PlatformRemoteEmailSender
 
 class EmailSenderDispatcher(
     logger: org.slf4j.Logger
-  , esList: Array[EmailSender]
+  , emailSender: EmailSender
   , validator: EmailValidatorDispatcher
   , imageLoader: RemoteImageLoader
-  , emailSubscriber: RemoteEmailSubscriber) {
+  , emailSubscriber: RemoteEmailSubscriber
+  , platformEmailSender: PlatformRemoteEmailSender) {
 
   case class Resource(filename: String) {
     val bytes = IOUtils.toByteArray(
@@ -115,14 +117,8 @@ class EmailSenderDispatcher(
       addAttachment(slika.getPodaciSlike.getFilename, slika.getBody)
     )
 
-//    FileUtils.writeByteArrayToFile(
-//      new java.io.File("r:/a.bin")
-//    , email.toXml.toString.toUTF8
-//    )
-
-    for (sender <- esList.headOption) {
-      sender send email
-    }
+    // emailSender send email
+    platformEmailSender send email
 
     new Odgovor()
       .setStatus(true)

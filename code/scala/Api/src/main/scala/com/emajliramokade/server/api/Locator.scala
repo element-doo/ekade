@@ -26,7 +26,7 @@ object Locator extends IServiceLocator {
       .register[org.slf4j.Logger](logger)
       .register[JsonSerialization, ISerialization[String]]
       .register[EmailListener]
-      .register[SlikaListener]
+      //.register[SlikaListener]
 
       // EmailValidators
       .register[LaravelRemoteEmailValidator]
@@ -35,6 +35,7 @@ object Locator extends IServiceLocator {
 
       // EmailSenders
       .register[ClojureRemoteEmailSender]
+      .register[PlatformRemoteEmailSender]
 
       // ImageResizers
       .register[CLispRemoteImageResizer]

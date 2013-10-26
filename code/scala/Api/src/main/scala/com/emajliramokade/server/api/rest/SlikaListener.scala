@@ -1,3 +1,4 @@
+/*
 package com.emajliramokade
 package server.api
 package rest
@@ -14,7 +15,7 @@ import scala.util.{ Failure, Success, Try }
 import io.jvm.uuid._
 import services.dispatchers.EmailSenderDispatcher
 
-class EmailListener(
+class SlikaListener(
     logger: Logger
   , serialization: ISerialization[String]
   , dispatcher: UploadDispatcher
@@ -69,3 +70,4 @@ class EmailListener(
         .setKadaID(kadaID getOrElse null)
     }
 }
+*/
