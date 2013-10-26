@@ -50,30 +50,30 @@ class UploadDispatcher(
   }
 
   private def provjeri(slikaBody: Array[Byte]): Either[String, Dimenzija] = {
-//    logger.info(s"provjeri | Šaljem sliku na provjeru [size=${ slikaBody.size } bytes]...")
-//    logger.debug("provjeri | Gradim zahtjev...")
-//    val protoBody = ByteString.copyFrom(slikaBody)
-//    val zahtjevBuilder = p.ImageProvjera.Zahtjev.newBuilder
-//    zahtjevBuilder setOriginalnaSlika protoBody
-//    val zahtjev = zahtjevBuilder.build
-//
-//    logger.debug("provjeri | Gradim odgovor u slučaju greške...")
-//    val defaultOdgovorBuilder = p.ImageProvjera.Odgovor.newBuilder
-//    defaultOdgovorBuilder.setStatus(false)
-//    defaultOdgovorBuilder.setPoruka("Greška tokom provjere slike")
-//    val defaultOdgovor = defaultOdgovorBuilder.build
-//
-//    logger.debug(s"provjeri | Izgradio zahtjev, šaljem servisu ${ provjeravatelj(0).getClass.getSimpleName }...")
-//    val odgovor = timeoutWithDefault(provjeravatelj(0).verify(zahtjev), defaultOdgovor)
-//    logger.debug(s"provjeri | Odgovor primljen: [status=${ odgovor.getStatus }; poruka=${ odgovor.getPoruka }; dimenzije=${ odgovor.getDimenzijeSlike.getWidth }x${ odgovor.getDimenzijeSlike.getHeight }]")
-//
-//    if (odgovor.getStatus) {
-//      logger.debug("provjeri | Vraćam usjpešan rezultat")
-//      Right(Dimenzija.fromProto(odgovor))
-//    } else {
-//      logger.debug("provjeri | Vraćam neuspješan rezultat")
-//      Left(odgovor.getPoruka)
-//    }
+    logger.info(s"provjeri | Šaljem sliku na provjeru [size=${ slikaBody.size } bytes]...")
+    logger.debug("provjeri | Gradim zahtjev...")
+    val protoBody = ByteString.copyFrom(slikaBody)
+    val zahtjevBuilder = p.ImageProvjera.Zahtjev.newBuilder
+    zahtjevBuilder setOriginalnaSlika protoBody
+    val zahtjev = zahtjevBuilder.build
+
+    logger.debug("provjeri | Gradim odgovor u slučaju greške...")
+    val defaultOdgovorBuilder = p.ImageProvjera.Odgovor.newBuilder
+    defaultOdgovorBuilder.setStatus(false)
+    defaultOdgovorBuilder.setPoruka("Greška tokom provjere slike")
+    val defaultOdgovor = defaultOdgovorBuilder.build
+
+    logger.debug(s"provjeri | Izgradio zahtjev, šaljem servisu ${ provjeravatelj(0).getClass.getSimpleName }...")
+    val odgovor = timeoutWithDefault(provjeravatelj(0).verify(zahtjev), defaultOdgovor)
+    logger.debug(s"provjeri | Odgovor primljen: [status=${ odgovor.getStatus }; poruka=${ odgovor.getPoruka }; dimenzije=${ odgovor.getDimenzijeSlike.getWidth }x${ odgovor.getDimenzijeSlike.getHeight }]")
+
+    if (odgovor.getStatus) {
+      logger.debug("provjeri | Vraćam usjpešan rezultat")
+      Right(Dimenzija.fromProto(odgovor))
+    } else {
+      logger.debug("provjeri | Vraćam neuspješan rezultat")
+      Left(odgovor.getPoruka)
+    }
 
     Right(Dimenzija(158, 95))
   }

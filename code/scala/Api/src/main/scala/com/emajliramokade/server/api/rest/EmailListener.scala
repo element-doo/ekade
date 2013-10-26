@@ -14,7 +14,7 @@ import scala.util.{ Failure, Success, Try }
 import io.jvm.uuid._
 import services.dispatchers.EmailSenderDispatcher
 
-class RestListener(
+class EmailListener(
     logger: Logger
   , serialization: ISerialization[String]
   , dispatcher: EmailSenderDispatcher

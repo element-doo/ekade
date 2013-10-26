@@ -3,7 +3,7 @@ package server.api
 
 import net.liftweb.http.rest.RestHelper
 import services.impl._
-import server.api.rest.RestListener
+import server.api.rest._
 import hr.ngs.patterns.{ DependencyContainer, ISerialization, IServiceLocator, JsonSerialization }
 import org.slf4j.LoggerFactory
 import scala.reflect.runtime.universe.TypeTag
@@ -25,7 +25,8 @@ object Locator extends IServiceLocator {
     new DependencyContainer()
       .register[org.slf4j.Logger](logger)
       .register[JsonSerialization, ISerialization[String]]
-      .register[RestListener, RestHelper]
+      .register[EmailListener]
+      .register[SlikaListener]
 
       // EmailValidators
       .register[LaravelRemoteEmailValidator]

@@ -38,6 +38,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Events\MailerEvents.cs" />
     <Compile Include="Events\SigurnostEvents.cs" />
     <Compile Include="Events\KadaEvents.cs">
       <SubType>Code</SubType>

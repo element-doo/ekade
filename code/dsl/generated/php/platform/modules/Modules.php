@@ -1,5 +1,8 @@
 <?php
 
+require_once __DIR__.'/Mailer/SendEmail.php';
+require_once __DIR__.'/Mailer/Attachment.php';
+require_once __DIR__.'/Mailer/MailMessage.php';
 require_once __DIR__.'/PopisKada/Kada.php';
 require_once __DIR__.'/PopisKada/KadaDodana.php';
 require_once __DIR__.'/PopisKada/KadaOdobrena.php';
@@ -18,6 +21,8 @@ require_once __DIR__.'/Sigurnost/Korisnik.php';
 require_once __DIR__.'/Sigurnost/Registracija.php';
 require_once __DIR__.'/EmailProvjera/Zahtjev.php';
 require_once __DIR__.'/EmailProvjera/Odgovor.php';
+require_once __DIR__.'/EmailRegistracija/Zahtjev.php';
+require_once __DIR__.'/EmailRegistracija/Odgovor.php';
 require_once __DIR__.'/ImageLoad/Zahtjev.php';
 require_once __DIR__.'/ImageLoad/Odgovor.php';
 require_once __DIR__.'/ImageProvjera/Zahtjev.php';
