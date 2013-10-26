@@ -38,7 +38,7 @@ galleryModel = ->
     return
 
   @actionSaveChanges = =>
-    requestUrl = 'https://emajliramokade.com/platform/Moderiraj.svc/MasovnaModeracija'
+    requestUrl = 'https://admin.emajliramokade.com/platform/Moderiraj.svc/MasovnaModeracija'
     @isWorking true
 
     data = []
@@ -127,7 +127,7 @@ galleryModel = ->
 gallery = null
 
 fetchKade = (offset = 0, limit = 100) ->
-  requestUrl = 'https://emajliramokade.com/platform/Moderiraj.svc/KadaIzvorPodataka/NemoderiraneKade'
+  requestUrl = 'https://admin.emajliramokade.com/platform/Moderiraj.svc/KadaIzvorPodataka/NemoderiraneKade'
   imageBase =  'https://static.emajliramokade.com/'
 
   jQuery.ajax

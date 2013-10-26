@@ -1,5 +1,6 @@
 server {
 	listen 10.5.6.7:80;
 
-	root /home/robi/projects/ekade/code/javascript/site/;
+	#root /home/robi/projects/ekade/design/html;
+	root /home/robi/projects/ekade/code/javascript/site;
 }

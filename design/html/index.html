@@ -72,28 +72,17 @@
               <span class="es-nav-next">Next</span>
             </div>
             <div class="es-carousel">
-              <ul>
-                <li><a href="#"><img src="images/thumbs/23.jpg" data-large="images/23.jpg" alt="image23" data-description="Sometimes her levell'd eyes their carriage ride" /></a></li>
-                <li><a href="#"><img src="images/thumbs/24.jpg" data-large="images/24.jpg" alt="image24" data-description="As they did battery to the spheres intend" /></a></li>
-                <li><a href="#"><img src="images/thumbs/pic-5.jpg" data-large="images/pic-5.jpg" alt="image21" data-description="As often shrieking undistinguish'd woe" /></a></li>
-                <li><a href="#"><img src="images/thumbs/pic-6.jpg" data-large="images/pic-6.jpg" alt="image22" data-description="In clamours of all size, both high and low" /></a></li>
-                <li><a href="#"><img src="images/thumbs/pic-7.jpg" data-large="images/pic-7.jpg" alt="image23" data-description="Sometimes her levell'd eyes their carriage ride" /></a></li>
-                <li><a href="#"><img src="images/thumbs/pic-8.jpg" data-large="images/pic-8.jpg" alt="image24" data-description="As they did battery to the spheres intend" /></a></li>
-                <li><a href="#"><img src="images/thumbs/23.jpg" data-large="images/23.jpg" alt="image23" data-description="Sometimes her levell'd eyes their carriage ride" /></a></li>
-                <li><a href="#"><img src="images/thumbs/24.jpg" data-large="images/24.jpg" alt="image24" data-description="As they did battery to the spheres intend" /></a></li>
-                <li><a href="#"><img src="images/thumbs/pic-5.jpg" data-large="images/pic-5.jpg" alt="image21" data-description="As often shrieking undistinguish'd woe" /></a></li>
-                <li><a href="#"><img src="images/thumbs/pic-6.jpg" data-large="images/pic-6.jpg" alt="image22" data-description="In clamours of all size, both high and low" /></a></li>
-                <li><a href="#"><img src="images/thumbs/pic-7.jpg" data-large="images/pic-7.jpg" alt="image23" data-description="Sometimes her levell'd eyes their carriage ride" /></a></li>
-                <li><a href="#"><img src="images/thumbs/pic-8.jpg" data-large="images/pic-8.jpg" alt="image24" data-description="As they did battery to the spheres intend" /></a></li>
-                <li><a href="#"><img src="images/thumbs/23.jpg" data-large="images/23.jpg" alt="image23" data-description="Sometimes her levell'd eyes their carriage ride" /></a></li>
-                <li><a href="#"><img src="images/thumbs/24.jpg" data-large="images/24.jpg" alt="image24" data-description="As they did battery to the spheres intend" /></a></li>
-                <li><a href="#"><img src="images/thumbs/pic-5.jpg" data-large="images/pic-5.jpg" alt="image21" data-description="As often shrieking undistinguish'd woe" /></a></li>
-                <li><a href="#"><img src="images/thumbs/pic-6.jpg" data-large="images/pic-6.jpg" alt="image22" data-description="In clamours of all size, both high and low" /></a></li>
-                <li><a href="#"><img src="images/thumbs/pic-7.jpg" data-large="images/pic-7.jpg" alt="image23" data-description="Sometimes her levell'd eyes their carriage ride" /></a></li>
-                <li><a href="#"><img src="images/thumbs/pic-8.jpg" data-large="images/pic-8.jpg" alt="image24" data-description="As they did battery to the spheres intend" /></a></li>
+              <ul data-bind="foreach: images">
+                <li>
+                  <a href="#">
+                    <img src="" data-bind="attr: { 'src': imgPath, 'data-large': fullPath }" />
+                  </a>
+                </li>
               </ul>
             </div>
-          </div>
+          </div> 
+		  
+		  
           <!-- End Elastislide Carousel Thumbnail Viewer -->
         </div><!-- rg-thumbs -->
       </div><!-- rg-gallery -->
@@ -201,6 +190,7 @@
 <!-- end of modal send success -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/knockout-2.3.0.min.js"></script>
 <script type="text/javascript" src="js/jquery.flexslider-min.js"></script>
 <script type="text/javascript" src="js/bootstrap.file-input.js"></script>
 <script type="text/javascript" src="js/jquery.fancybox.pack.js"></script>
@@ -209,6 +199,7 @@
 <script type="text/javascript" src="js/jquery.elastislide.js"></script>
 <script type="text/javascript" src="js/gallery.js"></script>
 <script type="text/javascript" src="js/functions.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
 </body>
 </html>
 
