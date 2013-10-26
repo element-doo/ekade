@@ -151,10 +151,10 @@ server {
 
   location ~ ^/platform/.* {
     rewrite ^/platform/(.*) /kade/$1 break;
-    #proxy_pass https://platform.emajliramokade.com;
-    #proxy_set_header Host platform.emajliramokade.com;
-    proxy_pass https://10.5.6.100;
-    proxy_set_header Host snowball.dsl-platform.com;
+    proxy_pass https://platform.emajliramokade.com;
+    proxy_set_header Host platform.emajliramokade.com;
+    #proxy_pass https://10.5.6.100;
+    #proxy_set_header Host snowball.dsl-platform.com;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     proxy_set_header X-Forwarded-Proto $scheme;
   }
