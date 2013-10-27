@@ -141,8 +141,7 @@ server {
   }  
 
   location ~ ^/api { 
-    proxy_pass http://10.5.17.1:10040;
-    #proxy_pass http://127.0.0.1:10010;
+    proxy_pass http://127.0.0.1:10010;
     proxy_set_header REMOTE_ADDR $remote_addr;
     proxy_set_header X-Real-IP $remote_addr;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
@@ -195,10 +194,20 @@ server {
     proxy_set_header HOST $host;
   }
 
+  location ~ ^/dev325/(.*) {
+    rewrite ^/dev325/(.*) /$1 break;
+    root /var/www/ekade/code/javascript/site/;
+    proxy_set_header REMOTE_ADDR $remote_addr;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header HOST $host;
+  }
+
   location / {
-    allow 10.0.0.0/8;
-    allow 85.10.50.226;
-    deny all;
+    #allow 10.0.0.0/8;
+    #allow 85.10.50.226;
+    #allow 31.45.225.90;
+    #deny all;
 
     root /var/www/ekade/code/javascript/site/;
     proxy_set_header REMOTE_ADDR $remote_addr;
@@ -403,7 +412,7 @@ server {
   error_log  /var/www/ekade/logs/nginx/wc-error.log;
 
   location / {
-    deny all;
+    #deny all;
     proxy_set_header REMOTE_ADDR $remote_addr;
     proxy_set_header X-Real-IP $remote_addr;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;

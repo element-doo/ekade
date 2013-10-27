@@ -130,11 +130,10 @@ class EmailSenderDispatcher(
       platformEmailSender send email
     }
 
-     EmailSenderDispatcher.synchronized {
-
-       FileUtils.writeByteArrayToFile(new java.io.File("a.xml"),
-        email.toXml.toString.toUTF8)
-     }
+//     EmailSenderDispatcher.synchronized {
+//       FileUtils.writeByteArrayToFile(new java.io.File("a.xml"),
+//        email.toXml.toString.toUTF8)
+//     }
 
     new KadaPoslana()
       .setKadaID(zahtjev.getKadaID)

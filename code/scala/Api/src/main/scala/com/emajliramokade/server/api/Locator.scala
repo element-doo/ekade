@@ -51,7 +51,7 @@ object Locator extends IServiceLocator {
       .register[GoPlatformImageLoader]
       .register[GoImageSaver]
 
-//      .register[ZMQListener]
+      .register[ZMQListener]
       .register[EmailValidatorDispatcher]
       .register[EmailSenderDispatcher]
       .register[UploadDispatcher]

@@ -84,7 +84,7 @@ function FlexSlider() {
 	$('#posaljiKadu').click(function() {
 		var email = $('#appendedInputButton').val();
 		var kadaID = $('#carousel li.flex-active-slide').attr('data-uri');
-		var body = JSON.stringify({ email: email, kada: kadaID });
+		var body = JSON.stringify({ email: email, kadaID: kadaID });
 
 		$.ajax({
 		  type: "POST",
@@ -93,6 +93,9 @@ function FlexSlider() {
 		  data: body,
 		  dataType: 'text',
 		  success: function(response) {
+			
+			console.log(response);
+		  
 			  if (response.status)
 				$('#myModalLabel').text('Kada je uspješno poslana');
 			  else

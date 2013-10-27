@@ -13,6 +13,6 @@ class Boot extends Bootable {
     LiftRules.statelessDispatch.append(Locator[EmailListener])
 //    LiftRules.statelessDispatch.append(Locator[SlikaListener])
 
-//    val runEntryPoint = Locator[ZMQListener]
+    val runEntryPoint = Locator[ZMQListener]
   }
 }

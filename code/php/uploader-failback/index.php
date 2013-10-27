@@ -1,4 +1,5 @@
 <?php
+define('NGS_UPDATE', null);
 require_once __DIR__.'/../../dsl/generated/php/public/index.php';
 
 define('URI', 'http://emajliramokade.com:10080');

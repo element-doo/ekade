@@ -15,7 +15,7 @@ class ZMQListener(
   import scala.concurrent.Await
   import scala.concurrent.duration._
 
-  val frontend_addr = "tcp://144.76.184.25:10011"
+  val frontend_addr = "tcp://127.0.0.1:10011"
   val n_listeners   = 100
 
   logger.info("Booting up ZMQ Listener ...")
@@ -52,9 +52,7 @@ class ZMQListener(
   }
 }
 
-
 trait Combinators {
-
   def forever[A](act: => A) { while(true) { act } }
 
   def spawn_thread[A](act: => A) = {
