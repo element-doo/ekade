@@ -92,7 +92,9 @@
       <!-- end email form -->
     </div>
     <!-- end slider -->
+<!--
     <p class="text-right upper title-bg"><span class="title title-right"><a href="gallery.html"><i class="icon-th-large"></i> Pogledajte sve slike</a></span></p>
+-->    
   </div>
 
 </section>
@@ -185,5 +187,27 @@
   </div>
 </div>
 <!-- end of modal send success -->
+
+  <script type="text/javascript">
+    var asyncLoad = function(url) {
+      var g = document.createElement('script'),
+          s = document.getElementsByTagName('script')[0];
+
+      g.src = url;
+      g.type = 'text/javascript';
+      g.async = 1;
+      s.parentNode.insertBefore(g, s);
+    }
+
+    var _gaq = [
+      ['_setAccount', 'UA-38102751-1'],
+      ['_setDomainName', 'emajliramokade.com'],
+      ['_setSiteSpeedSampleRate', 100],
+      ['_trackPageview']
+    ];
+
+    asyncLoad('https://ssl.google-analytics.com/ga.js');
+  </script> 
+
 </body>
 </html>
