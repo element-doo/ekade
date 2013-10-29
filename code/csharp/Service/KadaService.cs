@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using NGS.DomainPatterns;
 using PopisKada;
+using Mailer;
 
 namespace EmajliramoKade
 {
@@ -23,6 +24,13 @@ namespace EmajliramoKade
 
 			var kade = Kade.Query(new KadaIzvorPodataka.OdobreneKade()).Skip(offset).Take(limit).ToList();
 			return Serialize(Locator, kade);
+		}
+
+		public Stream SendMail(Stream body)
+		{
+			var email = Deserialize<SendEmail>(Locator, body);
+			email.Process(Locator);
+			return new MemoryStream(0);
 		}
 	}
 }

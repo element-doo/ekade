@@ -4,19 +4,30 @@ package services
 import com.rabbitmq.client.{ ConnectionFactory, QueueingConsumer }
 import scala.concurrent.Future
 
+private object RemotingRabbitMQ
+
 trait RemotingRabbitMQ[T] extends Remoting[T] {
-  def send(serviceUrl: String, body: Array[Byte]): Future[Array[Byte]] =
+  def send(
+    serviceUrl: String
+  , request: Array[Byte]
+  , headers: Map[String, String] = Map.empty
+  ): Future[Array[Byte]] =
+
     Future {
-      val queue = new RabbitQueue(serviceUrl)
-      queue.send(body)
-      val response = queue.receive()
-      queue.close()
-      response
+      RemotingRabbitMQ synchronized {
+        val queue = new RabbitQueue(serviceUrl)
+        queue.send(request)
+        queue.close()
+      }
+
+      "OK".toUTF8
     }
 
   private object RabbitQueue {
     val factory = new ConnectionFactory()
-    factory.setHost("")
+    factory.setHost("144.76.184.25")
+    factory.setUsername("majstor")
+    factory.setPassword("kadeOverAMQP")
   }
 
   private class RabbitQueue(val name: String) {

@@ -48,9 +48,8 @@
         <div class="row-fluid">
           <div class="span6">
             <ul class="social-icons inline">
-              <li><a href="#"><i class="icon-facebook"></i></a></li>
-              <li><a href="#"><i class="icon-twitter"></i></a></li>
-              <li><a href="#"><i class="icon-google-plus"></i></a></li>
+              <li><a href="https://twitter.com/emajliramokade"><i class="icon-twitter"></i></a></li>
+              <li><a href="https://www.facebook.com/EmajliramoKade"><i class="icon-facebook"></i></a></li>
             </ul>
           </div>
           <div class="span6">
@@ -66,19 +65,19 @@
   <div class="container">
     <!-- slider -->
     <div class="slider">
+      <div id="carousel" class="flexslider">
+        <ul class="slides">
+          <li ng-repeat="kada in kade" data-uri="{{ kada.URI }}">
+            <span class="badge badge-info js-tooltip carousel-badge" data-placement="right" data-toggle="tooltip" title="Poslana {{ kada.brojacSlanja || 0 }} puta">{{ kada.brojacSlanja || 0 }}</span>
+            <img ng-src="{{ thumbnail(kada) }}" />
+          </li>
+        </ul>
+      </div>
       <div id="slider" class="flexslider">
         <ul class="slides">
             <li ng-repeat="kada in kade">
-              <img ng-src="http://placekitten.com/{{randSize(800, 1200, 800, 1200)}}" />
+                <img ng-src="{{ web(kada) }}" />
             </li>
-        </ul>
-      </div>
-      <div id="carousel" class="flexslider">
-        <ul class="slides">
-          <li ng-repeat="kada in kade">
-            <span class="badge badge-info js-tooltip carousel-badge" data-placement="right" data-toggle="tooltip" title="Poslana {{ kada.brojacSlanja }} puta">{{ kada.brojacSlanja }}</span>
-            <img ng-src="http://placekitten.com/{{randSize(800, 1200, 800, 1200)}}" />
-          </li>
         </ul>
       </div>
       <!-- email form -->
@@ -86,14 +85,16 @@
         <form id="app-login" action="">
           <div class="input-append">
             <input class="slider-input js-tooltip" id="appendedInputButton" type="email" placeholder="Pošaljite kadu na ovaj email" title="Pošaljite kadu na ovaj email" data-toggle="tooltip" />
-            <button class="btn slider-input-btn js-btn-send" type="button" data-target="#modal-send-success" role="button" data-toggle="modal"><i class="icon-double-angle-right white icon-2x"></i></button>
+            <button class="btn slider-input-btn js-btn-send" type="button" data-target="#modal-send-success" role="button" data-toggle="modal" id="posaljiKadu"><i class="icon-double-angle-right white icon-2x"></i></button>
           </div>
         </form>
       </div>
       <!-- end email form -->
     </div>
     <!-- end slider -->
+<!--
     <p class="text-right upper title-bg"><span class="title title-right"><a href="gallery.html"><i class="icon-th-large"></i> Pogledajte sve slike</a></span></p>
+-->    
   </div>
 
 </section>
@@ -143,13 +144,14 @@
         </div>
         <div class="span6">
           <div id="upload-wrapper">
-            <form id="upload-form" action="" class="upload-form form-horizontal">
+            <iframe name="mrzimFrontend" style="display: none"></iframe>
+            <form target="mrzimFrontend" action="/upload" id="upload-form" method="POST" class="upload-form form-horizontal" enctype="multipart/form-data">
               <fieldset>
                 <legend class="white upper">Upload kada</legend>
                 <div class="control-group">
                   <label class="control-label">Odaberi kadu</label>
                   <div class="controls">
-                    <input type="file" title="Odaberi sliku">
+                    <input type="file" title="Odaberi sliku" name="slika">
                   </div>
                 </div>
                 <div class="control-group">
@@ -178,12 +180,34 @@
     <h3 id="myModalLabel">Kada je uspješno poslana</h3>
   </div>
   <div class="modal-body">
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut, eligendi nisi.</p>
+    <p id="myModalBody">Kada uspješno poslana!</p>
   </div>
   <div class="modal-footer">
     <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Close</button>
   </div>
 </div>
 <!-- end of modal send success -->
+
+  <script type="text/javascript">
+    var asyncLoad = function(url) {
+      var g = document.createElement('script'),
+          s = document.getElementsByTagName('script')[0];
+
+      g.src = url;
+      g.type = 'text/javascript';
+      g.async = 1;
+      s.parentNode.insertBefore(g, s);
+    }
+
+    var _gaq = [
+      ['_setAccount', 'UA-38102751-1'],
+      ['_setDomainName', 'emajliramokade.com'],
+      ['_setSiteSpeedSampleRate', 100],
+      ['_trackPageview']
+    ];
+
+    asyncLoad('https://ssl.google-analytics.com/ga.js');
+  </script> 
+
 </body>
 </html>

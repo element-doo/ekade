@@ -1,3 +1,5 @@
 kade
 static
 code/c/image_size_service/service
+logs/*.log
+*.swp

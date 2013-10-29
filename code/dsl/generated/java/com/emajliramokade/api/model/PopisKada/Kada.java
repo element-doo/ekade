@@ -12,7 +12,6 @@ public class Kada implements java.io.Serializable, AggregateRoot {
         this.ID = java.util.UUID.randomUUID();
         this.dodana = new org.joda.time.DateTime();
         this.brojacSlanja = 0;
-        this.slikeKade = new com.emajliramokade.api.model.Resursi.SlikeKade[0];
     }
 
     private transient final ServiceLocator _serviceLocator;
@@ -51,15 +50,13 @@ public class Kada implements java.io.Serializable, AggregateRoot {
     private static final long serialVersionUID = 0x0097000a;
 
     public Kada(
-            final java.util.UUID ID,
             final org.joda.time.DateTime odobrena,
             final org.joda.time.DateTime odbijena,
             final int brojacSlanja,
-            final com.emajliramokade.api.model.Resursi.SlikeKade[] slikeKade) {
+            final com.emajliramokade.api.model.Resursi.SlikeKade slikeKade) {
         _serviceLocator = Bootstrap.getLocator();
         _domainProxy = _serviceLocator.resolve(DomainProxy.class);
         _crudProxy = _serviceLocator.resolve(CrudProxy.class);
-        setID(ID);
         setOdobrena(odobrena);
         setOdbijena(odbijena);
         setBrojacSlanja(brojacSlanja);
@@ -75,7 +72,7 @@ public class Kada implements java.io.Serializable, AggregateRoot {
             @JsonProperty("odobrena") final org.joda.time.DateTime odobrena,
             @JsonProperty("odbijena") final org.joda.time.DateTime odbijena,
             @JsonProperty("brojacSlanja") final int brojacSlanja,
-            @JsonProperty("slikeKadeURI") final String[] slikeKadeURI) {
+            @JsonProperty("slikeKadeURI") final String slikeKadeURI) {
         this._serviceLocator = _serviceLocator;
         this._domainProxy = _serviceLocator.resolve(DomainProxy.class);
         this._crudProxy = _serviceLocator.resolve(CrudProxy.class);
@@ -85,7 +82,7 @@ public class Kada implements java.io.Serializable, AggregateRoot {
         this.odobrena = odobrena;
         this.odbijena = odbijena;
         this.brojacSlanja = brojacSlanja;
-        this.slikeKadeURI = slikeKadeURI == null ? new String[0] : slikeKadeURI;
+        this.slikeKadeURI = slikeKadeURI == null ? null : slikeKadeURI;
     }
 
     public static Kada find(final String uri) throws java.io.IOException {
@@ -236,6 +233,10 @@ public class Kada implements java.io.Serializable, AggregateRoot {
     }
 
     public Kada persist() throws java.io.IOException {
+        if (this.getSlikeKadeURI() == null) {
+            throw new IllegalArgumentException(
+                    "Cannot persist instance of 'com.emajliramokade.api.model.PopisKada.Kada' because reference 'slikeKade' was not assigned");
+        }
         final Kada result;
         try {
             result = this.URI == null
@@ -268,7 +269,7 @@ public class Kada implements java.io.Serializable, AggregateRoot {
         return ID;
     }
 
-    public Kada setID(final java.util.UUID value) {
+    private Kada setID(final java.util.UUID value) {
         if (value == null)
             throw new IllegalArgumentException(
                     "Property \"ID\" cannot be null!");
@@ -334,31 +335,24 @@ public class Kada implements java.io.Serializable, AggregateRoot {
         return this;
     }
 
-    private String[] slikeKadeURI;
+    private String slikeKadeURI;
 
     @JsonProperty("slikeKadeURI")
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    public String[] getSlikeKadeURI() {
+    public String getSlikeKadeURI() {
         return this.slikeKadeURI;
     }
 
-    private com.emajliramokade.api.model.Resursi.SlikeKade[] slikeKade;
+    private com.emajliramokade.api.model.Resursi.SlikeKade slikeKade;
 
     @JsonIgnore
-    public com.emajliramokade.api.model.Resursi.SlikeKade[] getSlikeKade()
+    public com.emajliramokade.api.model.Resursi.SlikeKade getSlikeKade()
             throws java.io.IOException {
-        if (slikeKadeURI == null || slikeKadeURI.length == 0)
-            return new com.emajliramokade.api.model.Resursi.SlikeKade[0];
-
-        if (slikeKadeURI != null
-                && (slikeKade == null || slikeKade.length != slikeKadeURI.length))
+        if (slikeKade != null && !slikeKade.getURI().equals(slikeKadeURI)
+                || slikeKade == null && slikeKadeURI != null)
             try {
-                slikeKade = _domainProxy
-                        .find(com.emajliramokade.api.model.Resursi.SlikeKade.class,
-                                slikeKadeURI)
-                        .get()
-                        .toArray(
-                                new com.emajliramokade.api.model.Resursi.SlikeKade[slikeKadeURI.length]);
+                slikeKade = _crudProxy.read(
+                        com.emajliramokade.api.model.Resursi.SlikeKade.class,
+                        slikeKadeURI).get();
             } catch (final InterruptedException e) {
                 throw new java.io.IOException(e);
             } catch (final java.util.concurrent.ExecutionException e) {
@@ -368,26 +362,19 @@ public class Kada implements java.io.Serializable, AggregateRoot {
     }
 
     public Kada setSlikeKade(
-            final com.emajliramokade.api.model.Resursi.SlikeKade[] value) {
+            final com.emajliramokade.api.model.Resursi.SlikeKade value) {
         if (value == null)
             throw new IllegalArgumentException(
                     "Property \"slikeKade\" cannot be null!");
-        com.emajliramokade.api.model.Guards.checkNulls(value);
 
-        if (value != null) {
-            for (final com.emajliramokade.api.model.Resursi.SlikeKade refEnt : value)
-                if (refEnt == null || refEnt.getURI() == null)
-                    throw new IllegalArgumentException(
-                            "Reference \"Resursi.SlikeKade\" for property \"slikeKade\" must be persisted before it's assigned");
-        }
+        if (value != null && value.getURI() == null)
+            throw new IllegalArgumentException(
+                    "Reference \"Resursi.SlikeKade\" for property \"slikeKade\" must be persisted before it's assigned");
         this.slikeKade = value;
 
-        this.slikeKadeURI = new String[value.length];
-        int i = 0;
-        for (final com.emajliramokade.api.model.Resursi.SlikeKade it : value) {
-            this.slikeKadeURI[i] = it.getURI();
-            i++;
-        }
+        this.slikeKadeURI = value.getURI();
+
+        this.ID = value.getID();
         return this;
     }
 }

@@ -1,12 +1,13 @@
 var http = require('http');
+
 var fs = require('fs');
 var server = http.createServer();
 
-var hostname = 'localhost';
+var hostname = '127.0.0.1';
 
-var urls = [
-	'/uploadScala',
-	'/uploadPHP'
+var ports = [
+	10040, // scala image uploader
+	10071  // php image uploader
 ];
 
 server.on('request', function(request, response) {
@@ -21,7 +22,7 @@ server.on('request', function(request, response) {
 	var counter = 0;
 
 	var onerror = function(error) {
-		if (data == null) {
+		if (data !== null) {
 			var mtime = new Date().getTime();
 			var filename = request.socket.remoteAddress + mtime;
 			filename = new Buffer(filename).toString('base64');
@@ -34,16 +35,16 @@ server.on('request', function(request, response) {
 			response.end();
 	};
 
-	for (var i in urls) {
+	for (var p in ports) {
 		var client = http.request({
 			hostname: hostname,
-			port: 12345,
-			path: urls[i],
+			port: ports[p],
+			path: '/',
 			method: 'POST',
 			headers: request.headers
 		}, function(cresponse) {
 			if (cresponse.statusCode !== 200)
-				return onerror();
+				return onerror(cresponse.statuScode);
 
 			if (++counter == clients.length)
 				response.end();
@@ -66,5 +67,5 @@ server.on('request', function(request, response) {
 	});
 });
 
-server.listen(65432, '127.0.0.1');
+server.listen(10050, '127.0.0.1');
 server.on('error', function(error) { console.log(error.message); });

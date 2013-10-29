@@ -1,0 +1,107 @@
+&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD HTML 4.01 Transitional//EN&quot;
+   &quot;http://www.w3.org/TR/html4/loose.dtd&quot;&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;/&gt;
+  &lt;title&gt;Kada za vas! - EmajliramoKade.com&lt;/title&gt;
+  &lt;style&gt;
+    body { font-family: Arial, Helvetica, sans-serif; font-weight: normal; }
+    table.table { padding: 15px 0 10px; width: 1190px; }
+    img.kada { border: 10px solid #DDD; border-radius: 4px; }
+
+    @media only screen and (min-width: 333px) and (max-width: 1339px) {
+      table.table, td.cell { width: 100%; }
+      img.kada { width: 95%; max-width: 1190px; border-width: 5px; }
+    }
+
+    @media only screen and (min-width: 333px) and (max-width: 390px) {
+      span.title { font-size: 24px; }
+      a.unsubscribe { white-space: nowrap; }
+    }
+
+    @media only screen and (max-width: 332px) {
+      table.table, td.cell { width: 100%; }
+      img.kada { width: 95%; max-width: 1190px; border-width: 2px; }
+      span.title { font-size: 20px; }
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body bgcolor=&quot;#F4F6F6&quot; topmargin=&quot;0&quot; leftmargin=&quot;0&quot; marginheight=&quot;0&quot; marginwidth=&quot;0&quot; style=&quot;font-family: Arial, Helvetica, sans-serif; font-weight: normal; -webkit-font-smoothing: antialiased;width:100% !important;background:#F4F6F6;-webkit-text-size-adjust:none;&quot;&gt;
+  &lt;table border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; width=&quot;100%&quot;&gt;
+    &lt;tr&gt;
+      &lt;td bgcolor=&quot;#2F7CAB&quot; width=&quot;100%&quot;&gt;
+        &lt;div align=&quot;center&quot;&gt;
+          &lt;table width=&quot;100%&quot; border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; class=&quot;table&quot;&gt;
+            &lt;!-- LOGO --&gt;
+            &lt;tr&gt;
+              &lt;td width=&quot;100%&quot; class=&quot;cell&quot;&gt;
+                &lt;table border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; width=&quot;100%&quot;&gt;
+                  &lt;tr&gt;
+                    &lt;td&gt;
+                      &lt;a href=&quot;https://emajliramokade.com/&quot; style=&quot;margin-left:15px; display: block; font-family: Arial, Helvetica, sans-serif; color: #FFF; font-size:  30px; text-decoration: none;&quot;&gt;
+                        &lt;img alt=&quot;EmajliramoKade.com logo&quot; width=&quot;70&quot; height=&quot;29&quot; border=&quot;0&quot; style=&quot;width: 70px; height: 29px; vertical-align: sub;&quot; src=&quot;logo.png&quot;&gt;
+                        &lt;span class=&quot;title&quot; style=&quot;text-shadow: 0 2px 1px rgba(0,0,0, 0.3); font-weight: normal;&quot;&gt;EmajliramoKade.com&lt;/span&gt;
+                      &lt;/a&gt;
+                    &lt;/td&gt;
+                  &lt;/tr&gt;
+                &lt;/table&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+          &lt;/table&gt;
+        &lt;/div&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/table&gt;
+  &lt;table border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; width=&quot;100%&quot;&gt;
+    &lt;tr&gt;
+      &lt;td bgcolor=&quot;#FFF&quot; style=&quot;padding: 15px;&quot; width=&quot;100%&quot;&gt;
+        &lt;div align=&quot;center&quot;&gt;
+          &lt;table width=&quot;100%&quot; border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; class=&quot;table&quot;&gt;
+            &lt;tr&gt;
+              &lt;td width=&quot;100%&quot; class=&quot;cell&quot;&gt;
+                &lt;table width=&quot;100%&quot; border=&quot;0&quot; cellspacing=&quot;0&quot; cellpadding=&quot;0&quot;&gt;
+                  &lt;tr&gt;
+                    &lt;td align=&quot;center&quot; style=&quot;padding: 10px 0 15px; font-size: 32px; font-family: Arial, sans-serif; color: #333; font-weight: normal; text-shadow: 0 2px 1px rgba(0,0,0, 0.2);&quot;&gt;
+                      Netko Vam je emajlirao kadu!
+                    &lt;/td&gt;
+                  &lt;/tr&gt;
+                &lt;/table&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+              &lt;td align=&quot;center&quot; style=&quot;padding: 0 0 10px; font-size: 16px; font-family: Arial, Helvetica, sans-serif; color: #333;&quot;&gt;
+                Lorem ipsum dolor sit amet, nunc integer, gravis ultrasound.
+              &lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+              &lt;td align=&quot;center&quot; style=&quot;padding: 20px 0; font-size: 16px; color: #333;&quot;&gt;
+                &lt;img src=&quot;kada.jpg&quot; alt=&quot;Kada&quot; class=&quot;kada&quot;&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+              &lt;td align=&quot;center&quot; style=&quot;padding: 10px 0; font-size: 14px; line-height: 20px; font-family: Arial, Helvetica, sans-serif; color: #333;&quot;&gt;
+                Ukoliko ne &#382;elite primati kade, kliknite na &lt;a class=&quot;unsubscribe&quot; style=&quot;padding: 0 0 10px; font-size: 14px; line-height: 20px; font-family: Arial, Helvetica, sans-serif; color: #2F7CAB; text-decoration: none;&quot; href=&quot;https://secure.emajliramokade.com/unsubscribe/12345678901234567890&quot;&gt;link za brisanje s liste primatelja (UNSUBSCRIBE)&lt;/a&gt;.
+              &lt;/td&gt;
+            &lt;/tr&gt;
+          &lt;/table&gt;
+        &lt;/div&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/table&gt;
+  &lt;table border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; width=&quot;100%&quot;&gt;
+    &lt;tr&gt;
+      &lt;td width=&quot;100%&quot;&gt;
+        &lt;div align=&quot;center&quot;&gt;
+          &lt;table class=&quot;table&quot;&gt;
+            &lt;tr&gt;
+              &lt;td align=&quot;center&quot; style=&quot;padding: 0 0 10px; font-size: 14px; line-height: 24px; font-family: Arial, Helvetica, sans-serif; color: #999; text-shadow: 0 1px 0 #FFF;&quot;&gt;
+              &amp;copy; Element i prijatelji 2013.
+            &lt;/tr&gt;
+          &lt;/table&gt;
+        &lt;/div&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/table&gt;
+&lt;/body&gt;
+&lt;/html&gt;

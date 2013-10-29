@@ -13,21 +13,19 @@ galleryModel = ->
   # actions
   @actionApprove = ->
     i = gallery.images.indexOf @
-
     newItem = gallery.__cloneItem i
     newItem.status = true
-    gallery.images.splice i, 1, newItem
 
+    gallery.images.splice i, 1, newItem
     gallery.changes gallery.changes()+1
     return
 
   @actionReject = ->
     i = gallery.images.indexOf @
-
     newItem = gallery.__cloneItem i
     newItem.status = false
-    gallery.images.splice i, 1, newItem
 
+    gallery.images.splice i, 1, newItem
     gallery.changes gallery.changes()+1
     return
 
@@ -40,45 +38,55 @@ galleryModel = ->
     return
 
   @actionSaveChanges = =>
+    requestUrl = 'https://admin.emajliramokade.com/platform/Moderiraj.svc/MasovnaModeracija'
     @isWorking true
 
     data = []
     @images().forEach (item) ->
-      data.push item  if item.status isnt null
-      return
-    console.log '--> ', JSON.stringify data
+      kada =
+        kadaID:   item.URI
+        odobrena: item.status
 
-    setTimeout (->
-      gallery.isWorking false
-    ), 5000
+      data.push kada  if item.status isnt null
+      return
+
+    moderiraneKade =
+      moderacijeKada: data
+
+    jQuery.ajax
+      type: 'PUT'
+      url:  requestUrl
+      data: JSON.stringify moderiraneKade
+      dataType: 'json'
+      headers:
+        'Content-Type': 'application/json'
+        Authorization:  'Basic cm9iaTppYm9y'
+      success:  (response) =>
+        fetchKade()
+        gallery.isWorking false
+        return
+
+      error:    (response) ->
+        console.warn 'Got error. ', response
+        return
+
     return
 
   @pagePrev = =>
     @currPage (if @currPage() is 1 then 1 else @currPage() - 1)
+    fetchKade @currPage-1, 20
     return
 
   @pageNext = =>
     max = @pages().length
     gallery.currPage (if gallery.currPage() >= max then max else gallery.currPage() + 1)
+    fetchKade @currPage-1, 20
     return
 
   @pageNum = ->
     max = gallery.pages().length
     gallery.currPage (if @.page <= max or @.page >= 1 then @.page else 1 )
-    return
-
-  @actionAddRandom = ->
-    __statuses = [null, null, null, true, false]
-    _w = 200 + Math.round(Math.random()*50)
-    _h = 100 + Math.round(Math.random()*100)
-    img =
-      name:   'Image'
-      path:   'http://placekitten.com/'+_w+'/'+_h
-      width:  _w
-      height: _h
-      status: __statuses[Math.round(Math.random()*5)]
-
-    @images.push img
+    fetchKade gallery.currPage-1, 20
     return
 
   @pages = ko.computed =>
@@ -94,11 +102,14 @@ galleryModel = ->
   @__cloneItem = (index) ->
     item = gallery.images()[index]
     newItem =
-      name:   item.name
-      path:   item.path
+      URI:    item.URI
       width:  item.width
       height: item.height
       status: null
+      timestamp: item.timestamp
+      filename:  item.filename
+      imgPath:   item.imgPath
+      fullPath:  item.fullPath
 
   @__markAll = (status) ->
     i = 0
@@ -115,29 +126,44 @@ galleryModel = ->
 
 gallery = null
 
-###
-fetchData = (offset = 0, limit = 20) ->
-  url = 'https://emajliramokade.com/platform/Moderiraj.svc/KadaIzvorPodataka/NemoderiraneKade'
-  console.log url
+fetchKade = (offset = 0, limit = 100) ->
+  requestUrl = 'https://admin.emajliramokade.com/platform/Moderiraj.svc/KadaIzvorPodataka/NemoderiraneKade'
+  imageBase =  'https://static.emajliramokade.com/'
 
   jQuery.ajax
     type: 'GET'
-    url:  url
+    url:  requestUrl
     data:
       offset: offset
       limit:  limit
     dataType: 'json'
     headers:
-      Authorization: 'Basic cm9iaTppYm9y'
-      Host: 'emajliramokade.com'
+      'Content-Type':  'application/json'
+      'Authorization': 'Basic cm9iaTppYm9y'
     success:  (response) =>
-      console.log response
+      gallery.images []
+      response.forEach (item) ->
+        if item.slikeKade? and item.slikeKade.length isnt 0
+          kada = item.slikeKade
+          img =
+            URI:    item.URI
+            width:  kada.thumbnail.width
+            height: kada.thumbnail.height
+            status: null
+            timestamp: item.dodana
+            filename:  kada.web.filename
+            imgPath:   imageBase+'thumbnail/'+kada.URI+'/'+kada.thumbnail.filename
+            fullPath:  imageBase+'web/'+kada.URI+'/'+kada.web.filename
+
+          gallery.images.push img
+        return
+
       return
     error:    (response) ->
-      console.log response
+      console.warn 'Got error. ', response
       return
   return
-###
+
 
 $ ->
   $(window).on 'beforeunload', ->
@@ -147,24 +173,8 @@ $ ->
 
 
   gallery = new galleryModel()
-
-  #fetchData()
-  i = 0
-  __statuses = [null, null, null, true, false]
-  while i < 20
-    _w = 200 + Math.round(Math.random()*50)
-    _h = 100 + Math.round(Math.random()*100)
-    img =
-      name:   'Image '+(i+1)
-      path:   'http://placekitten.com/'+_w+'/'+_h
-      width:  _w
-      height: _h
-      status: __statuses[Math.round(Math.random()*5)]
-
-    gallery.images.push img
-    i++
-
-  gallery.maxPages Math.round(2 + Math.random()*4)
+  fetchKade()
+  gallery.maxPages 3
   ko.applyBindings gallery
 
   return

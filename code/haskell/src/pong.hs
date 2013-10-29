@@ -50,7 +50,7 @@ report bss = do
     rep  = Outgress { success = putField True, message = putField text }
 
     text = mconcat [
-           "[mail: ", email >< msg', "] [kada: ", show $ kada >< msg', "]"
+           "[mail: ", email >< msg', "] [kadaID: ", show $ kadaID >< msg', "]"
            ]
 
 main = prefork report

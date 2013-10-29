@@ -80,4 +80,31 @@ function FlexSlider() {
 
 	// bootstrap input style
 	$('input[type=file]').bootstrapFileInput();
+
+	$('#posaljiKadu').click(function() {
+		var email = $('#appendedInputButton').val();
+		var kadaID = $('#carousel li.flex-active-slide').attr('data-uri');
+		var body = JSON.stringify({ email: email, kadaID: kadaID });
+
+		$.ajax({
+		  type: "POST",
+		  url: 'https://emajliramokade.com/api',
+		  contentType: 'application/json; charset=UTF-8',
+		  data: body,
+		  dataType: 'text',
+		  success: function(response) {
+			
+			console.log(response);
+		  
+			  if (response.status)
+				$('#myModalLabel').text('Kada je uspješno poslana');
+			  else
+				$('#myModalLabel').text('Greška kod slanja kade!');
+
+			  $('#myModalBody').text(response.poruka);
+		  }
+		});
+
+		$('#posaljiKadu i').removeClass('icon-spin');
+	});
 }

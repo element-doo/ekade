@@ -19,7 +19,7 @@ import Data.ProtocolBuffers.Internal
 
 data Ingress
   = Ingress { email :: Required D1 (Value String)
-            , kada  :: Optional D2 (Value String)
+            , kadaID  :: Optional D2 (Value String)
             } deriving (Show, Generic)
 
 instance Encode Ingress

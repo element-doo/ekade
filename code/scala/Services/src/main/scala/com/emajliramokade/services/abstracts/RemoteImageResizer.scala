@@ -21,7 +21,9 @@ trait RemoteImageResizer
     val serviceUrl = serviceUrlFactory(resizeTargetList)
     val reqArr: Array[Byte] = payloadArr ++ targetCountArr ++ targetArr
     send(serviceUrl, reqArr) map { resArr =>
-      val slikaList = parseRes(resArr) map new Slika().setBody
+      val slikaList = parseRes(resArr) map { res =>
+        new Slika().setBody(res)
+      }
       resizeTargetList zip slikaList toMap
     }
   }

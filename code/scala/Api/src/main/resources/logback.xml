@@ -14,10 +14,10 @@
       <fileNamePattern>../../logs/scala/EKade-Api.log-%d{yyyy-MM-dd_HH}.log</fileNamePattern>
     </rollingPolicy>
   </appender>
-  <logger name="EKade-Api" level="DEBUG" additivity="false">
+  <logger name="EKade-Api" level="TRACE" additivity="false">
     <appender-ref ref="STDOUT" />
   </logger>
-  <root level="INFO">
+  <root level="TRACE">
     <appender-ref ref="STDOUT" />
     <appender-ref ref="FILE" />
   </root>

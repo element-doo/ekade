@@ -4,12 +4,18 @@ package zmq
 
 import org.jeromq.{ ZContext, ZMQ, ZMQException }
 import org.slf4j.Logger
+import io.jvm.uuid._
+import services.dispatchers.EmailSenderDispatcher
 
 class ZMQListener(
     logger: Logger
+  , dispatcher: EmailSenderDispatcher
   ) extends Combinators {
 
-  val frontend_addr = "tcp://144.76.184.25:10011"
+  import scala.concurrent.Await
+  import scala.concurrent.duration._
+
+  val frontend_addr = "tcp://127.0.0.1:10011"
   val n_listeners   = 100
 
   logger.info("Booting up ZMQ Listener ...")
@@ -25,21 +31,28 @@ class ZMQListener(
       val msg     = sock.recv
       val zahtjev = com.emajliramokade.email.proto.EmailProvjera.Zahtjev.parseFrom(msg)
 
+      val email = zahtjev.getEmail
+      val kadaID = if (zahtjev.hasKadaID) UUID(zahtjev.getKadaID) else null
+
+      val zahtjevApi = new com.emajliramokade.api.model.EmailProvjera.Zahtjev()
+        .setEmail(email)
+        .setKadaID(kadaID)
+
+      val resFut = dispatcher.dispatch(zahtjevApi)
+      val res = Await.result(resFut, 60 seconds)
+
       logger.debug("[" + java.lang.Thread.currentThread + "] -> " + zahtjev)
-      java.lang.Thread.sleep(3000)
 
       val builder = com.emajliramokade.email.proto.EmailProvjera.Odgovor.newBuilder
-      builder setStatus true
-      builder setPoruka "Krasan api."
+      builder setStatus res.getStatus
+      builder setPoruka res.getPoruka
 
       sock send builder.build.toByteArray
     }
   }
 }
 
-
 trait Combinators {
-
   def forever[A](act: => A) { while(true) { act } }
 
   def spawn_thread[A](act: => A) = {

@@ -10,5 +10,9 @@ namespace EmajliramoKade
 		[OperationContract]
 		[WebInvoke(Method = "GET", UriTemplate = "KadaIzvorPodataka/OdobreneKade?offset={offset}&limit={limit}")]
 		Stream OdobreneKade(int offset, int limit);
+
+		[OperationContract]
+		[WebInvoke(Method = "PUT", UriTemplate = "SendMail")]
+		Stream SendMail(Stream body);
 	}
 }

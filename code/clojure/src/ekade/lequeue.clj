@@ -12,5 +12,4 @@
 (defn message-handler
   [ch {:keys [content-type delivery-tag type] :as meta} ^bytes payload]
   (let [result (leemail/emajliraj-kadu (String. payload "UTF-8"))
-        json-result (json/write-str result)]
-    (lb/publish ch (:queue-name-response (:rmq helpers/config)) helpers/default-exchange-name json-result :content-type "text/json" :type "ekade.response")))
+        json-result (json/write-str result)]))

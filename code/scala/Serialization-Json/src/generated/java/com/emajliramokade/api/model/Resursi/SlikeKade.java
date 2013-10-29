@@ -57,7 +57,7 @@ public class SlikeKade
     private static final long serialVersionUID = 0x0097000a;
 
     public SlikeKade(
-            final com.emajliramokade.api.model.PopisKada.Kada kada,
+            final java.util.UUID ID,
             final com.emajliramokade.api.model.Resursi.Fingerprint digest,
             final com.emajliramokade.api.model.Resursi.PodaciSlike original,
             final com.emajliramokade.api.model.Resursi.PodaciSlike web,
@@ -66,7 +66,7 @@ public class SlikeKade
         _serviceLocator = Bootstrap.getLocator();
         _domainProxy = _serviceLocator.resolve(DomainProxy.class);
         _crudProxy = _serviceLocator.resolve(CrudProxy.class);
-        setKada(kada);
+        setID(ID);
         setDigest(digest);
         setOriginal(original);
         setWeb(web);
@@ -79,7 +79,6 @@ public class SlikeKade
             @JacksonInject("_serviceLocator") final ServiceLocator _serviceLocator,
             @JsonProperty("URI") final String URI,
             @JsonProperty("ID") final java.util.UUID ID,
-            @JsonProperty("kadaURI") final String kadaURI,
             @JsonProperty("digest") final com.emajliramokade.api.model.Resursi.Fingerprint digest,
             @JsonProperty("original") final com.emajliramokade.api.model.Resursi.PodaciSlike original,
             @JsonProperty("web") final com.emajliramokade.api.model.Resursi.PodaciSlike web,
@@ -90,7 +89,6 @@ public class SlikeKade
         this._crudProxy = _serviceLocator.resolve(CrudProxy.class);
         this.URI = URI;
         this.ID = ID == null ? java.util.UUID.randomUUID() : ID;
-        this.kadaURI = kadaURI == null ? null : kadaURI;
         this.digest = digest == null
                 ? new com.emajliramokade.api.model.Resursi.Fingerprint()
                 : digest;
@@ -250,8 +248,6 @@ public class SlikeKade
         this.URI = result.URI;
 
         this.ID = result.ID;
-        this.kada = result.kada;
-        this.kadaURI = result.kadaURI;
         this.digest = result.digest;
         this.original = result.original;
         this.web = result.web;
@@ -260,10 +256,6 @@ public class SlikeKade
     }
 
     public SlikeKade persist() throws java.io.IOException {
-        if (this.getKadaURI() == null) {
-            throw new IllegalArgumentException(
-                    "Cannot persist instance of 'com.emajliramokade.api.model.Resursi.SlikeKade' because reference 'kada' was not assigned");
-        }
         final SlikeKade result;
         try {
             result = this.URI == null
@@ -296,55 +288,12 @@ public class SlikeKade
         return ID;
     }
 
-    private SlikeKade setID(final java.util.UUID value) {
+    public SlikeKade setID(final java.util.UUID value) {
         if (value == null)
             throw new IllegalArgumentException(
                     "Property \"ID\" cannot be null!");
         this.ID = value;
 
-        return this;
-    }
-
-    private String kadaURI;
-
-    @JsonProperty("kadaURI")
-    public String getKadaURI() {
-        return this.kadaURI;
-    }
-
-    private com.emajliramokade.api.model.PopisKada.Kada kada;
-
-    @JsonIgnore
-    public com.emajliramokade.api.model.PopisKada.Kada getKada()
-            throws java.io.IOException {
-        if (kada != null && !kada.getURI().equals(kadaURI) || kada == null
-                && kadaURI != null)
-            try {
-                kada = _crudProxy.read(
-                        com.emajliramokade.api.model.PopisKada.Kada.class,
-                        kadaURI).get();
-            } catch (final InterruptedException e) {
-                throw new java.io.IOException(e);
-            } catch (final java.util.concurrent.ExecutionException e) {
-                throw new java.io.IOException(e);
-            }
-        return kada;
-    }
-
-    public SlikeKade setKada(
-            final com.emajliramokade.api.model.PopisKada.Kada value) {
-        if (value == null)
-            throw new IllegalArgumentException(
-                    "Property \"kada\" cannot be null!");
-
-        if (value != null && value.getURI() == null)
-            throw new IllegalArgumentException(
-                    "Reference \"PopisKada.Kada\" for property \"kada\" must be persisted before it's assigned");
-        this.kada = value;
-
-        this.kadaURI = value.getURI();
-
-        this.ID = value.getID();
         return this;
     }
 

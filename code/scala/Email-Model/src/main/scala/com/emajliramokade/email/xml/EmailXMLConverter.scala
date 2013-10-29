@@ -42,5 +42,5 @@ trait EmailXMLConverter extends XMLConverter { this: Email =>
       NodeSeq.Empty
     })
   }
-</Email>.prettyPrint
+</Email>
 }

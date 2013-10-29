@@ -2,13 +2,10 @@ function IndexCtl($scope, Kade) {
 	$scope.kade = Kade.query({}, function() {
 		$scope.$broadcast('dataLoaded');
 	});
-
-	function rand(a, b) {
-		return Math.floor(Math.random() * (b - a + 1) + a)
+	$scope.thumbnail = function(kada) {
+		return 'https://static.emajliramokade.com/thumbnail/' + kada.URI + '/' + kada.slikeKade.thumbnail.filename;
 	}
-
-	$scope.randSize = function(a, b, c, d) {
-		return rand(a, b) + '/' + rand(c, d);
+	$scope.web = function(kada) {
+		return 'https://static.emajliramokade.com/web/' + kada.URI + '/' + kada.slikeKade.web.filename;
 	}
 }
-
