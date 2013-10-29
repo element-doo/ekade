@@ -30,7 +30,7 @@ object Locator extends IServiceLocator {
 
       // EmailValidators
       .register[LaravelRemoteEmailValidator]
-//      .register[RustRemoteEmailValidator]
+      .register[RustRemoteEmailValidator]
       .register[DjangoRemoteEmailValidator]
 
       // EmailSenders
