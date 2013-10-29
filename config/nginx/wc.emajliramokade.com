@@ -1,31 +1,37 @@
+upstream images-upstream {
+  server 127.0.0.1:6081;
+  server 127.0.0.1:10080 backup;
+}
+
 server {
   listen static.emajliramokade.com:80;
   server_name static.emajliramokade.com;
-  
+
   access_log /var/www/ekade/logs/nginx/plain-access.log combined buffer=32k;
   error_log  /var/www/ekade/logs/nginx/plain-error.log;
-  
+
   location ~ ^/email/[^/]+/.*\.jpe?g$ {
     rewrite ^/email/([^/]+)/.* /public/Slike/$1/Email break;
-    proxy_pass http://127.0.0.1:6081;
+    proxy_pass http://images-upstream;
     proxy_set_header REMOTE_ADDR $remote_addr;
     proxy_set_header X-Real-IP $remote_addr;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     proxy_set_header HOST $host;
   }
-  
+
   location ~ ^/thumbnail/[^/]+/.*\.jpe?g$ {
     rewrite ^/thumbnail/([^/]+)/.* /public/Slike/$1/Thumbnail break;
-    proxy_pass http://127.0.0.1:6081;
+    proxy_pass http://images-upstream;
     proxy_set_header REMOTE_ADDR $remote_addr;
     proxy_set_header X-Real-IP $remote_addr;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto https;
     proxy_set_header HOST $host;
   }
-  
+
   location ~ ^/web/[^/]+/.*\.jpe?g$ {
     rewrite ^/web/([^/]+)/.* /public/Slike/$1/Web break;
-    proxy_pass http://127.0.0.1:6081;
+    proxy_pass http://images-upstream;
     proxy_set_header REMOTE_ADDR $remote_addr;
     proxy_set_header X-Real-IP $remote_addr;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
@@ -36,7 +42,7 @@ server {
 server {
   listen emajliramokade.com:80;
   server_name .emajliramokade.com;
-  
+
   access_log /var/www/ekade/logs/nginx/plain-access.log combined buffer=32k;
   error_log  /var/www/ekade/logs/nginx/plain-error.log;
 
@@ -52,7 +58,7 @@ server {
   ssl on;
   ssl_certificate     /etc/certs/emajliramokade.com.crt;
   ssl_certificate_key /etc/certs/emajliramokade.com.key;
-  
+
   ssl_stapling on;
   resolver 8.8.8.8;
   ssl_verify_depth 1;
@@ -68,34 +74,34 @@ server {
 
   access_log /var/www/ekade/logs/nginx/static-access.log combined buffer=32k;
   error_log  /var/www/ekade/logs/nginx/static-error.log;
-  
+
   location ~ ^/email/[^/]+/.*\.jpe?g$ {
     rewrite ^/email/([^/]+)/.* /public/Slike/$1/Email break;
-    proxy_pass http://127.0.0.1:6081;
+    proxy_pass http://images-upstream;
     proxy_set_header REMOTE_ADDR $remote_addr;
     proxy_set_header X-Real-IP $remote_addr;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     proxy_set_header HOST $host;
   }
-  
+
   location ~ ^/thumbnail/[^/]+/.*\.jpe?g$ {
     rewrite ^/thumbnail/([^/]+)/.* /public/Slike/$1/Thumbnail break;
-    proxy_pass http://127.0.0.1:6081;
+    proxy_pass http://images-upstream;
     proxy_set_header REMOTE_ADDR $remote_addr;
     proxy_set_header X-Real-IP $remote_addr;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     proxy_set_header HOST $host;
   }
-  
+
   location ~ ^/web/[^/]+/.*\.jpe?g$ {
     rewrite ^/web/([^/]+)/.* /public/Slike/$1/Web break;
-    proxy_pass http://127.0.0.1:6081;
+    proxy_pass http://images-upstream;
     proxy_set_header REMOTE_ADDR $remote_addr;
     proxy_set_header X-Real-IP $remote_addr;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     proxy_set_header HOST $host;
   }
-  
+
   location ~ ^/kade/.* {
     root /var/www/ekade;
     expires 30d;
@@ -103,7 +109,7 @@ server {
     proxy_set_header X-Real-IP $remote_addr;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     proxy_set_header HOST $host;
-  }  
+  }
 }
 
 server {
@@ -115,7 +121,7 @@ server {
   ssl_certificate_key /etc/certs/emajliramokade.com.key;
 
   client_max_body_size 10M;
-  
+
   ssl_stapling on;
   resolver 8.8.8.8;
   ssl_verify_depth 1;
@@ -131,16 +137,16 @@ server {
 
   access_log /var/www/ekade/logs/nginx/wc-access.log combined buffer=32k;
   error_log  /var/www/ekade/logs/nginx/wc-error.log;
-  
+
   location ~ ^/api/v1/.* {
     proxy_pass http://127.0.0.1:10060;
     proxy_set_header REMOTE_ADDR $remote_addr;
     proxy_set_header X-Real-IP $remote_addr;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     proxy_set_header HOST $host;
-  }  
+  }
 
-  location ~ ^/api { 
+  location ~ ^/api {
     proxy_pass http://127.0.0.1:10010;
     proxy_set_header REMOTE_ADDR $remote_addr;
     proxy_set_header X-Real-IP $remote_addr;
@@ -233,9 +239,9 @@ server {
   ssl on;
   ssl_certificate     /etc/certs/emajliramokade.com.crt;
   ssl_certificate_key /etc/certs/emajliramokade.com.key;
-  
+
   client_max_body_size 10M;
-  
+
   ssl_stapling on;
   resolver 8.8.8.8;
   ssl_verify_depth 1;
@@ -257,7 +263,7 @@ server {
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     proxy_set_header HOST $host;
   }
-  
+
   location ~ ^/feed.js(on)?$ {
     rewrite ^ /apex/novine/novosti/vijesti break;
     proxy_pass http://127.0.0.1:8080;
@@ -275,9 +281,9 @@ server {
   ssl on;
   ssl_certificate     /etc/certs/emajliramokade.com.crt;
   ssl_certificate_key /etc/certs/emajliramokade.com.key;
-  
+
   client_max_body_size 10M;
-  
+
   ssl_stapling on;
   resolver 8.8.8.8;
   ssl_verify_depth 1;
@@ -303,7 +309,7 @@ server {
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     proxy_set_header X-Forwarded-Proto $scheme;
   }
-  
+
   location / {
     auth_basic            "Restricted";
     auth_basic_user_file  htpasswd;
@@ -325,8 +331,8 @@ server {
   ssl on;
   ssl_certificate     /etc/certs/wc.emajliramokade.com.crt-test;
   ssl_certificate_key /etc/certs/wc.emajliramokade.com.key;
-  
-  
+
+
   ssl_stapling on;
   resolver 8.8.8.8;
   ssl_verify_depth 1;
@@ -359,7 +365,7 @@ server {
   ssl on;
   ssl_certificate     /etc/certs/wc.emajliramokade.com.crt;
   ssl_certificate_key /etc/certs/wc.emajliramokade.com.key;
-    
+
   ssl_stapling on;
   resolver 8.8.8.8;
   ssl_verify_depth 1;
@@ -375,7 +381,7 @@ server {
 
   access_log /var/www/ekade/logs/nginx/wc-access.log combined buffer=32k;
   error_log  /var/www/ekade/logs/nginx/wc-error.log;
-  
+
   location ~ ^/odjava/.* {
     rewrite ^/odjava/(.*)$ /apex/novine/odjave/odjave/$1 break;
     proxy_pass http://127.0.0.1:8080;
@@ -394,7 +400,7 @@ server {
   ssl on;
   ssl_certificate     /etc/certs/wc.emajliramokade.com.crt;
   ssl_certificate_key /etc/certs/wc.emajliramokade.com.key;
-    
+
   ssl_stapling on;
   resolver 8.8.8.8;
   ssl_verify_depth 1;
