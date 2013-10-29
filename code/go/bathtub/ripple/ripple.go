@@ -153,7 +153,16 @@ func (this *Application) ServeHTTPBinary(writter http.ResponseWriter, request *h
 		statusCode = context.Response.Status
 	}
 
-	writter.Header().Set("Content-Type", this.contentType)
+	var header = writter.Header()
+	header.Set("Content-Type", this.contentType)
+	header.Set("Content-Disposition", "inline")
+
+	// This should probably not be hardcoded, but relative to the 
+	// Time of request, but I really do not wish to go into
+	// date formatting right now - TODO!
+	header.Set("Last-Modified", "Tue, 01 Jan 2013 00:00:00 GMT")
+	header.Set("Expires", "Thu, 01 Jan 2015 00:00:00 GMT")
+
 	writter.WriteHeader(statusCode)
 	writter.Write(context.Response.Body.([]byte))
 }
