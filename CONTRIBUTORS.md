@@ -14,6 +14,8 @@ employer or other contracts, and that I license this work under the
 * Senko Rašić (senko dot rasic at goodcode dot io)
 * Marin Vila (rinmalavi at gmail dot hr)
 * Martin Miličić (martin dot milicic at gmail dot com)
+* Neven Falica (neven at iso3200 dot net)
+* Ivica Škrinjar (ivica at element dot hr)
 
 [bsd]: http://opensource.org/licenses/BSD-3-Clause
 [kilroy]: https://en.wikipedia.org/wiki/Kilroy_was_here
