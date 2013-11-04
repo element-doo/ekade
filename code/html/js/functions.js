@@ -57,4 +57,32 @@ $(document).ready(function(){
   // bootstrap input style
   $('input[type=file]').bootstrapFileInput();
 
+  $('#salji-kadu').click(function(e) {
+    e.preventDefault();
+    var email = $('#appendedInputButton').val();
+    var kadaID = $('#kade li.selected img').attr('data-description');
+    var body = JSON.stringify({ email: email, kadaID: kadaID });
+
+    $.ajax({
+      type: "post",
+      url: 'https://emajliramokade.com/api',
+      contentType: 'application/json; charset=utf-8',
+      data: body,
+      dataType: 'json',
+    }).always(function(response) {
+        if (response.status)
+          $('#mymodal-label').text('Kada je uspješno poslana');
+        else
+          $('#mymodal-label').text('Greška kod slanja kade!');
+
+        $('#mymodal-body').text(response.poruka);
+        $('#mymodal').modal('show');
+        $('#salji-kadu i').removeClass('icon-spinner icon-spin').addClass('icon-double-angle-right');
+    });
+  });
+
+  $('#upload-form').submit(function(e) {
+    e.preventDefault();
+  });
+
 });

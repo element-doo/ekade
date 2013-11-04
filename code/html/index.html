@@ -83,7 +83,7 @@
       <form id="app-login" action="">
         <div class="input-append">
           <input class="slider-input js-tooltip" id="appendedInputButton" type="email" placeholder="Pošaljite kadu na ovaj email" title="Pošaljite kadu na ovaj email" data-toggle="tooltip">
-          <button class="btn slider-input-btn js-btn-send" type="button" data-target="#modal-send-success" role="button" data-toggle="modal"><i class="icon-double-angle-right white icon-2x"></i></button>
+          <button id="salji-kadu" class="btn slider-input-btn js-btn-send" type="button" ><i class="icon-double-angle-right white icon-2x"></i></button>
         </div>
       </form>
     </div>
@@ -138,7 +138,7 @@
         </div>
         <div class="span6">
           <div id="upload-wrapper">
-            <form id="upload-form" action="" class="upload-form form-horizontal">
+            <form action="/upload" id="upload-form" method="POST" class="upload-form form-horizontal" enctype="multipart/form-data">
               <fieldset>
                 <legend class="white upper">Upload kada</legend>
                 <div class="control-group">
@@ -167,13 +167,13 @@
 </footer>
 <!-- FOOTER END -->
 <!-- modal send success -->
-<div id="modal-send-success" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div id="mymodal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="mymodal-label" aria-hidden="true">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel">Kada je uspješno poslana</h3>
+    <h3 id="mymodal-label">Kada je uspješno poslana</h3>
   </div>
   <div class="modal-body">
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut, eligendi nisi.</p>
+    <p id="mymodal-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut, eligendi nisi.</p>
   </div>
   <div class="modal-footer">
     <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Close</button>
@@ -201,35 +201,34 @@ $(function(){
 		dataType: 'json',
 		success: function(data){
 			var container = $('#kade');
-			
+
 			for (var i = 0; i < data.length; i++) {
 				var kada = data[i];
-				
+
 				var uuid = kada.URI
-				
+
 				var slikaThumbnail = 'https://static.emajliramokade.com/thumbnail/'+uuid+'/'+kada.slikeKade.thumbnail.filename;
 				var slikaWeb = 'https://static.emajliramokade.com/web/'+uuid+'/'+kada.slikeKade.web.filename;
-				
+
 				var brojac = kada.brojacSlanja || 0;
-				
+
 				var w = kada.slikeKade.thumbnail.width;
 				var h = kada.slikeKade.thumbnail.height;
 
 				var wa = 65;
 				var ha = h * wa / w;
-				
+
 				var shift = (wa - ha) / 2;
 				var pad = shift < 0 ? -shift : 0;
 				var tweak = (shift >= 0 ? 'padding' : 'margin') + '-top:' + shift + 'px';
 
-								
+
 				var body = '<li><div style="' + tweak + '"><a href="#"><img src="' + slikaThumbnail + '" data-large="' + slikaWeb + '" alt="image24" data-description="' + uuid + '" />'+
 				'<span style="top: ' + pad + 'px" class="badge badge-info js-tooltip carousel-badge ng-binding" data-placement="right" data-toggle="tooltip" title="" data-original-title="Slika poslana ' + brojac + ' puta">' + brojac + '</span></a></div></li>';
-				
+
 				$(container).append(body);
 			}
 
-			alert('a');
 			asyncLoad('js/gallery.js');
 		}
 	});
