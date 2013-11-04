@@ -3,6 +3,11 @@ upstream images-upstream {
   server 127.0.0.1:10080 backup;
 }
 
+upstream email-upstream {
+  server 127.0.0.1:10010;
+  server 127.0.0.1:10040 backup;
+}
+
 server {
   listen static.emajliramokade.com:80;
   server_name static.emajliramokade.com;
@@ -147,7 +152,7 @@ server {
   }
 
   location ~ ^/api {
-    proxy_pass http://127.0.0.1:10010;
+    proxy_pass http://email-upstream;
     proxy_set_header REMOTE_ADDR $remote_addr;
     proxy_set_header X-Real-IP $remote_addr;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
@@ -190,7 +195,15 @@ server {
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     proxy_set_header HOST $host;
   }
-
+  
+  location ~ ^/html(|/.*) {
+    root /var/www/ekade/code;
+    proxy_set_header REMOTE_ADDR $remote_addr;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header HOST $host;
+  }
+  
   location ~ ^/robi/(.*) {
     rewrite ^/robi/(.*) /$1 break;
     proxy_pass http://10.5.6.7;
@@ -210,26 +223,12 @@ server {
   }
 
   location / {
-    #allow 10.0.0.0/8;
-    #allow 85.10.50.226;
-    #allow 31.45.225.90;
-    #deny all;
-
     root /var/www/ekade/code/javascript/site/;
     proxy_set_header REMOTE_ADDR $remote_addr;
     proxy_set_header X-Real-IP $remote_addr;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     proxy_set_header HOST $host;
   }
-
-#  location / {
-#    root /var/www/ekade/public;
-#    deny all;
-#    proxy_set_header REMOTE_ADDR $remote_addr;
-#    proxy_set_header X-Real-IP $remote_addr;
-#    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-#    proxy_set_header HOST $host;
-#  }
 }
 
 server {
