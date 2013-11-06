@@ -2,51 +2,76 @@
 define('NGS_UPDATE', null);
 require_once __DIR__.'/../../dsl/generated/php/public/index.php';
 
+function greska($kod, $poruka) {
+	http_response_code($kod);
+	die(json_encode(array(
+		'status' => false,
+		'poruka' => $poruka
+	)));
+}
+
 define('URI', 'http://emajliramokade.com:10080');
+
+if (!isset($_FILES['slika'])) {
+	greska(400, 'POST parameter "slika" nije poslan!');
+}
 
 $file = $_FILES['slika'];
 $filename = $file['tmp_name'];
 
-if (!is_uploaded_file($filename))
-	die();
+if (!is_uploaded_file($filename)) {
+	greska(400, 'Ne mogu ucitati poslanu datoteku.');
+}
 
 $eventData = array();
 $nosqlData = new ImageSave\Zahtjev();
 
-$slika = new Imagick($filename);
-$slika->setImageFormat('jpeg');
+try {
+	$slika = new Imagick($filename);
+	$slika->setImageFormat('jpeg');
+} catch (\Exception $e) {
+	greska(400, 'Ne mogu ucitati poslanu datoteku: '.$e->getMessage());
+}
 
-$presets = Resursi\MaxDimenzije::findAll();
+try {
+	$presets = Resursi\MaxDimenzije::findAll();
+} catch (\Exception $e) {
+	greska(400, 'Platforma javlja gresku: '.$e->getMessage());
+}
+
 $original = array_filter($presets, function($preset) { return $preset->URI === 'original'; });
 $original = array_pop($original);
 
 $geo = $slika->getImageGeometry();
 if ($geo['width'] > $original->width || $geo['height'] > $original->height) {
-	header (':', true, 400);
-	die ('Prevelika slika!');
+	greska(400, 'Prevelika slika!');
 }
 
-$pathinfo = pathinfo($file['name']);
-foreach ($presets as $preset) {
-	$presetName = strtolower($preset->URI);
+try {
+	$pathinfo = pathinfo($file['name']);
+	foreach ($presets as $preset) {
+		$presetName = strtolower($preset->URI);
 
-	$tmpslika = $slika->clone();
-	if ($preset->URI !== 'original')
-		$tmpslika->adaptiveResizeImage($preset->width, $preset->height, true);
+		$tmpslika = $slika->clone();
+		if ($preset->URI !== 'original')
+			$tmpslika->adaptiveResizeImage($preset->width, $preset->height, true);
 
-	$geo = $tmpslika->getImageGeometry();
-	$format = strtolower($tmpslika->getImageFormat());
-	$blob = $tmpslika->getImageBlob();
-	$tmpslika->destroy();
+		$geo = $tmpslika->getImageGeometry();
+		$format = strtolower($tmpslika->getImageFormat());
+		$blob = $tmpslika->getImageBlob();
+		$tmpslika->destroy();
 
-	$nosqlData->$presetName = base64_encode($blob);
-	$eventData[$presetName] = array(
-		'ime' => $pathinfo['filename'],
-		'format' => $format,
-		'width' => $geo['width'],
-		'height' => $geo['height'],
-		'size' => strlen($blob)
-	);
+		$nosqlData->$presetName = base64_encode($blob);
+		$eventData[$presetName] = array(
+			'ime' => $pathinfo['filename'],
+			'format' => $format,
+			'width' => $geo['width'],
+			'height' => $geo['height'],
+			'size' => strlen($blob)
+		);
+	}
+} catch (\Exception $e) {
+	greska(400, 'Greska pri smanjivanju slika: ' . $e->getMessage());
 }
 
 /*
@@ -61,18 +86,32 @@ $sha1Bytes = sha1_file($filename, true);
 $uuid = new NGS\UUID();
 
 $nosqlData->kadaID = $uuid;
-$eventData['kadaID'] = $uuid;
-$eventData['digest'] = new Resursi\Fingerprint(array(
-	'sha1Bytes' => base64_encode($sha1Bytes),
-	//'sha1Pixels' => base64_encode($sha1Pixels)
+
+try {
+	$eventData['kadaID'] = $uuid;
+	$eventData['digest'] = new Resursi\Fingerprint(array(
+		'sha1Bytes' => base64_encode($sha1Bytes),
+		//'sha1Pixels' => base64_encode($sha1Pixels)
+	));
+
+	$KadaDodana = new PopisKada\KadaDodana($eventData);
+	$KadaDodana->submit();
+} catch (\Exception $e) {
+	greska(400, 'Greska prilikom spremanja podataka o podacima (aka metadata): ' . $e->getMessage());
+}
+
+try {
+	$uri = URI . '/crud/Kada/' . $uuid . '/Slike';
+	$http = new NGS\Client\HttpRequest($uri, 'PUT', $nosqlData->toJson());
+	$http->send();
+} catch (\Exception $e) {
+	greska(400, 'Greska prilikom spremanja slike: ' . $e->getMessage());
+}
+
+echo json_encode(array(
+	'status' => true,
+	'poruka' => 'Zaprimili smo kadu, thanks! Stavit ćemo je gore ako nije NSFW ili stock'
 ));
-
-$KadaDodana = new PopisKada\KadaDodana($eventData);
-$KadaDodana->submit();
-
-$uri = URI . '/crud/Kada/' . $uuid . '/Slike';
-$http = new NGS\Client\HttpRequest($uri, 'PUT', $nosqlData->toJson());
-$http->send();
 
 /*
 header('Content-type: image/jpeg');

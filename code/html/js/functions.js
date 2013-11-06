@@ -70,6 +70,9 @@ $(document).ready(function(){
       data: body,
       dataType: 'json',
     }).always(function(response) {
+        if (response.responseText)
+          response = JSON.parse(response.responseText);
+
         if (response.status)
           $('#mymodal-label').text('Kada je uspješno poslana');
         else
@@ -81,8 +84,22 @@ $(document).ready(function(){
     });
   });
 
-  $('#upload-form').submit(function(e) {
-    e.preventDefault();
+  $('#upload-frame').load(function() {
+    $('#submit-button i').removeClass('icon-spinner icon-spin');
+
+    var rawResponse = $(this).contents().find('body').text();
+    var response = JSON.parse(rawResponse);
+
+    if (response.status)
+      $('#mymodal-label').text('Kada je uspješno spremljena!');
+    else
+      $('#mymodal-label').text('Greška kod spremanja kade!');
+
+    $('#mymodal-body').text(response.poruka);
+    $('#mymodal').modal('show');
   });
 
+  $('#submit-button').click(function() {
+    $(this).find('i').addClass('icon-spinner icon-spin');
+  });
 });

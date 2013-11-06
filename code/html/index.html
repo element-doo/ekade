@@ -138,18 +138,19 @@
         </div>
         <div class="span6">
           <div id="upload-wrapper">
-            <form action="/upload" id="upload-form" method="POST" class="upload-form form-horizontal" enctype="multipart/form-data">
+            <iframe id="upload-frame" style="display: none" name="noHtml5"></iframe>
+            <form target="noHtml5" action="/upload" method="POST" class="upload-form form-horizontal" enctype="multipart/form-data">
               <fieldset>
                 <legend class="white upper">Upload kada</legend>
                 <div class="control-group">
                   <label class="control-label">Odaberi kadu</label>
                   <div class="controls">
-                    <input type="file" title="Odaberi sliku">
+                    <input type="file" name="slika" title="Odaberi sliku">
                   </div>
                 </div>
                 <div class="control-group">
                   <div class="controls">
-                    <button type="submit" class="btn btn-success btn-large">Postavi kadu</button>
+                    <button id="submit-button" type="submit" class="btn btn-success btn-large"><i></i>Postavi kadu</button>
                   </div>
                 </div>
               </fieldset>
@@ -194,44 +195,44 @@
 <script>
 $(function(){
 
-	$.ajax('https://emajliramokade.com/platform/Kada.svc/KadaIzvorPodataka/OdobreneKade?limit=100', {
-		accept: 'application/json',
-		cache: false,
-		contentType: 'application/json',
-		dataType: 'json',
-		success: function(data){
-			var container = $('#kade');
+  $.ajax('https://emajliramokade.com/platform/Kada.svc/KadaIzvorPodataka/OdobreneKade?limit=100', {
+    accept: 'application/json',
+    cache: false,
+    contentType: 'application/json',
+    dataType: 'json',
+    success: function(data){
+      var container = $('#kade');
 
-			for (var i = 0; i < data.length; i++) {
-				var kada = data[i];
+      for (var i = 0; i < data.length; i++) {
+        var kada = data[i];
 
-				var uuid = kada.URI
+        var uuid = kada.URI
 
-				var slikaThumbnail = 'https://static.emajliramokade.com/thumbnail/'+uuid+'/'+kada.slikeKade.thumbnail.filename;
-				var slikaWeb = 'https://static.emajliramokade.com/web/'+uuid+'/'+kada.slikeKade.web.filename;
+        var slikaThumbnail = 'https://static.emajliramokade.com/thumbnail/'+uuid+'/'+kada.slikeKade.thumbnail.filename;
+        var slikaWeb = 'https://static.emajliramokade.com/web/'+uuid+'/'+kada.slikeKade.web.filename;
 
-				var brojac = kada.brojacSlanja || 0;
+        var brojac = kada.brojacSlanja || 0;
 
-				var w = kada.slikeKade.thumbnail.width;
-				var h = kada.slikeKade.thumbnail.height;
+        var w = kada.slikeKade.thumbnail.width;
+        var h = kada.slikeKade.thumbnail.height;
 
-				var wa = 65;
-				var ha = h * wa / w;
+        var wa = 65;
+        var ha = h * wa / w;
 
-				var shift = (wa - ha) / 2;
-				var pad = shift < 0 ? -shift : 0;
-				var tweak = (shift >= 0 ? 'padding' : 'margin') + '-top:' + shift + 'px';
+        var shift = (wa - ha) / 2;
+        var pad = shift < 0 ? -shift : 0;
+        var tweak = (shift >= 0 ? 'padding' : 'margin') + '-top:' + shift + 'px';
 
 
-				var body = '<li><div style="' + tweak + '"><a href="#"><img src="' + slikaThumbnail + '" data-large="' + slikaWeb + '" alt="image24" data-description="' + uuid + '" />'+
-				'<span style="top: ' + pad + 'px" class="badge badge-info js-tooltip carousel-badge ng-binding" data-placement="right" data-toggle="tooltip" title="" data-original-title="Slika poslana ' + brojac + ' puta">' + brojac + '</span></a></div></li>';
+        var body = '<li><div style="' + tweak + '"><a href="#"><img src="' + slikaThumbnail + '" data-large="' + slikaWeb + '" alt="image24" data-description="' + uuid + '" />'+
+        '<span style="top: ' + pad + 'px" class="badge badge-info js-tooltip carousel-badge ng-binding" data-placement="right" data-toggle="tooltip" title="" data-original-title="Slika poslana ' + brojac + ' puta">' + brojac + '</span></a></div></li>';
 
-				$(container).append(body);
-			}
+        $(container).append(body);
+      }
 
-			asyncLoad('js/gallery.js');
-		}
-	});
+      asyncLoad('js/gallery.js');
+    }
+  });
 
     var asyncLoad = function(url) {
       var g = document.createElement('script'),
