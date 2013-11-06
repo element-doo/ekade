@@ -52,7 +52,19 @@ server {
   error_log  /var/www/ekade/logs/nginx/plain-error.log;
 
   location / {
-    rewrite ^(.*) https://$host$1 permanent;
+    rewrite ^(.*) https://emajliramokade.com$1;
+  }
+}
+
+server {
+  listen wc.emajliramokade.com:80;
+  server_name .emajliramokade.com;
+
+  access_log /var/www/ekade/logs/nginx/plain-access.log combined buffer=32k;
+  error_log  /var/www/ekade/logs/nginx/plain-error.log;
+
+  location / {
+    rewrite ^(.*) https://emajliramokade.com$1;
   }
 }
 
@@ -125,7 +137,7 @@ server {
   ssl_certificate     /etc/certs/emajliramokade.com.crt;
   ssl_certificate_key /etc/certs/emajliramokade.com.key;
 
-  client_max_body_size 10M;
+  client_max_body_size 20M;
 
   ssl_stapling on;
   resolver 8.8.8.8;
@@ -169,9 +181,9 @@ server {
     proxy_set_header X-Forwarded-Proto $scheme;
   }
 
-  location ~ ^/upload {
-    #proxy_pass http://10.5.6.1:65432;
-    proxy_pass http://127.0.0.1:10050;
+  location ~ ^/upload-robi {
+    proxy_pass http://10.5.6.1:10050;
+    #proxy_pass http://127.0.0.1:10050;
     proxy_set_header REMOTE_ADDR $remote_addr;
     proxy_set_header X-Real-IP $remote_addr;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
@@ -187,17 +199,18 @@ server {
     proxy_set_header HOST $host;
   }
 
-  location ~ ^/neven/(.*) {
-    rewrite ^/neven/(.*) /$1 break;
-    proxy_pass http://10.5.3.1:12000;
+  location ~ ^/upload {
+    #proxy_pass http://10.5.6.1:65432;
+    proxy_pass http://127.0.0.1:10050;
     proxy_set_header REMOTE_ADDR $remote_addr;
     proxy_set_header X-Real-IP $remote_addr;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     proxy_set_header HOST $host;
   }
-  
-  location ~ ^/html(|/.*) {
-    root /var/www/ekade/code;
+
+  location ~ ^/neven/(.*) {
+    rewrite ^/neven/(.*) /$1 break;
+    proxy_pass http://10.5.3.1:12000;
     proxy_set_header REMOTE_ADDR $remote_addr;
     proxy_set_header X-Real-IP $remote_addr;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
@@ -223,7 +236,7 @@ server {
   }
 
   location / {
-    root /var/www/ekade/code/javascript/site/;
+    root /var/www/ekade/code/html/;
     proxy_set_header REMOTE_ADDR $remote_addr;
     proxy_set_header X-Real-IP $remote_addr;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
