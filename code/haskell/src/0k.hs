@@ -50,7 +50,7 @@ main = do
           Just Nothing -> responseInternalError "Backend sent crap.\n"
           Just (Just rep')
             | not $ success >< rep' -> responseInternalError $ message >< rep'
-            | otherwise             -> responseJSON rep'
+            | otherwise             -> responseOK rep'
 
 
 o_timeout_usec = floor . (* 1000000) . o_timeout
@@ -62,13 +62,11 @@ unproto :: Decode a => [ByteString] -> Maybe a
 proto = (:[]) . runPut . encodeMessage
 unproto = either (\_ -> Nothing) Just . runGetLazy decodeMessage . B.fromChunks
 
-consumeJSON  :: (A.FromJSON a, Monad m) => ConduitM ByteString t m (Maybe a)
-responseJSON :: A.ToJSON a => a -> Response
-
+consumeJSON :: (A.FromJSON a, Monad m) => ConduitM ByteString t m (Maybe a)
 consumeJSON = (A.decode . B.fromChunks) `fmap` consume
-responseJSON = ResponseBuilder status200 [t_json] . fromLazyByteString . A.encode
-  where
-    t_json = ("content-type", "application/json; charset=utf-8")
 
-responseBadRequest    = ResponseBuilder status400 [] . fromString
-responseInternalError = ResponseBuilder status500 [] . fromString
+responseOK            = ResponseBuilder status200 [t_json] . fromLazyByteString . A.encode
+responseBadRequest    = ResponseBuilder status400 [t_json] . fromString
+responseInternalError = ResponseBuilder status500 [t_json] . fromString
+
+t_json = ("content-type", "application/json; charset=utf-8")
