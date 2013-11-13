@@ -278,6 +278,9 @@ input[type="email"].slider-input:invalid {
   border: 1px solid transparent;
   background-position: 0 0;
 }
+.slider-input-btn i {
+  text-shadow: 0 2px 1px rgba(0, 0, 0, 0.15);
+}
 
 /* footer */
 .footer-top {
@@ -365,10 +368,17 @@ input[type="email"].slider-input:invalid {
 }
 .btn-success {
   color: #fff;
-  text-shadow: none;
-  background-color: #418f01;
-  background-image: none;
-  border: 1px solid #418f01;
+  text-shadow: 0 2px 1px rgba(0, 0, 0, 0.15);
+
+  background-color: #e66931;
+  background-image: -webkit-linear-gradient(bottom, #d85e20, #ff7e51);
+  background-image: -moz-linear-gradient(bottom, #d85e20, #ff7e51);
+  background-image: -o-linear-gradient(bottom, #d85e20, #ff7e51);
+  background-image: linear-gradient(to top, #d85e20, #ff7e51);
+
+  font-family: 'Dosis', Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  text-transform: uppercase;
 }
 .btn-success:hover,
 .btn-success:focus,
@@ -376,8 +386,12 @@ input[type="email"].slider-input:invalid {
 .btn-success.active,
 .btn-success.disabled,
 .btn-success[disabled] {
-  background-color: #337002;
-  border: 1px solid #337002;
+  background-color: #e66931;
+  background-image: -webkit-linear-gradient(top, #d85e20, #ff7e51);
+  background-image: -moz-linear-gradient(top, #d85e20, #ff7e51);
+  background-image: -o-linear-gradient(top, #d85e20, #ff7e51);
+  background-image: linear-gradient(to bottom, #d85e20, #ff7e51);
+  background-position: 0;
 }
 .btn-danger {
   color: #fff;
