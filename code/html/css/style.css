@@ -595,10 +595,9 @@ label, input, button, select, textarea {
   opacity:1.0;
 }
 .es-carousel ul li a img{
-  display:block;
-  border:none;
-  max-height:100%;
-  max-width:100%;
+  display: block;
+  border: none;
+  max-width: 100%;
 }
 .es-nav span{
   position:absolute;
@@ -622,8 +621,10 @@ label, input, button, select, textarea {
 }
 .carousel-badge {
   position: absolute;
-  top: 5px;
-  left: -5px;
+  padding: 0 6px 3px 3px;
+  left: 0;
+  top: 0;
+  border-radius: 0 0 10px;
 }
 
 
