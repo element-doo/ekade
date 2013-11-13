@@ -252,27 +252,26 @@ $(function(){
       asyncLoad('js/gallery.js');
     }
   });
-
-    var asyncLoad = function(url) {
-      var g = document.createElement('script'),
-          s = document.getElementsByTagName('script')[0];
-
-      g.src = url;
-      g.type = 'text/javascript';
-      g.async = 1;
-      s.parentNode.insertBefore(g, s);
-    }
-
-    var _gaq = [
-      ['_setAccount', 'UA-38102751-1'],
-      ['_setDomainName', 'emajliramokade.com'],
-      ['_setSiteSpeedSampleRate', 100],
-      ['_trackPageview']
-    ];
-
-    asyncLoad('https://ssl.google-analytics.com/ga.js');
 });
 
+var asyncLoad = function(url) {
+  var g = document.createElement('script'),
+      s = document.getElementsByTagName('script')[0];
+
+  g.src = url;
+  g.type = 'text/javascript';
+  g.async = 1;
+  s.parentNode.insertBefore(g, s);
+}
+
+var _gaq = [
+  ['_setAccount', 'UA-38102751-1'],
+  ['_setDomainName', 'emajliramokade.com'],
+  ['_setSiteSpeedSampleRate', 100],
+  ['_trackPageview']
+];
+
+asyncLoad('https://ssl.google-analytics.com/ga.js');
 </script>
 
 </body>
