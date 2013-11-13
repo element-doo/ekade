@@ -89,7 +89,6 @@
     </div>
     </div>
     <div class="clear"></div>
-    <p class="text-right upper title-bg"><span class="title title-right"><a href="#"><i class="icon-th-large"></i> Pogledajte sve slike</a></span></p>
   </div>
 </section>
 <!-- FOOTER START -->
@@ -220,9 +219,8 @@ $(function(){
         var ha = h * wa / w;
 
         var shift = (wa - ha) / 2;
-        var pad = shift < 0 ? -shift : 0;
+        var pad = shift < 0 ? -(shift+3) : 0;
         var tweak = (shift >= 0 ? 'padding' : 'margin') + '-top:' + shift + 'px';
-
 
         var body = '<li><div style="' + tweak + '"><a href="#"><img src="' + slikaThumbnail + '" data-large="' + slikaWeb + '" alt="image24" data-description="' + uuid + '" />'+
         '<span style="top: ' + pad + 'px" class="badge badge-info js-tooltip carousel-badge ng-binding" data-placement="right" data-toggle="tooltip" title="" data-original-title="Slika poslana ' + brojac + ' puta">' + brojac + '</span></a></div></li>';
