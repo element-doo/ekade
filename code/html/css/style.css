@@ -1,14 +1,14 @@
 html {
-   overflow-y: scroll;
+  overflow-y: scroll;
 }
 * {
-   margin: 0;
-   padding: 0;
+  margin: 0;
+  padding: 0;
 }
 body {
-   background: #F4F6F6 url(../img/body-bg.jpg) repeat;
-   font: 17px/23px 'Dosis', Arial, Helvetica, sans-serif;
-   color: #444;
+  background: #F4F6F6 url(../img/body-bg.jpg) repeat;
+  font: 17px/23px 'Dosis', Arial, Helvetica, sans-serif;
+  color: #444;
 }
 a {
   text-decoration: none;
